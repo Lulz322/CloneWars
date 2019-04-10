@@ -70,13 +70,17 @@ void			parsing_argc(int argc, char **argv)
 	}
 }
 
-
+void print_info_champs() {
+	printf("[1] : %-25.25s   | %-20.20s  |  %-25.25s [%d]\n", g_gen.champ[0].name, g_gen.champ[0].file_name, g_gen.champ[0].comment, g_gen.champ[0].hard_set);
+	printf("[2] : %-25.25s   | %-20.20s  |  %-25.25s [%d]\n", g_gen.champ[1].name, g_gen.champ[1].file_name, g_gen.champ[1].comment, g_gen.champ[1].hard_set);
+	printf("[3] : %-25.25s   | %-20.20s  |  %-25.25s [%d]\n", g_gen.champ[2].name, g_gen.champ[2].file_name, g_gen.champ[2].comment, g_gen.champ[2].hard_set);
+	printf("[4] : %-25.25s   | %-20.20s  |  %-25.25s [%d]\n", g_gen.champ[3].name, g_gen.champ[3].file_name, g_gen.champ[3].comment, g_gen.champ[3].hard_set);
+}
 int main(int argc, char **argv)
 {
 	parsing_argc(argc, argv);
 	set_numbers(argc, argv);
-	printf("[1] : %-25.25s   | %-20.20s  |  %-25.25s [%d]\n", g_gen.champ[0].name, g_gen.champ[0].file_name, g_gen.champ[0].comment, g_gen.champ[0].hard_set);
-	printf("[1] : %-25.25s   | %-20.20s  |  %-25.25s [%d]\n", g_gen.champ[1].name, g_gen.champ[1].file_name, g_gen.champ[1].comment, g_gen.champ[1].hard_set);
-	printf("[1] : %-25.25s   | %-20.20s  |  %-25.25s [%d]\n", g_gen.champ[2].name, g_gen.champ[2].file_name, g_gen.champ[2].comment, g_gen.champ[2].hard_set);
-	printf("[1] : %-25.25s   | %-20.20s  |  %-25.25s [%d]\n", g_gen.champ[3].name, g_gen.champ[3].file_name, g_gen.champ[3].comment, g_gen.champ[3].hard_set);
+	print_info_champs();
+	create_field();
+
 }

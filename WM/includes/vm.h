@@ -6,7 +6,10 @@
 #include "op.h"
 #include "../libft/includes/libft.h"
 
-#define ERROR(ex) {printf("%s\n", ex);exit(0);}
+# define ER_START	"\033[41m"
+# define ER_END		"\033[40m"
+
+#define ERROR(ex) {printf("%s%s%s\n",ER_START,ex,ER_END);exit(0);}
 #define _SET_CHAMP(ex) {ft_strcat(ex, chmp); return ;}
 #define _READ_CHAMP(ex, name) {read_champ(ex,name);return ;}
 
@@ -30,10 +33,12 @@ typedef struct s_champ
 
 typedef struct s_general
 {
-	struct s_champ champ[4];
+	t_champ champ[4];
+	uint8_t field[MEM_SIZE];
 }				t_gen;
 
 t_gen g_gen;
 
 void read_champ(int a, char *file_name);
+void create_field(void);
 #endif
