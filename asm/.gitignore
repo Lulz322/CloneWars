@@ -1,2 +1,6 @@
-**.DS_Store
-
+_Store
+**.o
+**.a
+corewar
+.vscode/
+.VScode/
