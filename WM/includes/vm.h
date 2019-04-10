@@ -19,9 +19,12 @@ _BOOL;
 
 typedef struct s_champ
 {
-	int32_t magic_header;
+	char file_name[255];
+	bool hard_set;
 	char name[255];
 	char comment[255];
+	int length;
+	uint8_t *algo;
 }				t_champ;
 
 
