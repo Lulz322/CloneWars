@@ -23,7 +23,6 @@ void print_player_code() {
 	int a;
 	int j;
 
-
 	a = -1;
 	while (++a < 4 && g_gen.champ[a].name[0])
 	{
@@ -34,11 +33,46 @@ void print_player_code() {
 	}
 }
 
-void create_field(void) {
-	int a;
+void set_players(t_champ champ, int byte) {
+	int i;
+	int j;
 
-	a = 0;
+	i = 0;
+	j = 0;
+
+	while (i < MEM_SIZE && i < byte)
+		i++;
+	while (j < champ.length)
+		g_gen.field[i++] = champ.algo[j++];
+}
+
+int how_many_players(void)
+{
+	int i;
+
+	i = 0;
+	while (g_gen.champ[i].length)
+		i++;
+	return (i);
+}
+
+void create_field(void)
+{
+	int a;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	g_gen.kareta = NULL;
 	print_player_code();
-	//ft_bzero(g_gen.field, MEM_SIZE);
-	//print_field();
+	a = how_many_players();
+	a = MEM_SIZE / a;
+	while (i < MEM_SIZE)
+	{
+		set_players(g_gen.champ[j++], i);
+		add_elem(&st.kareta, i);
+		i += a;
+	}
+	print_field();
 }
