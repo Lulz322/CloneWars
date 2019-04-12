@@ -21,10 +21,29 @@ void swap(t_champ *first, t_champ *second)
 	*second = tmp;
 }
 
-void set_n(char *str, int kuda)
+int check_where(char *where) {
+	int a;
+	char *tmp;
+
+	if (!where)
+		ERROR("O_o");
+	a = ft_atoi(where);
+	tmp = ft_itoa(a);
+	if (!ft_strequ(tmp, where))
+	{
+		free(tmp);
+		ERROR("Enter a number!");
+	}
+	free(tmp);
+	return (a);
+}
+
+void set_n(char *str, char *where)
 {
 	int number;
+	int kuda;
 
+	kuda = check_where(where);
 	if (kuda > 4 || kuda < 0)
 		ERROR("ERROR")
 	number = 0;
@@ -50,10 +69,29 @@ void set_numbers(int argc, char **argv)
 	{
 		if (ft_strequ(argv[i], "-n"))
 		{
-			set_n(argv[i + 2], ft_atoi(argv[i + 1]) - 1);
+			set_n(argv[i + 2], argv[i + 1]);
 			i++;
 		}
 	}
+}
+
+void set_dump(char *str)
+{
+	int a;
+	char *tmp;
+
+	if (!str || st.flag_dump == true)
+		ERROR("ERROR INPUT");
+	a = ft_atoi(str);
+	tmp = ft_itoa(a);
+	if (!ft_strequ(tmp, str))
+	{
+		free(tmp);
+		ERROR("Enter a number!");
+	}
+	free(tmp);
+	st.flag_dump = true;
+	st.flag_dump_d = a;
 }
 
 void			parsing_argc(int argc, char **argv)
@@ -65,26 +103,30 @@ void			parsing_argc(int argc, char **argv)
 	{
 		if (ft_strequ(argv[i], "-n"))
 			i++;
+		else if (ft_strequ(argv[i], "-dump"))
+			set_dump(argv[i++ + 1]);
 		else
 			set_unknown(argv[i]);
 	}
 }
 
-void print_info_champs() {
+void free_struct() {
 	int a;
 
 	a = -1;
-	ft_printf("Introducing contestants...\n");
-	while (g_gen.champ[++a].length)
-		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", a + 1, st.champ[a].length, st.champ[a].name, st.champ[a].comment);
+	while (st.champ[++a].length)
+	{
+		free(st.champ[a].name);
+		free(st.champ[a].comment);
+	}
 }
+
 int main(int argc, char **argv)
 {
 	parsing_argc(argc, argv);
 	set_numbers(argc, argv);
 	_ERR_CHAMP(g_gen.champ[0].length);
-	print_info_champs();
 	create_field();
 	set_karetu();
-
+	system("leaks corewar");
 }

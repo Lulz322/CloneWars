@@ -24,12 +24,12 @@ _BOOL;
 typedef struct s_kareta
 {
 	unsigned int id;
+	int pos;
 	bool carry;
 	uint8_t code;
 	int last_alive;
 	int reg[REG_NUMBER];
-	int pos;
-	int l_step;
+	int wait;
 	struct s_kareta *next;
 } t_kareta;
 
@@ -37,8 +37,8 @@ typedef struct s_champ
 {
 	char file_name[255];
 	bool hard_set;
-	char name[255];
-	char comment[255];
+	char *name;
+	char *comment;
 	int length;
 	uint8_t *algo;
 }				t_champ;
@@ -49,6 +49,9 @@ typedef struct s_general
 	t_champ champ[4];
 	uint8_t field[MEM_SIZE];
 	t_kareta *kareta;
+	int cycles_to_die;
+	bool flag_dump;
+	int flag_dump_d;
 }				t_gen;
 
 t_gen g_gen;

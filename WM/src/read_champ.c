@@ -72,12 +72,13 @@ void read_champ(int a, char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (check_int(fd) != COREWAR_EXEC_MAGIC)
 		ERROR("ZA SHO?");
-	ft_strcat(g_gen.champ[a].name, check_name(fd, PROG_NAME_LENGTH));
+	g_gen.champ[a].name = check_name(fd, PROG_NAME_LENGTH);
 	if (check_int(fd) != 0)
 		ERROR("ERROR_FILE");
-	if ((g_gen.champ[a].length = check_int(fd)) < 0 || g_gen.champ[a].length > CHAMP_MAX_SIZE)
+	if ((g_gen.champ[a].length = check_int(fd)) < 0
+		|| g_gen.champ[a].length > CHAMP_MAX_SIZE)
 		ERROR("ERROR SIZE")
-	ft_strcat(g_gen.champ[a].comment, check_name(fd, COMMENT_LENGTH));
+	g_gen.champ[a].comment = check_name(fd, COMMENT_LENGTH);
 	if (check_int(fd) != 0)
 		ERROR("ERROR");
 	g_gen.champ[a].algo = check_code(fd, g_gen.champ[a].length);
