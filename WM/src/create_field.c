@@ -1,5 +1,19 @@
 #include "../includes/vm.h"
 
+int karettta(int i)
+{
+	t_kareta *tmp;
+
+	tmp = st.kareta;
+	while (tmp)
+	{
+		if (tmp->pos == i)
+			return (-tmp->reg[0]);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 void print_field() {
 	int a;
 	int j;
@@ -9,13 +23,32 @@ void print_field() {
 	{
 		ft_printf("%.4p : ", a);
 		j = 0;
-		while (j < 32)
+		while (j < 64)
 		{
-			ft_printf("%.2x ", g_gen.field[a + j]);
+			if (karettta(a + j) == 1)
+				ft_printf("MRED(%.2x) ", g_gen.field[a + j]);
+			else if (karettta(a + j) == 2)
+				ft_printf("MYLW(%.2x) ", g_gen.field[a + j]);
+			else if (karettta(a + j) == 3)
+				ft_printf("MPRP(%.2x) ", g_gen.field[a + j]);
+			else if(karettta(a + j) == 4)
+				ft_printf("MCYN(%.2x) ", g_gen.field[a + j]);
+			else {
+				if (g_gen.v_field[a + j] == 1)
+					ft_printf("MGRN(%.2x) ", g_gen.field[a + j]);
+				else if (g_gen.v_field[a + j] == 2)
+					ft_printf("MBLU(%.2x) ", g_gen.field[a + j]);
+				else if(g_gen.v_field[a + j] == 3)
+					ft_printf("MCYN(%.2x) ", g_gen.field[a + j]);
+				else if(g_gen.v_field[a + j] == 4)
+					ft_printf("MYLW(%.2x) ", g_gen.field[a + j]);
+				else
+					ft_printf("%.2x ", g_gen.v_field[a + j]);
+			}
 			j++;
 		}
 		ft_printf("\n");
-		a += 32;
+		a += 64;
 	}
 }
 
@@ -24,7 +57,7 @@ void print_player_code() {
 	int j;
 
 	a = -1;
-	while (++a < 4 && g_gen.champ[a].name[0])
+	while (++a < 4 && g_gen.champ[a].name)
 	{
 		j = -1;
 		while(++j < g_gen.champ[a].length)
@@ -33,17 +66,23 @@ void print_player_code() {
 	}
 }
 
-void set_players(t_champ champ, int byte) {
+void set_players(t_champ champ, int byte)
+{
 	int i;
 	int j;
+	t_kareta *a;
 
+	a = g_gen.kareta;
 	i = 0;
 	j = 0;
-
 	while (i < MEM_SIZE && i < byte)
 		i++;
 	while (j < champ.length)
-		g_gen.field[i++] = champ.algo[j++];
+	{
+		g_gen.field[i] = champ.algo[j++];
+		g_gen.v_field[i] = -a->reg[0];
+		i++;
+	}
 }
 
 int how_many_players(void)
@@ -65,14 +104,13 @@ void create_field(void)
 	i = 0;
 	j = 0;
 	g_gen.kareta = NULL;
-	print_player_code();
 	a = how_many_players();
+	g_gen.am_champs = a;
 	a = MEM_SIZE / a;
 	while (i < MEM_SIZE)
 	{
-		set_players(g_gen.champ[j++], i);
 		add_elem(&st.kareta, i);
+		set_players(g_gen.champ[j++], i);
 		i += a;
 	}
-	print_field();
 }

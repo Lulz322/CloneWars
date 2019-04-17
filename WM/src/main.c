@@ -2,13 +2,13 @@
 
 void set_unknown(char *chmp)
 {
-	if (ft_strequ(g_gen.champ[0].name, "\0"))
+	if (!g_gen.champ[0].name)
 		_READ_CHAMP(0, chmp);
-	if (g_gen.champ[1].name[0] == '\0')
+	if (!g_gen.champ[1].name)
 		_READ_CHAMP(1, chmp);
-	if (g_gen.champ[2].name[0] == '\0')
+	if (!g_gen.champ[2].name)
 		_READ_CHAMP(2, chmp);
-	if (g_gen.champ[3].name[0] == '\0')
+	if (!g_gen.champ[3].name)
 		_READ_CHAMP(3, chmp);
 }
 
@@ -44,7 +44,7 @@ void set_n(char *str, char *where)
 	int kuda;
 
 	kuda = check_where(where);
-	if (kuda > 4 || kuda < 0)
+	if (kuda > 4 || kuda < 1)
 		ERROR("ERROR")
 	number = 0;
 	while(number < 4)
@@ -56,8 +56,8 @@ void set_n(char *str, char *where)
 	if (g_gen.champ[number].hard_set == true
 		|| g_gen.champ[kuda].hard_set == true)
 		ERROR("DUPLICATE");
-	g_gen.champ[number].hard_set = true;
-	swap(&g_gen.champ[number], &g_gen.champ[kuda]);
+	g_gen.champ[kuda].hard_set = true;
+	swap(&g_gen.champ[number], &g_gen.champ[kuda - 1]);
 }
 
 void set_numbers(int argc, char **argv)
@@ -110,23 +110,31 @@ void			parsing_argc(int argc, char **argv)
 	}
 }
 
-void free_struct() {
+void print_info_champs()
+{
 	int a;
 
 	a = -1;
-	while (st.champ[++a].length)
-	{
-		free(st.champ[a].name);
-		free(st.champ[a].comment);
-	}
+	ft_printf("Introducing contestants...\n");
+	while (g_gen.champ[++a].length && a < 4)
+		printf("* Player %d, weighing %d bytes, \"%-25.25s\" (\"%-25.25s\") !\n", a + 1, st.champ[a].length, st.champ[a].name, st.champ[a].comment);
+}
+void	print_last_alive() {
+	ft_printf("Player %d \"%s\" won!\n", st.last_alive + 1,
+	          st.champ[st.last_alive].name);
 }
 
 int main(int argc, char **argv)
 {
+	//argc = 3;
+	//argv[1] = "../WM/champs/Gagnant.cor";
+	//argv[2] = "../WM/champs/samurai.cor";
+	//st.flag_dump = true;
+	//st.flag_dump_d = 25000;
 	parsing_argc(argc, argv);
 	set_numbers(argc, argv);
 	_ERR_CHAMP(g_gen.champ[0].length);
 	create_field();
 	set_karetu();
-	system("leaks corewar");
+	print_last_alive();
 }
