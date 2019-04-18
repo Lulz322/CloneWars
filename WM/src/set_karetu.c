@@ -81,6 +81,7 @@ void	full_game()
 		run_cycle();
 		//ft_printf("%llu", g_gen.champ[1].last_alive);
 		vs_update_stats(&st.v);
+		vs_update_main(&st.v);
 		if (_AM_I_DIE)
 			check_who_die();
 	}
@@ -92,4 +93,6 @@ void set_karetu()
 	print_info_champs();
 	_CHECK_VISUALISATION;
 	full_game();
+	while (wgetch(st.v.main) != 'q');
+	endwin();
 }

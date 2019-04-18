@@ -1,19 +1,23 @@
 #include "../includes/vm.h"
 
-#define GRAY_BLACK 1
-#define WHITE_BLACK 2
-#define RED_BLACK 3
-#define YELLOW_BLACK 4
-#define BLUE_BLACK 5
-#define GREEN_BLACK 6
-#define BLACK_RED 7
-#define BLACK_YELLOW 8
-#define BLACK_BLUE 9
-#define BLACK_GREEN 10
-#define WHITE_GREEN 11
-#define WHITE_RED 12
-#define WHITE_YELLOW 13
-#define WHITE_BLUE 14
+#define RED_BLACK 1
+#define YELLOW_BLACK 2
+#define BLUE_BLACK 3
+#define GREEN_BLACK 4
+#define GRAY_BLACK 5
+#define WHITE_BLACK 6
+#define BLACK_RED 11
+#define BLACK_YELLOW 12
+#define BLACK_BLUE 13
+#define BLACK_GREEN 14
+#define BLACK_GREY 15
+#define WHITE_RED 21
+#define WHITE_YELLOW 22
+#define WHITE_BLUE 23
+#define WHITE_GREEN 24
+#define WHITE_GREY 25
+
+#define KOLBASKA "[------------------------------------------------------]"
 
 void	vs_init_color(void)
 {
@@ -23,20 +27,22 @@ void	vs_init_color(void)
 	init_color(COLOR_YELLOW, 1000, 700, 0);
 	init_color(COLOR_CYAN, 0, 1000, 1000);
 	init_color(COLOR_GREEN, 0, 350, 0);
-	init_pair(1, COLOR_MAGENTA, COLOR_BLACK);//gray
-	init_pair(2, COLOR_WHITE, COLOR_BLACK);
-	init_pair(3, COLOR_RED, COLOR_BLACK);
-	init_pair(4, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(5, COLOR_CYAN, COLOR_BLACK);
-	init_pair(6, COLOR_GREEN, COLOR_BLACK);
-	init_pair(7, COLOR_BLACK, COLOR_RED);
-	init_pair(8, COLOR_BLACK, COLOR_YELLOW);
-	init_pair(9, COLOR_BLACK, COLOR_CYAN);
-	init_pair(10, COLOR_BLACK, COLOR_GREEN);
-	init_pair(11, COLOR_WHITE, COLOR_GREEN);
-	init_pair(12, COLOR_WHITE, COLOR_RED);
-	init_pair(13, COLOR_WHITE, COLOR_YELLOW);
-	init_pair(14, COLOR_WHITE, COLOR_CYAN);
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(3, COLOR_CYAN, COLOR_BLACK);
+	init_pair(4, COLOR_GREEN, COLOR_BLACK);
+	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);//gray
+	init_pair(6, COLOR_WHITE, COLOR_BLACK);
+	init_pair(11, COLOR_BLACK, COLOR_RED);
+	init_pair(12, COLOR_BLACK, COLOR_YELLOW);
+	init_pair(13, COLOR_BLACK, COLOR_CYAN);
+	init_pair(14, COLOR_BLACK, COLOR_GREEN);
+	init_pair(15, COLOR_BLACK, COLOR_MAGENTA);
+	init_pair(21, COLOR_WHITE, COLOR_RED);
+	init_pair(22, COLOR_WHITE, COLOR_YELLOW);
+	init_pair(23, COLOR_WHITE, COLOR_CYAN);
+	init_pair(24, COLOR_WHITE, COLOR_GREEN);
+	init_pair(25, COLOR_WHITE, COLOR_MAGENTA);
 }
 
 void	vs_init_screen(t_vis *v)
@@ -66,7 +72,7 @@ void	vs_prepare_main(t_vis *v)
 	int x;
 
 	y = 1;
-	wattron(v->main, COLOR_PAIR(1));
+	wattron(v->main, COLOR_PAIR(GRAY_BLACK));
 	while (y < 65)
 	{
 		x = -1;
@@ -109,8 +115,8 @@ void	vs_update_players(t_vis *v)
 	y = 12;
 	while (++i <= g_gen.am_champs - 1)
 	{
-		mvwprintw(v->stat, y + 1, 30, "%d              ", g_gen.champ[i].last_alive);
-		mvwprintw(v->stat, y + 2, 30, "%d                ", g_gen.champ[i].live);
+		mvwprintw(v->stat, y + 1, 30, "%d           ", g_gen.champ[i].last_alive);
+		mvwprintw(v->stat, y + 2, 30, "%d           ", g_gen.champ[i].live);
 		y += 5;
 	}
 }
@@ -124,19 +130,12 @@ void	vs_update_stats(t_vis *v)
 	i = 0;
 	x = 3;
 	len = (g_gen.cycles_to_die % 54);
-	while (i < 54)
-	{
-		mvwprintw(v->stat, 38, x, "-");
-		i++;
-		x++;
-	}
+	mvwprintw(v->stat, 38, 2, KOLBASKA);
 	//add check if game is paused
 	mvwprintw(v->stat, 5, 9, "%d      ", g_gen.cycles);
 	mvwprintw(v->stat, 7, 13, "%d      ", g_gen.cycles_after_check);
 	mvwprintw(v->stat, 9, 17, "%d      ", g_gen.am_karet);
 	mvwprintw(v->stat, 36, 17, "%d      ", g_gen.cycles_to_die);
-	i = 0;
-	x = 3;
 	while (i < len)
 	{
 		mvwprintw(v->stat, 38, x, "#");
@@ -145,6 +144,34 @@ void	vs_update_stats(t_vis *v)
 	}
 	vs_update_players(v);
 	wrefresh(v->stat);
+	
+}
+
+void	vs_update_main(t_vis *v)
+{
+	int y;
+	int x;
+	int i;
+	int color;
+	int k;
+
+	i = 0;
+	y = 1;
+	while (y < 65 && i < 4096)
+	{
+		x = -1;
+		color = g_gen.v_field[i];
+		while ((x += 3) < 194 && i < 4096)
+		{
+			color = (k = karettta(i)) ? k + 20 : g_gen.v_field[i];
+			wattron(v->main, COLOR_PAIR(color));
+			mvwprintw(v->main, y, x, "%02x", g_gen.field[i]);
+			wattroff(v->main, COLOR_PAIR(color));
+			i++;
+		}
+		y++;
+	}
+	wrefresh(v->main);
 }
 
 void	vs_prepare_stat(t_vis *v)
@@ -157,7 +184,7 @@ void	vs_prepare_stat(t_vis *v)
 	mvwprintw(v->stat, 7, 2, "Processes:");
 	mvwprintw(v->stat, 9, 2, "Carries alive:");
 	mvwprintw(v->stat, 36, 2, "Cycles to die:               / %d", CYCLE_TO_DIE);
-	mvwprintw(v->stat, 38, 2, "[------------------------------------------------------]");
+	mvwprintw(v->stat, 38, 2, KOLBASKA);
 	mvwprintw(v->stat, 44, 2, "CYCLE_DELTA: %d", CYCLE_DELTA);
 	mvwprintw(v->stat, 46, 2, "NBR_LIVE: %d", NBR_LIVE);
 	mvwprintw(v->stat, 48, 2, "MAX_CHECKS: %d", MAX_CHECKS);
