@@ -79,20 +79,73 @@ void	vs_prepare_main(t_vis *v)
 	{
 		x = -1;
 		while ((x += 3) < 194)
-			mvwprintw(v->main, y, x, "%02d");
+			mvwprintw(v->main, y, x, "%02d", 1);
 		y++;
 	}
 	wattroff(v->main, COLOR_PAIR(1));
 	wrefresh(v->main);
 }
 
-void vs_print_players(t_vis *v)
+void	vs_print_players(t_vis *v)
 {
-	mvwprintw(v->stat, 10, 2, "Player 1:");
-	mvwprintw(v->stat, 10, 2, "Player 1:");
-	mvwprintw(v->stat, 15, 2, "Player 2:");
-	mvwprintw(v->stat, 20, 2, "Player 3:");
-	mvwprintw(v->stat, 25, 2, "Player 4:");
+	int i;
+	int y;
+
+	i = 1;
+	y = 12;	
+	while (i <= g_gen.am_champs)
+	{
+		mvwprintw(v->stat, y, 2, "Player %d: ", i);
+		wattron(v->stat, COLOR_PAIR(i + 2) | A_BOLD);
+		mvwprintw(v->stat, y, 12, "%.30s", g_gen.champ->name);
+		mvwprintw(v->stat, y + 3, 2, "%.50s", g_gen.champ->comment);
+		wattroff(v->stat, COLOR_PAIR(i + 2) | A_BOLD);
+		mvwprintw(v->stat, y + 1, 6, "Last cycle alive: n/a");
+		mvwprintw(v->stat, y + 2, 6, "Cycles reported alive: n/a");
+		i++;
+		y += 5;
+	}
+	wrefresh(v->stat);
+}
+
+void	vs_update_players(t_vis *v)
+{
+	int i;
+	int y;
+
+	i = 1;
+	y = 12;	
+	while (i <= g_gen.am_champs)
+	{
+		mvwprintw(v->stat, y + 1, 30, "%d", g_gen.champ->last_alive);
+		mvwprintw(v->stat, y + 2, 30, "%d", g_gen.champ->live);
+		i++;
+		y += 5;
+	}
+}
+
+void	vs_update_stats(t_vis *v)
+{
+	int len;
+	int x;
+	int i;
+
+	i = 0;
+	x = 3;
+	len = (CYCLE_TO_DIE / 54) / (g_gen.cycles_to_die / 54);
+	//add check if game is paused
+	mvwprintw(v->stat, 5, 9, "%d", g_gen.cycles);
+	mvwprintw(v->stat, 7, 13, "%d", g_gen.cycles_after_check);
+	mvwprintw(v->stat, 9, 17, "%d", g_gen.am_karet);
+	mvwprintw(v->stat, 36, 17, "%d", g_gen.cycles_to_die);
+	while (i < len)
+	{
+		mvwprintw(v->stat, 38, x, "#");
+		i++;
+		x++;
+	}
+	vs_update_players(v);
+	wrefresh(v->stat);
 }
 
 void	vs_prepare_stat(t_vis *v)
@@ -104,9 +157,8 @@ void	vs_prepare_stat(t_vis *v)
 	mvwprintw(v->stat, 5, 2, "Cycle:");
 	mvwprintw(v->stat, 7, 2, "Processes:");
 	mvwprintw(v->stat, 9, 2, "Carries alive:");
-	mvwprintw(v->stat, 36, 2, "Cycles to die:");
-	mvwprintw(v->stat, 38, 2, "[##################------------------------------------]");
-	mvwprintw(v->stat, 42, 2, "CYCLE_TO_DIE: %d", CYCLE_TO_DIE);
+	mvwprintw(v->stat, 36, 2, "Cycles to die:               / %d", CYCLE_TO_DIE);
+	mvwprintw(v->stat, 38, 2, "[------------------------------------------------------]");
 	mvwprintw(v->stat, 44, 2, "CYCLE_DELTA: %d", CYCLE_DELTA);
 	mvwprintw(v->stat, 46, 2, "NBR_LIVE: %d", NBR_LIVE);
 	mvwprintw(v->stat, 48, 2, "MAX_CHECKS: %d", MAX_CHECKS);
