@@ -4,14 +4,16 @@
 # define ARG_LEN 1
 # define REG_LEN 1
 
+#include <ncurses.h>
 #include "vm.h"
 
+/*
 enum	e_bool { false, true } __attribute__((packed));
 
 # define _BOOL	typedef enum e_bool bool
 
 _BOOL;
-
+*/
 typedef struct s_kareta
 {
 	unsigned int id;
@@ -38,10 +40,19 @@ typedef struct s_champ
 	uint8_t *algo;
 }				t_champ;
 
+typedef struct	s_vis
+{
+	int			y;
+	int			x;
+	WINDOW		*main;
+	WINDOW		*stat;
+}				t_vis;
+
 
 typedef struct s_general
 {
 	t_champ champ[4];
+	t_vis	v;
 	uint8_t field[MEM_SIZE];
 	int		v_field[MEM_SIZE];
 	t_kareta *kareta;
@@ -58,10 +69,14 @@ typedef struct s_general
 	bool flag_dump;
 	bool flag_d;
 	bool flag_visual;
+	bool flag_l;
+	int flag_l_d;
 	int	flag_dump_d;
 }				t_gen;
 
 t_gen g_gen;
+
+void	vs_update_stats(t_vis *v);
 
 void				op_live(t_kareta *kareta);
 void				op_ld(t_kareta *kareta);

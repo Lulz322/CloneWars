@@ -124,18 +124,19 @@ void	vs_update_stats(t_vis *v)
 	i = 0;
 	x = 3;
 	len = (g_gen.cycles_to_die % 54);
-	if (len == 0)
-		while (i < 54)
-		{
-			mvwprintw(v->stat, 38, x, "-");
-			i++;
-			x++;
-		}
+	while (i < 54)
+	{
+		mvwprintw(v->stat, 38, x, "-");
+		i++;
+		x++;
+	}
 	//add check if game is paused
 	mvwprintw(v->stat, 5, 9, "%d      ", g_gen.cycles);
 	mvwprintw(v->stat, 7, 13, "%d      ", g_gen.cycles_after_check);
 	mvwprintw(v->stat, 9, 17, "%d      ", g_gen.am_karet);
 	mvwprintw(v->stat, 36, 17, "%d      ", g_gen.cycles_to_die);
+	i = 0;
+	x = 3;
 	while (i < len)
 	{
 		mvwprintw(v->stat, 38, x, "#");

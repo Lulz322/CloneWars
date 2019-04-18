@@ -6,7 +6,7 @@
 #include "op.h"
 #include "../libft/includes/libft.h"
 #include "operations.h"
-#include <ncurses.h>
+
 
 
 # define ER_START	"\033[41m"
@@ -16,9 +16,19 @@
 #define _SET_CHAMP(ex) {ft_strcat(ex, chmp); return ;}
 #define _READ_CHAMP(ex, name) {read_champ(ex,name);return ;}
 #define _ERR_CHAMP(ex) {if (!ex) _ERROR("Missing first champ");}
+#define _SET_L(ex) {if (ex == 3){st.flag_l = true;}st.log = a;}
 #define _SET_DUMP_D(ex) {if (ex == 2){st.flag_d = true;}st.flag_dump_d = a;}
 #define _SET_DUMP(ex) {if (ex == 1){st.flag_dump = true;}st.flag_dump_d = a;}
-#define _SET_DUMPS(ex) {_SET_DUMP(ex);_SET_DUMP_D(ex);}
+#define _SET_DUMPS(ex) {_SET_DUMP(ex);_SET_DUMP_D(ex);_SET_L(ex);}
+#define _DIE st.cycles_to_die
+#define _AM_I_DIE _DIE == st.cycles_after_check || st.cycles_to_die <= 0
+#define _FD st.flag_d
+#define _FDUMP st.flag_dump
+#define _RAVNO st.flag_dump_d == st.cycles
+#define _PBF {if (_RAVNO && (_FD == true || _FDUMP == true)){_PRINT_B}}
+#define _CHECK_VISUALISATION {if (st.flag_visual == true){vs_main();}}
+#define _CHECK_WAIT kareta->code >= 0x01 && kareta->code <= 0x10
+#define _LOG(ex, ex1) {if (st.log == 2){logs(ex, ex1);}}
 #define _PREPARE(ex) {st.cycles++;st.cycles_after_check++;ex = st.kareta;}
 #define _PRINT_B2 {if (st.flag_dump == true)print_field(32);exit(1337);}
 #define _PRINT_B {if (st.flag_d == true){print_field(64);}_PRINT_B2;}
