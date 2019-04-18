@@ -116,6 +116,8 @@ void			parsing_argc(int argc, char **argv)
 			set_dump(argv[i++ + 1], 1);
 		else if (ft_strequ(argv[i], "-d"))
 			set_dump(argv[i++ + 1], 2);
+		else if (ft_strequ(argv[i], "-v"))
+			st.flag_visual = true;
 		else
 			set_unknown(argv[i]);
 	}
@@ -137,6 +139,7 @@ void	print_last_alive() {
 
 int main(int argc, char **argv)
 {
+
 	parsing_argc(argc, argv);
 	set_numbers(argc, argv);
 	_ERR_CHAMP(g_gen.champ[0].length);

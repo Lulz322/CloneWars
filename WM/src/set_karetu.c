@@ -94,5 +94,7 @@ void set_karetu()
 	printf("DUMP :%d  | D : %d	\n", st.flag_dump, st.flag_d);
 	st.cycles_to_die = CYCLE_TO_DIE;
 	print_info_champs();
+	if (st.flag_visual == true)
+		vs_main();
 	full_game();
 }

@@ -1,10 +1,4 @@
-#include <ncurses.h>
-
-//del
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-//del
+#include "../includes/vm.h"
 
 typedef struct	s_vis
 {
@@ -28,25 +22,6 @@ typedef struct	s_vis
 #define WHITE_RED 12
 #define WHITE_YELLOW 13
 #define WHITE_BLUE 14
-
-//del
-#define CYCLE_TO_DIE			1536
-#define CYCLE_DELTA				50
-#define NBR_LIVE				21
-#define MAX_CHECKS				10
-//del
-
-void	ft_bzero(void *s, size_t n)
-{
-	unsigned char *tmp;
-
-	if (n != 0)
-	{
-		tmp = (unsigned char*)s;
-		while (n-- != 0)
-			*tmp++ = '\0';
-	}
-}
 
 void	vs_init_color(void)
 {
@@ -104,7 +79,7 @@ void	vs_prepare_main(t_vis *v)
 	{
 		x = -1;
 		while ((x += 3) < 194)
-			mvwprintw(v->main, y, x, "%s", "00");
+			mvwprintw(v->main, y, x, "%02d");
 		y++;
 	}
 	wattroff(v->main, COLOR_PAIR(1));
@@ -141,7 +116,7 @@ void	vs_prepare_stat(t_vis *v)
 	mvwprintw(v->stat, 64, 14, "iruban, mbiliaie, dlenskyi, amatveie");
 	wrefresh(v->stat);
 }
-		
+
 void	vs_main(void)
 {
 	t_vis v;
@@ -160,10 +135,10 @@ void	vs_main(void)
 
 	endwin();
 }
-
+/*
 int main()
 {
 	vs_main();
 	return (1);
 }
-
+*/

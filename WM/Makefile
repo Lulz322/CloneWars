@@ -8,8 +8,8 @@ INCLS   = $(INC_DIR)
 SRCS    = $(wildcard $(SRC_DIR)/*.c)
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-CC      = gcc
-CFLAGS  = -Wall -Werror -Wextra -g3
+CC      = gcc 
+CFLAGS  = -Ofast
 
 LFLAGS  = -I
 
@@ -29,7 +29,7 @@ start_grn:
 $(NAME): start_grn $(OBJS)
 		@make -C libft/
 		@echo ""
-		@gcc libft/libft.a $(OBJS) -o $(NAME)
+		@gcc libft/libft.a -lncurses $(OBJS) -o $(NAME)
 		@echo "$(GREEN)$(NAME) created!$(WHITE)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

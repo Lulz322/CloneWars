@@ -6,6 +6,8 @@
 #include "op.h"
 #include "../libft/includes/libft.h"
 #include "operations.h"
+#include <ncurses.h>
+
 
 # define ER_START	"\033[41m"
 # define ER_END		"\033[40m"
@@ -23,6 +25,7 @@
 
 #define st g_gen
 
+void	vs_main(void);
 void			errrorrororo(void);
 void	check_who_die();
 void	next_op(t_kareta *kareta);

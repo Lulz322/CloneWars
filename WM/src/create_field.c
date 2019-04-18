@@ -36,13 +36,13 @@ void print_field(int i) {
 				ft_printf("MCYN(%.2x) ", g_gen.field[a + j]);
 			else {
 				if (g_gen.v_field[a + j] == 1)
-					ft_printf("MGRN(%.2x) ", g_gen.field[a + j]);
+					ft_printf("MGRN(%.2x) ", g_gen.v_field[a + j]);
 				else if (g_gen.v_field[a + j] == 2)
-					ft_printf("MBLU(%.2x) ", g_gen.field[a + j]);
+					ft_printf("MBLU(%.2x) ", g_gen.v_field[a + j]);
 				else if(g_gen.v_field[a + j] == 3)
-					ft_printf("MCYN(%.2x) ", g_gen.field[a + j]);
+					ft_printf("MCYN(%.2x) ", g_gen.v_field[a + j]);
 				else if(g_gen.v_field[a + j] == 4)
-					ft_printf("MYLW(%.2x) ", g_gen.field[a + j]);
+					ft_printf("MYLW(%.2x) ", g_gen.v_field[a + j]);
 				else
 					ft_printf("%.2x ", g_gen.v_field[a + j]);
 			}
