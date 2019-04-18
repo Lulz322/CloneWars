@@ -1,13 +1,5 @@
 #include "../includes/vm.h"
 
-typedef struct	s_vis
-{
-	int			y;
-	int			x;
-	WINDOW		*main;
-	WINDOW		*stat;
-}				t_vis;
-
 #define GRAY_BLACK 1
 #define WHITE_BLACK 2
 #define RED_BLACK 3
@@ -92,16 +84,16 @@ void	vs_print_players(t_vis *v)
 	int y;
 
 	i = 1;
-	y = 12;	
+	y = 12;
 	while (i <= g_gen.am_champs)
 	{
 		mvwprintw(v->stat, y, 2, "Player %d: ", i);
 		wattron(v->stat, COLOR_PAIR(i + 2) | A_BOLD);
-		mvwprintw(v->stat, y, 12, "%.30s", g_gen.champ->name);
-		mvwprintw(v->stat, y + 3, 2, "%.50s", g_gen.champ->comment);
+		mvwprintw(v->stat, y, 12, "%.30s", g_gen.champ[i - 1].name);
+		mvwprintw(v->stat, y + 3, 2, "%.50s", g_gen.champ[i -1].comment);
 		wattroff(v->stat, COLOR_PAIR(i + 2) | A_BOLD);
-		mvwprintw(v->stat, y + 1, 6, "Last cycle alive: n/a");
-		mvwprintw(v->stat, y + 2, 6, "Cycles reported alive: n/a");
+		mvwprintw(v->stat, y + 1, 6, "Last cycle alive: ");
+		mvwprintw(v->stat, y + 2, 6, "Cycles reported alive: ");
 		i++;
 		y += 5;
 	}
@@ -113,13 +105,12 @@ void	vs_update_players(t_vis *v)
 	int i;
 	int y;
 
-	i = 1;
-	y = 12;	
-	while (i <= g_gen.am_champs)
+	i = -1;
+	y = 12;
+	while (++i <= g_gen.am_champs - 1)
 	{
-		mvwprintw(v->stat, y + 1, 30, "%d", g_gen.champ->last_alive);
-		mvwprintw(v->stat, y + 2, 30, "%d", g_gen.champ->live);
-		i++;
+		mvwprintw(v->stat, y + 1, 30, "%d              ", g_gen.champ[i].last_alive);
+		mvwprintw(v->stat, y + 2, 30, "%d                ", g_gen.champ[i].live);
 		y += 5;
 	}
 }
@@ -132,12 +123,19 @@ void	vs_update_stats(t_vis *v)
 
 	i = 0;
 	x = 3;
-	len = (CYCLE_TO_DIE / 54) / (g_gen.cycles_to_die / 54);
+	len = (g_gen.cycles_to_die % 54);
+	if (len == 0)
+		while (i < 54)
+		{
+			mvwprintw(v->stat, 38, x, "-");
+			i++;
+			x++;
+		}
 	//add check if game is paused
-	mvwprintw(v->stat, 5, 9, "%d", g_gen.cycles);
-	mvwprintw(v->stat, 7, 13, "%d", g_gen.cycles_after_check);
-	mvwprintw(v->stat, 9, 17, "%d", g_gen.am_karet);
-	mvwprintw(v->stat, 36, 17, "%d", g_gen.cycles_to_die);
+	mvwprintw(v->stat, 5, 9, "%d      ", g_gen.cycles);
+	mvwprintw(v->stat, 7, 13, "%d      ", g_gen.cycles_after_check);
+	mvwprintw(v->stat, 9, 17, "%d      ", g_gen.am_karet);
+	mvwprintw(v->stat, 36, 17, "%d      ", g_gen.cycles_to_die);
 	while (i < len)
 	{
 		mvwprintw(v->stat, 38, x, "#");
@@ -180,12 +178,14 @@ void	vs_main(void)
 	vs_prepare_stat(&v);
 	vs_print_players(&v);
 
-	while (c != 'q')
-	{
-		c = wgetch(v.main);
-	}
+	st.v = v;
+	// while (c != 'q')
+	// {
+	// 	c = wgetch(v.main);
+	// }
+	//
+	// endwin();
 
-	endwin();
 }
 /*
 int main()

@@ -40,7 +40,7 @@ void	check_karetu(t_kareta *kareta)
 	if (!kareta->wait)
 	{
 		new = NULL;
-		if (kareta->code >= 0x01 && kareta->code <= 0x10)
+		if (_CHECK_WAIT)
 			new = &g_op[kareta->code - 1];
 		if (new)
 		{
@@ -68,33 +68,28 @@ void	run_cycle()
 	}
 }
 
+void logs(int i, int d) {
+	ft_printf("It is now cycle %llu, after check %i\n", i, d);
+}
+
 void	full_game()
 {
-	t_gen a;
-
-	a = g_gen;
-
 	while (st.kareta)
 	{
-		if (st.log == 2)
-			ft_printf("It is now cycle %llu, after check %i\n",
-					st.cycles + 1, st.cycles_after_check + 1);
-		if (st.flag_dump_d == st.cycles && (st.flag_dump == true || st.flag_d))
-			_PRINT_B;
+		_LOG(st.cycles + 1, st.cycles_after_check + 1);
+		_PBF;
 		run_cycle();
-		a = g_gen;
-		if (st.cycles_to_die == st.cycles_after_check ||
-				st.cycles_to_die <= 0)
+		//ft_printf("%llu", g_gen.champ[1].last_alive);
+		vs_update_stats(&st.v);
+		if (_AM_I_DIE)
 			check_who_die();
 	}
 }
 
 void set_karetu()
 {
-	printf("DUMP :%d  | D : %d	\n", st.flag_dump, st.flag_d);
 	st.cycles_to_die = CYCLE_TO_DIE;
 	print_info_champs();
-	if (st.flag_visual == true)
-		vs_main();
+	_CHECK_VISUALISATION;
 	full_game();
 }

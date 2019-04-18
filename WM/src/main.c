@@ -2,11 +2,12 @@
 
 void			errrorrororo(void)
 {
-	ft_printf("MGRN(Usage: ./corewar [-d N] [-dump N] [-v] [-n N(1 - 4)] {champ_name.cor , ...})\n");
+	ft_printf("MGRN(Usage: ./corewar [-d N] [-dump N] [-v] [-l N] [-n N{1 - 4}] {champ_name.cor , ...})\n");
 	ft_printf("\tMRED(-d)\tMRED(Print Battlefield in 64 octets in a row)\n");
 	ft_printf("\tMRED(-dump)\tMBLU(Print Battlefield in 32 octets in row)\n");
 	ft_printf("\tMRED(-v)\tMYLW(Turn on a Visualisation\n");
-	ft_printf("\tMRED(-n)-tMPRP(Set player Number # N)\n");
+	ft_printf("\tMRED(-l)\tMCYN(Verbosity levels)\n");
+	ft_printf("\tMRED(-n)\tMPRP(Set player Number  N)\n");
 	exit(0);
 }
 
@@ -118,9 +119,12 @@ void			parsing_argc(int argc, char **argv)
 			set_dump(argv[i++ + 1], 2);
 		else if (ft_strequ(argv[i], "-v"))
 			st.flag_visual = true;
+		else if(ft_strequ(argv[i], "-l"))
+			set_dump(argv[i++ + 1], 3);
 		else
 			set_unknown(argv[i]);
 	}
+	set_numbers(argc, argv);
 }
 
 void print_info_champs()
@@ -139,9 +143,7 @@ void	print_last_alive() {
 
 int main(int argc, char **argv)
 {
-
 	parsing_argc(argc, argv);
-	set_numbers(argc, argv);
 	_ERR_CHAMP(g_gen.champ[0].length);
 	create_field();
 	set_karetu();
