@@ -14,16 +14,17 @@ int karettta(int i)
 	return (0);
 }
 
-void print_field() {
+void print_field(int i) {
 	int a;
 	int j;
 
 	a = 0;
+	printf("%d\n", i);
 	while (a < MEM_SIZE)
 	{
 		ft_printf("%.4p : ", a);
 		j = 0;
-		while (j < 64)
+		while (j < i)
 		{
 			if (karettta(a + j) == 1)
 				ft_printf("MRED(%.2x) ", g_gen.field[a + j]);
@@ -48,7 +49,7 @@ void print_field() {
 			j++;
 		}
 		ft_printf("\n");
-		a += 64;
+		a += i;
 	}
 }
 

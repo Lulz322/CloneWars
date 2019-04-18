@@ -56,6 +56,7 @@ typedef struct s_general
 	int am_champs;
 	int am_karet;
 	bool flag_dump;
+	bool flag_d;
 	bool flag_visual;
 	int	flag_dump_d;
 }				t_gen;

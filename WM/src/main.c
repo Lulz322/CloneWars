@@ -1,5 +1,15 @@
 #include "../includes/vm.h"
 
+void			errrorrororo(void)
+{
+	ft_printf("MGRN(Usage: ./corewar [-d N] [-dump N] [-v] [-n N(1 - 4)] {champ_name.cor , ...})\n");
+	ft_printf("\tMRED(-d)\tMRED(Print Battlefield in 64 octets in a row)\n");
+	ft_printf("\tMRED(-dump)\tMBLU(Print Battlefield in 32 octets in row)\n");
+	ft_printf("\tMRED(-v)\tMYLW(Turn on a Visualisation\n");
+	ft_printf("\tMRED(-n)-tMPRP(Set player Number # N)\n");
+	exit(0);
+}
+
 void set_unknown(char *chmp)
 {
 	if (!g_gen.champ[0].name)
@@ -26,13 +36,13 @@ int check_where(char *where) {
 	char *tmp;
 
 	if (!where)
-		ERROR("O_o");
+		_ERROR("O_o");
 	a = ft_atoi(where);
 	tmp = ft_itoa(a);
 	if (!ft_strequ(tmp, where))
 	{
 		free(tmp);
-		ERROR("Enter a number!");
+		_ERROR("Enter a number!");
 	}
 	free(tmp);
 	return (a);
@@ -45,7 +55,7 @@ void set_n(char *str, char *where)
 
 	kuda = check_where(where);
 	if (kuda > 4 || kuda < 1)
-		ERROR("ERROR")
+		_ERROR("ERROR")
 	number = 0;
 	while(number < 4)
 	{
@@ -55,7 +65,7 @@ void set_n(char *str, char *where)
 	}
 	if (g_gen.champ[number].hard_set == true
 		|| g_gen.champ[kuda].hard_set == true)
-		ERROR("DUPLICATE");
+		_ERROR("DUPLICATE");
 	g_gen.champ[kuda].hard_set = true;
 	swap(&g_gen.champ[number], &g_gen.champ[kuda - 1]);
 }
@@ -75,23 +85,22 @@ void set_numbers(int argc, char **argv)
 	}
 }
 
-void set_dump(char *str)
+void set_dump(char *str, int d)
 {
 	int a;
 	char *tmp;
 
-	if (!str || st.flag_dump == true)
-		ERROR("ERROR INPUT");
+	if (!str || st.flag_dump == true || st.flag_d == true)
+		_ERROR("ERROR INPUT");
 	a = ft_atoi(str);
 	tmp = ft_itoa(a);
 	if (!ft_strequ(tmp, str))
 	{
 		free(tmp);
-		ERROR("Enter a number!");
+		_ERROR("Enter a number!");
 	}
 	free(tmp);
-	st.flag_dump = true;
-	st.flag_dump_d = a;
+	_SET_DUMPS(d);
 }
 
 void			parsing_argc(int argc, char **argv)
@@ -104,7 +113,9 @@ void			parsing_argc(int argc, char **argv)
 		if (ft_strequ(argv[i], "-n"))
 			i++;
 		else if (ft_strequ(argv[i], "-dump"))
-			set_dump(argv[i++ + 1]);
+			set_dump(argv[i++ + 1], 1);
+		else if (ft_strequ(argv[i], "-d"))
+			set_dump(argv[i++ + 1], 2);
 		else
 			set_unknown(argv[i]);
 	}
@@ -126,11 +137,6 @@ void	print_last_alive() {
 
 int main(int argc, char **argv)
 {
-	//argc = 3;
-	//argv[1] = "../WM/champs/Gagnant.cor";
-	//argv[2] = "../WM/champs/samurai.cor";
-	//st.flag_dump = true;
-	//st.flag_dump_d = 25000;
 	parsing_argc(argc, argv);
 	set_numbers(argc, argv);
 	_ERR_CHAMP(g_gen.champ[0].length);
