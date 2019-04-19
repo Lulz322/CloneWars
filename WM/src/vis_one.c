@@ -147,7 +147,7 @@ void	vs_update_stats(t_vis *v)
 	}
 	vs_update_players(v);
 	wrefresh(v->stat);
-	
+
 }
 
 void	vs_update_main(t_vis *v)
@@ -206,7 +206,6 @@ void	vs_prepare_stat(t_vis *v)
 void	vs_main(void)
 {
 	t_vis v;
-	int c = 'a';
 
 	ft_bzero(&v, 8);
 	vs_init_screen(&v);
