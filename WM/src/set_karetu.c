@@ -93,6 +93,4 @@ void set_karetu()
 	print_info_champs();
 	_CHECK_VISUALISATION;
 	full_game();
-	while (wgetch(st.v.main) != 'q');
-	endwin();
 }
