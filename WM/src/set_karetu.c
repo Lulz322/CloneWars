@@ -79,7 +79,8 @@ void	full_game()
 	{
 		_LOG(st.cycles + 1, st.cycles_after_check + 1);
 		_PBF;
-		_VS;
+		if (st.flag_visual == true)
+			_VS;
 		run_cycle();
 		if (_AM_I_DIE)
 			check_who_die();
@@ -91,6 +92,6 @@ void set_karetu()
 	st.cycles_to_die = CYCLE_TO_DIE;
 	print_info_champs();
 	_CHECK_VISUALISATION;
-	system("afplay 123.wav&");
+	//system("afplay 123.wav&");
 	full_game();
 }
