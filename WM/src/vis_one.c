@@ -21,11 +21,11 @@
 
 void	vs_init_color(void)
 {
-	init_color(COLOR_MAGENTA, 475, 475, 475);
-	init_color(COLOR_WHITE, 1000, 1000, 1000);
+	init_color(COLOR_MAGENTA, 300, 300, 300);
+	init_color(COLOR_WHITE, 900, 900, 900);
 	init_color(COLOR_RED, 1000, 0, 0);
 	init_color(COLOR_YELLOW, 1000, 700, 0);
-	init_color(COLOR_CYAN, 0, 1000, 1000);
+	init_color(COLOR_CYAN, 150, 500, 950);
 	init_color(COLOR_GREEN, 0, 350, 0);
 	init_pair(1, COLOR_RED, COLOR_BLACK);
 	init_pair(2, COLOR_YELLOW, COLOR_BLACK);
@@ -93,15 +93,17 @@ void	vs_print_players(t_vis *v)
 	y = 12;
 	while (i <= g_gen.am_champs)
 	{
+		wattron(v->stat, A_BOLD);
 		mvwprintw(v->stat, y, 2, "Player %d: ", i);
-		wattron(v->stat, COLOR_PAIR(i + 2) | A_BOLD);
+		wattroff(v->stat, A_BOLD);
+		wattron(v->stat, COLOR_PAIR(i));
 		mvwprintw(v->stat, y, 12, "%.30s", g_gen.champ[i - 1].name);
-		mvwprintw(v->stat, y + 3, 2, "%.50s", g_gen.champ[i -1].comment);
-		wattroff(v->stat, COLOR_PAIR(i + 2) | A_BOLD);
+		mvwprintw(v->stat, y + 3, 6, "%.50s", g_gen.champ[i -1].comment);
+		wattroff(v->stat, COLOR_PAIR(i));
 		mvwprintw(v->stat, y + 1, 6, "Last cycle alive: ");
 		mvwprintw(v->stat, y + 2, 6, "Cycles reported alive: ");
 		i++;
-		y += 5;
+		y += 6;
 	}
 	wrefresh(v->stat);
 }
@@ -117,26 +119,27 @@ void	vs_update_players(t_vis *v)
 	{
 		mvwprintw(v->stat, y + 1, 30, "%d           ", g_gen.champ[i].last_alive);
 		mvwprintw(v->stat, y + 2, 30, "%d           ", g_gen.champ[i].live);
-		y += 5;
+		y += 6;
 	}
 }
 
 void	vs_update_stats(t_vis *v)
 {
-	int len;
+	float len;
 	int x;
 	int i;
 
 	i = 0;
 	x = 3;
-	len = (g_gen.cycles_to_die % 54);
+	len = (float)(CYCLE_TO_DIE / 27)- (float)(g_gen.cycles_to_die / 27);
 	mvwprintw(v->stat, 38, 2, KOLBASKA);
 	//add check if game is paused
 	mvwprintw(v->stat, 5, 9, "%d      ", g_gen.cycles);
 	mvwprintw(v->stat, 7, 13, "%d      ", g_gen.cycles_after_check);
 	mvwprintw(v->stat, 9, 17, "%d      ", g_gen.am_karet);
-	mvwprintw(v->stat, 36, 17, "%d      ", g_gen.cycles_to_die);
-	while (i < len)
+	mvwprintw(v->stat, 36, 17, "    ");
+	mvwprintw(v->stat, 36, 17, "%d", g_gen.cycles_to_die);
+	while (i < (int)len && i < 54)
 	{
 		mvwprintw(v->stat, 38, x, "#");
 		i++;
@@ -160,10 +163,10 @@ void	vs_update_main(t_vis *v)
 	while (y < 65 && i < 4096)
 	{
 		x = -1;
-		color = g_gen.v_field[i];
 		while ((x += 3) < 194 && i < 4096)
 		{
 			color = (k = karettta(i)) ? k + 20 : g_gen.v_field[i];
+			color = (color) ? color : 5;
 			wattron(v->main, COLOR_PAIR(color));
 			mvwprintw(v->main, y, x, "%02x", g_gen.field[i]);
 			wattroff(v->main, COLOR_PAIR(color));
@@ -178,13 +181,18 @@ void	vs_prepare_stat(t_vis *v)
 {
 	wattron(v->stat, A_BOLD | COLOR_PAIR(YELLOW_BLACK));
 	mvwprintw(v->stat, 1, 20, "*** STATISTICS ***");
-	wattroff(v->stat, A_BOLD | COLOR_PAIR(YELLOW_BLACK));
+	wattroff(v->stat, COLOR_PAIR(YELLOW_BLACK));
 	mvwprintw(v->stat, 3, 2, "Execution status: running...");
+	wattroff(v->stat, A_BOLD);
+	wattron(v->stat, A_UNDERLINE);
+	mvwprintw(v->stat, 3, 20, "running");
+	wattroff(v->stat, A_UNDERLINE);
+	wattron(v->stat, A_BOLD);
 	mvwprintw(v->stat, 5, 2, "Cycle:");
 	mvwprintw(v->stat, 7, 2, "Processes:");
 	mvwprintw(v->stat, 9, 2, "Carries alive:");
-	mvwprintw(v->stat, 36, 2, "Cycles to die:               / %d", CYCLE_TO_DIE);
-	mvwprintw(v->stat, 38, 2, KOLBASKA);
+	mvwprintw(v->stat, 36, 2, "Cycles to die:      / %d", CYCLE_TO_DIE);
+	wattroff(v->stat, A_BOLD);
 	mvwprintw(v->stat, 44, 2, "CYCLE_DELTA: %d", CYCLE_DELTA);
 	mvwprintw(v->stat, 46, 2, "NBR_LIVE: %d", NBR_LIVE);
 	mvwprintw(v->stat, 48, 2, "MAX_CHECKS: %d", MAX_CHECKS);
