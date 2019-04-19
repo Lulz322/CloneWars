@@ -19,25 +19,90 @@
 
 #define KOLBASKA "[------------------------------------------------------]"
 
-// void	vs_42_one(t_vis *v)
-// {
-// 	wattron(v->stat, COLOR_PAIR(1));
-// 	mvwprintw(v->stat, 52, 10, " __    __   ______  ");
-// 	mvwprintw(v->stat, 53, 10, "/  |  /  | /      \\ ");
-// 	mvwprintw(v->stat, 54, 10, "$$ |  $$ |/$$$$$$  |");
-// 	mvwprintw(v->stat, 55, 10, "$$ |__$$ |$$____$$ |");
-// 	mvwprintw(v->stat, 56, 10, "$$    $$ | /    $$/ ");
-// 	mvwprintw(v->stat, 57, 10, "$$$$$$$$ |/$$$$$$/  ");
-// 	mvwprintw(v->stat, 58, 10, "      $$ |$$ |_____ ");
-// 	mvwprintw(v->stat, 59, 10, "      $$ |$$       |");
-// 	mvwprintw(v->stat, 60, 10, "      $$/ $$$$$$$$/ ");
-// 	wattroff(v->stat, COLOR_PAIR(1));
-// }
 
-// void	vs_print_42(t_vis *v, int i)
-// {
 
-// }
+
+
+
+
+
+
+void	vs_42_one(t_vis *v)
+{
+	wattron(v->stat, COLOR_PAIR(1));
+	mvwprintw(v->stat, 52, 10, " __    __     ______    ");
+	mvwprintw(v->stat, 53, 10, "/  |  /  |   /      \\  ");
+	mvwprintw(v->stat, 54, 10, "$$ |  $$ |  /$$$$$$  |  ");
+	mvwprintw(v->stat, 55, 10, "$$ |__$$ |  $$____$$ |  ");
+	mvwprintw(v->stat, 56, 10, "$$    $$ |   /    $$/   ");
+	mvwprintw(v->stat, 57, 10, "$$$$$$$$ |  /$$$$$$/    ");
+	mvwprintw(v->stat, 58, 10, "      $$ |  $$ |_____   ");
+	mvwprintw(v->stat, 59, 10, "      $$ |  $$       |  ");
+	mvwprintw(v->stat, 60, 10, "      $$/   $$$$$$$$/   ");
+	wattroff(v->stat, COLOR_PAIR(1));
+}
+
+void	vs_42_two(t_vis *v)
+{
+	wattron(v->stat, COLOR_PAIR(2));
+	mvwprintw(v->stat, 52, 10, "                         ");
+	mvwprintw(v->stat, 53, 10, "$$\\   $$\\    $$$$$$\\  ");
+	mvwprintw(v->stat, 54, 10, "$$ |  $$ |  $$  __$$\\   ");
+	mvwprintw(v->stat, 55, 10, "$$ |  $$ |  \\__/  $$ |  ");
+	mvwprintw(v->stat, 56, 10, "$$$$$$$$ |   $$$$$$  |   ");
+	mvwprintw(v->stat, 57, 10, "\\_____$$ |  $$  ____/   ");
+	mvwprintw(v->stat, 58, 10, "	  $$ |  $$ |         ");
+	mvwprintw(v->stat, 59, 10, "	  $$ |  $$$$$$$$\\   ");
+	mvwprintw(v->stat, 60, 10, "	  \\__|  \\________| ");
+	wattroff(v->stat, COLOR_PAIR(2));
+}
+
+void	vs_42_three(t_vis *v)
+{
+	wattron(v->stat, COLOR_PAIR(3));
+	mvwprintw(v->stat, 52, 10, "                        ");
+	mvwprintw(v->stat, 53, 10, " /$$   /$$    /$$$$$$   ");
+	mvwprintw(v->stat, 54, 10, "| $$  | $$   /$$__  $$  ");
+	mvwprintw(v->stat, 55, 10, "| $$  | $$  |__/  \\ $$ ");
+	mvwprintw(v->stat, 56, 10, "| $$$$$$$$    /$$$$$$/  ");
+	mvwprintw(v->stat, 57, 10, "|_____  $$   /$$____/   ");
+	mvwprintw(v->stat, 58, 10, "      | $$  | $$        ");
+	mvwprintw(v->stat, 59, 10, "      | $$  | $$$$$$$$  ");
+	mvwprintw(v->stat, 60, 10, "      |__/  |________/  ");
+	wattroff(v->stat, COLOR_PAIR(3));
+}
+
+
+void	vs_42_four(t_vis *v)
+{
+	wattron(v->stat, COLOR_PAIR(4));
+	mvwprintw(v->stat, 52, 10, " __    __    ______     ");
+	mvwprintw(v->stat, 53, 10, "|  \\  |  \\  /      \\ ");
+	mvwprintw(v->stat, 54, 10, "| $$  | $$ |  $$$$$$\\  ");
+	mvwprintw(v->stat, 55, 10, "| $$__| $$  \\$$__| $$  ");
+	mvwprintw(v->stat, 56, 10, "| $$    $$  /      $$   ");
+	mvwprintw(v->stat, 57, 10, "\\$$$$$$$$  |  $$$$$$   ");
+	mvwprintw(v->stat, 58, 10, "	 | $$  | $$_____    ");
+	mvwprintw(v->stat, 59, 10, "	 | $$  | $$     \\  ");
+	mvwprintw(v->stat, 60, 10, "	 \\$$    \\$$$$$$$$ ");
+	wattroff(v->stat, COLOR_PAIR(4));
+}
+void	vs_print_42(t_vis *v)
+{
+	static int i;
+
+	if (i == 1)
+		vs_42_one(v);
+	else if (i == 2)
+		vs_42_two(v);
+	else if (i == 3)
+		vs_42_three(v);
+	else if (i == 4)
+		vs_42_four(v);
+	i++;
+	if (i > 4)
+		i = 1;
+}
 
 
 void	vs_init_color(void)
@@ -152,7 +217,7 @@ void	vs_update_stats(t_vis *v)
 
 	i = 0;
 	x = 3;
-	len = (float)(CYCLE_TO_DIE / 27)- (float)(g_gen.cycles_to_die / 27);
+	len = (float)(CYCLE_TO_DIE / 27) - (float)(g_gen.cycles_to_die / 27);
 	//add check if game is paused
 	mvwprintw(v->stat, 5, 9, "%d      ", g_gen.cycles);
 	mvwprintw(v->stat, 7, 13, "%d      ", g_gen.cycles_after_check);
@@ -167,6 +232,7 @@ void	vs_update_stats(t_vis *v)
 		i++;
 		x++;
 	}
+	vs_print_42(v);
 	wattroff(v->stat, A_BOLD);
 	vs_update_players(v);
 	wrefresh(v->stat);
@@ -189,6 +255,7 @@ void	vs_update_main(t_vis *v)
 		while ((x += 3) < 194 && i < 4096)
 		{
 			color = (k = karettta(i)) ? k + 10 : g_gen.v_field[i];
+			color += (k && is_dat_is_a_child(i) == true) ? 10 : 0;
 			color = (color) ? color : 5;
 			wattron(v->main, COLOR_PAIR(color));
 			mvwprintw(v->main, y, x, "%02x", g_gen.field[i]);
