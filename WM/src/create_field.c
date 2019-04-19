@@ -7,7 +7,7 @@ int karettta(int i)
 	tmp = st.kareta;
 	while (tmp)
 	{
-		if (tmp->pos == i)
+		if (tmp->pos == i && -tmp->reg[0] > 0 && -tmp->reg[0] <= st.am_champs)
 			return (-tmp->reg[0]);
 		tmp = tmp->next;
 	}
