@@ -170,7 +170,7 @@ void	vs_update_stats(t_vis *v)
 	wattroff(v->stat, A_BOLD);
 	vs_update_players(v);
 	wrefresh(v->stat);
-	
+
 }
 
 void	vs_update_main(t_vis *v)

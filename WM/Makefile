@@ -8,8 +8,8 @@ INCLS   = $(INC_DIR)
 SRCS    = $(wildcard $(SRC_DIR)/*.c)
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-CC      = gcc 
-CFLAGS  = -Ofast
+CC      = gcc -march=native -mtune=native -flto
+CFLAGS  = -Wall -Wextra -Werror -Ofast
 
 LFLAGS  = -I
 

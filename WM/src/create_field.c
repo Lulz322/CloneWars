@@ -14,6 +14,21 @@ int karettta(int i)
 	return (0);
 }
 
+bool is_dat_is_a_child(int i)
+{
+
+	t_kareta *tmp;
+
+	tmp = st.kareta;
+	while (tmp)
+	{
+		if (tmp->pos == i && tmp->living <= 50)
+			return (true);
+		tmp = tmp->next;
+	}
+	return (false);
+}
+
 void print_field(int i) {
 	int a;
 	int j;

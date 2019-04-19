@@ -19,6 +19,7 @@ typedef struct s_kareta
 	unsigned int id;
 	int pos;
 	int step;
+	int living;
 	bool carry;
 	uint8_t code;
 	int last_alive;

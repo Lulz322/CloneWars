@@ -8,10 +8,8 @@
 #include "operations.h"
 
 
-
 # define ER_START	"\033[41m"
 # define ER_END		"\033[40m"
-
 #define _ERROR(ex) {printf("%s%s%s\n",ER_START,ex,ER_END);errrorrororo();}
 #define _SET_CHAMP(ex) {ft_strcat(ex, chmp); return ;}
 #define _READ_CHAMP(ex, name) {read_champ(ex,name);return ;}
@@ -35,6 +33,7 @@
 
 #define st g_gen
 
+bool is_dat_is_a_child(int i);
 void	vs_main(void);
 void			errrorrororo(void);
 void	check_who_die();
