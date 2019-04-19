@@ -64,7 +64,6 @@ void	run_cycle()
 	while (tmp)
 	{
 		check_karetu(tmp);
-		tmp->live++;
 		tmp = tmp->next;
 	}
 }

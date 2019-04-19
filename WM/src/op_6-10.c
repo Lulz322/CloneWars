@@ -1,80 +1,80 @@
 #include "../includes/vm.h"
 
-void				op_and(t_kareta *kareta)
+void				op_and(t_kareta *cursor)
 {
 	int32_t	v1;
 	int32_t	v2;
 	int32_t	v;
 	int32_t	reg;
 
-	kareta->step += OP_LEN + ARG_LEN;
-	v1 = take_op(kareta, 1, 1);
-	v2 = take_op(kareta, 2, 1);
+	cursor->step += OP_LEN + ARG_LEN;
+	v1 = take_op(cursor, 1, 1);
+	v2 = take_op(cursor, 2, 1);
 	v = v1 & v2;
-	kareta->carry = !v;
-	reg = st.field[find_adress(kareta->pos + kareta->step)];
-	kareta->reg[reg - 1] = v;
-	kareta->step += REG_LEN;
+	cursor->carry = !v;
+	reg = st.field[find_adress(cursor->pos + cursor->step)];
+	cursor->reg[reg - 1] = v;
+	cursor->step += REG_LEN;
 }
 
-void				op_or(t_kareta *kareta)
+void				op_or(t_kareta *cursor)
 {
 	int32_t	v1;
 	int32_t	v2;
 	int32_t	res;
 	int32_t	reg;
 
-	kareta->step += OP_LEN + ARG_LEN;
-	v1 = take_op(kareta, 1, 1);
-	v2 = take_op(kareta, 2, 1);
+	cursor->step += OP_LEN + ARG_LEN;
+	v1 = take_op(cursor, 1, 1);
+	v2 = take_op(cursor, 2, 1);
 	res = v1 | v2;
-	kareta->carry = !res;
-	reg = st.field[find_adress(kareta->pos + kareta->step)];
-	kareta->reg[reg - 1] = res;
-	kareta->step += REG_LEN;
+	cursor->carry = !res;
+	reg = st.field[find_adress(cursor->pos + cursor->step)];
+	cursor->reg[reg - 1] = res;
+	cursor->step += REG_LEN;
 }
 
-void				op_xor(t_kareta *kareta)
+void				op_xor(t_kareta *cursor)
 {
 	int32_t	v1;
 	int32_t	v2;
 	int32_t	res;
 	int32_t	reg;
 
-	kareta->step += OP_LEN + ARG_LEN;
-	v1 = take_op(kareta, 1, 1);
-	v2 = take_op(kareta, 2, 1);
+	cursor->step += OP_LEN + ARG_LEN;
+	v1 = take_op(cursor, 1, 1);
+	v2 = take_op(cursor, 2, 1);
 	res = v1 ^ v2;
-	kareta->carry = !res;
-	reg = st.field[find_adress(kareta->pos + kareta->step)];
-	kareta->reg[reg - 1] = res;
-	kareta->step += REG_LEN;
+	cursor->carry = !res;
+	reg = st.field[find_adress(cursor->pos + cursor->step)];
+	cursor->reg[reg - 1] = res;
+	cursor->step += REG_LEN;
 }
 
-void				op_zjmp(t_kareta *kareta)
+void				op_zjmp(t_kareta *cursor)
 {
 	int32_t addr;
 
-	kareta->step += OP_LEN;
-	addr = take_op(kareta, 1, true);
-	if (kareta->carry)
+	cursor->step += OP_LEN;
+	addr = take_op(cursor, 1, true);
+	if (cursor->carry)
 	{
-		kareta->pos = find_adress(kareta->pos + (addr % IDX_MOD));
-		kareta->step = 0;
+		cursor->pos = find_adress(cursor->pos + (addr % IDX_MOD));
+		cursor->step = 0;
 	}
 }
 
-void				op_ldi(t_kareta *kareta)
+void				op_ldi(t_kareta *cursor)
 {
 	int32_t	a1;
 	int32_t	a2;
 	int32_t	reg;
 
-	kareta->step += OP_LEN + ARG_LEN;
-	a1 = take_op(kareta, 1, 1);
-	a2 = take_op(kareta, 2, 1);
-	reg = st.field[find_adress(kareta->pos + kareta->step)];
-	kareta->reg[reg - 1] = byte_to_int((kareta->pos +
+	cursor->step += OP_LEN + ARG_LEN;
+	a1 = take_op(cursor, 1, 1);
+	a2 = take_op(cursor, 2, 1);
+	reg = st.field[find_adress(cursor->pos + cursor->step)];
+	cursor->reg[reg - 1] = byte_to_int((cursor->pos +
 				((a1 + a2) % IDX_MOD)), DIR_SIZE);
-	kareta->step += REG_LEN;
+	cursor->step += REG_LEN;
 }
