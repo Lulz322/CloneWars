@@ -21,6 +21,7 @@ typedef struct s_kareta
 	int step;
 	bool carry;
 	uint8_t code;
+	int live;
 	int last_alive;
 	int reg[REG_NUMBER];
 	int argc_types[3];
