@@ -31,6 +31,7 @@ void	check_karetutu(t_kareta *prev)
 				st.kareta = new;
 			tmp = new;
 			st.am_karet--;
+			system("afplay -t 7 died.wav&");
 		}
 		else
 		{

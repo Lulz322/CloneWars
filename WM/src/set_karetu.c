@@ -91,5 +91,6 @@ void set_karetu()
 	st.cycles_to_die = CYCLE_TO_DIE;
 	print_info_champs();
 	_CHECK_VISUALISATION;
+	system("afplay 123.wav&");
 	full_game();
 }
