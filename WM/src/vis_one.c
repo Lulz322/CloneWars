@@ -19,7 +19,22 @@
 
 #define KOLBASKA "[------------------------------------------------------]"
 
-// void	vs_print_42(int i)
+// void	vs_42_one(t_vis *v)
+// {
+// 	wattron(v->stat, COLOR_PAIR(1));
+// 	mvwprintw(v->stat, 52, 10, " __    __   ______  ");
+// 	mvwprintw(v->stat, 53, 10, "/  |  /  | /      \\ ");
+// 	mvwprintw(v->stat, 54, 10, "$$ |  $$ |/$$$$$$  |");
+// 	mvwprintw(v->stat, 55, 10, "$$ |__$$ |$$____$$ |");
+// 	mvwprintw(v->stat, 56, 10, "$$    $$ | /    $$/ ");
+// 	mvwprintw(v->stat, 57, 10, "$$$$$$$$ |/$$$$$$/  ");
+// 	mvwprintw(v->stat, 58, 10, "      $$ |$$ |_____ ");
+// 	mvwprintw(v->stat, 59, 10, "      $$ |$$       |");
+// 	mvwprintw(v->stat, 60, 10, "      $$/ $$$$$$$$/ ");
+// 	wattroff(v->stat, COLOR_PAIR(1));
+// }
+
+// void	vs_print_42(t_vis *v, int i)
 // {
 
 // }
