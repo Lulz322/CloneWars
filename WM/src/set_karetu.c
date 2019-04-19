@@ -64,6 +64,7 @@ void	run_cycle()
 	while (tmp)
 	{
 		check_karetu(tmp);
+		tmp->living++;
 		tmp = tmp->next;
 	}
 }
@@ -78,10 +79,8 @@ void	full_game()
 	{
 		_LOG(st.cycles + 1, st.cycles_after_check + 1);
 		_PBF;
+		_VS;
 		run_cycle();
-		//ft_printf("%llu", g_gen.champ[1].last_alive);
-		vs_update_stats(&st.v);
-		vs_update_main(&st.v);
 		if (_AM_I_DIE)
 			check_who_die();
 	}
