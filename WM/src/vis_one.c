@@ -19,6 +19,12 @@
 
 #define KOLBASKA "[------------------------------------------------------]"
 
+// void	vs_print_42(int i)
+// {
+
+// }
+
+
 void	vs_init_color(void)
 {
 	init_color(COLOR_MAGENTA, 300, 300, 300);
@@ -26,7 +32,7 @@ void	vs_init_color(void)
 	init_color(COLOR_RED, 1000, 0, 0);
 	init_color(COLOR_YELLOW, 1000, 700, 0);
 	init_color(COLOR_CYAN, 150, 500, 950);
-	init_color(COLOR_GREEN, 0, 350, 0);
+	init_color(COLOR_GREEN, 200, 950, 200);
 	init_pair(1, COLOR_RED, COLOR_BLACK);
 	init_pair(2, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(3, COLOR_CYAN, COLOR_BLACK);
@@ -77,7 +83,7 @@ void	vs_prepare_main(t_vis *v)
 	{
 		x = -1;
 		while ((x += 3) < 194)
-			mvwprintw(v->main, y, x, "%02d", 1);
+			mvwprintw(v->main, y, x, "%02x", 1);
 		y++;
 	}
 	wattroff(v->main, COLOR_PAIR(1));
@@ -132,19 +138,21 @@ void	vs_update_stats(t_vis *v)
 	i = 0;
 	x = 3;
 	len = (float)(CYCLE_TO_DIE / 27)- (float)(g_gen.cycles_to_die / 27);
-	mvwprintw(v->stat, 38, 2, KOLBASKA);
 	//add check if game is paused
 	mvwprintw(v->stat, 5, 9, "%d      ", g_gen.cycles);
 	mvwprintw(v->stat, 7, 13, "%d      ", g_gen.cycles_after_check);
 	mvwprintw(v->stat, 9, 17, "%d      ", g_gen.am_karet);
 	mvwprintw(v->stat, 36, 17, "    ");
 	mvwprintw(v->stat, 36, 17, "%d", g_gen.cycles_to_die);
+	wattron(v->stat, A_BOLD);
+	mvwprintw(v->stat, 38, 2, KOLBASKA);
 	while (i < (int)len && i < 54)
 	{
 		mvwprintw(v->stat, 38, x, "#");
 		i++;
 		x++;
 	}
+	wattroff(v->stat, A_BOLD);
 	vs_update_players(v);
 	wrefresh(v->stat);
 	
@@ -165,7 +173,7 @@ void	vs_update_main(t_vis *v)
 		x = -1;
 		while ((x += 3) < 194 && i < 4096)
 		{
-			color = (k = karettta(i)) ? k + 20 : g_gen.v_field[i];
+			color = (k = karettta(i)) ? k + 10 : g_gen.v_field[i];
 			color = (color) ? color : 5;
 			wattron(v->main, COLOR_PAIR(color));
 			mvwprintw(v->main, y, x, "%02x", g_gen.field[i]);
@@ -182,7 +190,7 @@ void	vs_prepare_stat(t_vis *v)
 	wattron(v->stat, A_BOLD | COLOR_PAIR(YELLOW_BLACK));
 	mvwprintw(v->stat, 1, 20, "*** STATISTICS ***");
 	wattroff(v->stat, COLOR_PAIR(YELLOW_BLACK));
-	mvwprintw(v->stat, 3, 2, "Execution status: running...");
+	mvwprintw(v->stat, 3, 2, "Execution status: running");
 	wattroff(v->stat, A_BOLD);
 	wattron(v->stat, A_UNDERLINE);
 	mvwprintw(v->stat, 3, 20, "running");
@@ -206,7 +214,6 @@ void	vs_prepare_stat(t_vis *v)
 void	vs_main(void)
 {
 	t_vis v;
-	int c = 'a';
 
 	ft_bzero(&v, 8);
 	vs_init_screen(&v);
