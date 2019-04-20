@@ -4,7 +4,7 @@ t_kareta *create_elem(int pos)
 {
 	static int id;
 	t_kareta *elem;
-	elem = (t_kareta *)malloc(sizeof(t_kareta));
+	_ERROR_MALLOC(elem = (t_kareta *)malloc(sizeof(t_kareta)));
 	ft_bzero(elem, sizeof(t_kareta));
 	elem->id = ++id;
 	elem->reg[0] = -id;

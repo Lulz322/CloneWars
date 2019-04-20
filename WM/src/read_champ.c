@@ -29,11 +29,9 @@ char	*check_name(int fd, int len)
 	int		size;
 	char	*buffer;
 
-	if (!(buffer = ft_strnew(len)))
-		_ERROR("Memory error");
+	_ERROR_MALLOC((buffer = ft_strnew(len)));
 	size = read(fd, buffer, len);
-	if (size < len)
-		_ERROR("ERROR_FILE");
+	_READING(size < len, "ERROR FILE")
 	return (buffer);
 }
 
@@ -43,8 +41,7 @@ int32_t	check_int(int fd)
 	uint8_t	buffer[4];
 
 	size = read(fd, &buffer, 4);
-	if (size == -1 || size < 4)
-		_ERROR("ERROR_FILE");
+	_READING(size == -1 || size < 4, "ERROR FILE");
 	return (bytecode_to_int32(buffer, 4));
 }
 
@@ -54,13 +51,11 @@ uint8_t	*check_code(int fd, int len)
 	uint8_t	*buffer;
 	uint8_t	byte;
 
-	if (!(buffer = malloc(len)))
-		_ERROR("Memory error");
+	_ERROR_MALLOC(buffer = malloc(len));
 	size = read(fd, buffer, len);
-	if (size == -1)
-		_ERROR("ERROR_FILE");
-	if (size < (ssize_t)len || read(fd, &byte, 1) != 0)
-		_ERROR("ERROR_FILE");
+	_READING(size == -1, "SIZE ERROR")
+	_READING(size < (ssize_t)len || read(fd, &byte, 1) != 0,
+			"Error file");
 	return (buffer);
 }
 
@@ -70,16 +65,12 @@ void read_champ(int a, char *file_name)
 
 	ft_strcat(g_gen.champ[a].file_name, file_name);
 	fd = open(file_name, O_RDONLY);
-	if (check_int(fd) != COREWAR_EXEC_MAGIC)
-		_ERROR("ZA SHO?");
+	_READING(check_int(fd) != COREWAR_EXEC_MAGIC, "ZA SHO?");
 	g_gen.champ[a].name = check_name(fd, PROG_NAME_LENGTH);
-	if (check_int(fd) != 0)
-		_ERROR("ERROR_FILE");
-	if ((g_gen.champ[a].length = check_int(fd)) < 0
-		|| g_gen.champ[a].length > CHAMP_MAX_SIZE)
-		_ERROR("ERROR SIZE")
+	_READING(check_int(fd) != 0, "ERROR FILE");
+	_READING (((g_gen.champ[a].length = check_int(fd)) < 0
+		|| g_gen.champ[a].length > CHAMP_MAX_SIZE), "ERROR_SIZE");
 	g_gen.champ[a].comment = check_name(fd, COMMENT_LENGTH);
-	if (check_int(fd) != 0)
-		_ERROR("ERROR");
+	_READING(check_int(fd) != 0, "ERROR");
 	g_gen.champ[a].algo = check_code(fd, g_gen.champ[a].length);
 }

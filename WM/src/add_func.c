@@ -1,14 +1,14 @@
 #include "../includes/vm.h"
 
-void		op_aff(t_kareta *cursor)
+void		op_aff(t_kareta *kareta)
 {
 	int32_t	reg;
 	int32_t	value;
 
-	cursor->step += OP_LEN + ARG_LEN;
-	reg = st.field[find_adress(cursor->pos + cursor->step)];
-	value = cursor->reg[reg - 1];
-	cursor->step += REG_LEN;
+	kareta->step += OP_LEN + ARG_LEN;
+	reg = st.field[find_adress(kareta->pos + kareta->step)];
+	value = kareta->reg[reg - 1];
+	kareta->step += REG_LEN;
 	if (st.aff)
 		ft_printf("%c\n", (char)value);
 }
@@ -63,25 +63,25 @@ int32_t		byte_to_int(int32_t addr, int32_t size)
 	return (result);
 }
 
-int			take_op(t_kareta *cursor, uint8_t i, int mod)
+int			take_op(t_kareta *kareta, uint8_t i, int mod)
 {
 	t_operation	*op;
 	int			value;
 	int			addr;
 
-	op = &g_op[cursor->code - 1];
+	op = &g_op[kareta->code - 1];
 	value = 0;
-	if (cursor->argc_types[i - 1] & T_REG)
-		value = cursor->reg[st.field[find_adress(cursor->pos +
-				cursor->step)] - 1];
-	else if (cursor->argc_types[i - 1] & T_DIR)
-		value = byte_to_int(cursor->pos + cursor->step, op->t_dir_size);
-	else if (cursor->argc_types[i - 1] & T_IND)
+	if (kareta->argc_types[i - 1] & T_REG)
+		value = kareta->reg[st.field[find_adress(kareta->pos +
+				kareta->step)] - 1];
+	else if (kareta->argc_types[i - 1] & T_DIR)
+		value = byte_to_int(kareta->pos + kareta->step, op->t_dir_size);
+	else if (kareta->argc_types[i - 1] & T_IND)
 	{
-		addr = byte_to_int(cursor->pos + cursor->step, IND_SIZE);
-		value = byte_to_int(cursor->pos + (mod ? (addr % IDX_MOD) :
+		addr = byte_to_int(kareta->pos + kareta->step, IND_SIZE);
+		value = byte_to_int(kareta->pos + (mod ? (addr % IDX_MOD) :
 					addr), DIR_SIZE);
 	}
-	cursor->step += count_step(cursor->argc_types[i - 1], op);
+	kareta->step += count_step(kareta->argc_types[i - 1], op);
 	return (value);
 }

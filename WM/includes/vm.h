@@ -10,6 +10,7 @@
 
 # define ER_START	"\033[41m"
 # define ER_END		"\033[40m"
+# define _ERROR_MALLOC(ex) if(!(ex)) {_ERROR("ERROR IN ALLOCATION MEMMORY")};
 #define _ERROR(ex) {printf("%s%s%s\n",ER_START,ex,ER_END);errrorrororo();}
 #define _SET_CHAMP(ex) {ft_strcat(ex, chmp); return ;}
 #define _READ_CHAMP(ex, name) {read_champ(ex,name);return ;}
@@ -21,7 +22,11 @@
 #define _DIE st.cycles_to_die
 #define _AM_I_DIE _DIE == st.cycles_after_check || st.cycles_to_die <= 0
 #define _FD st.flag_d
-#define _VS {vs_update_stats(&st.v);vs_update_main(&st.v);}
+#define _READING(ex, ex2) if(ex) {_ERROR(ex2);}
+#define _SET_OOP(ex) ex = st.field[kareta->pos];
+#define _CWAIT(ex) ex = g_op[kareta->code - 1].cycles;
+#define _POOP st.field[kareta->pos] >= 0x01 && st.field[kareta->pos] <= 0x10
+#define _VS {if (st.flag_visual){vs_update_stats(&st.v);vs_update_main(&st.v);}}
 #define _FDUMP st.flag_dump
 #define _RAVNO st.flag_dump_d == st.cycles
 #define _PBF if (_RAVNO && (_FD || _FDUMP)){_PRINT_B}

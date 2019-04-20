@@ -24,35 +24,46 @@ int		make_step(t_kareta *kareta, t_operation *operation)
 
 void	set_operation(t_kareta *kareta)
 {
-	kareta->code = st.field[kareta->pos];
-	if (st.field[kareta->pos] >= 0x01 && st.field[kareta->pos] <= 0x10)
-		kareta->wait = g_op[kareta->code - 1].cycles;
+	_SET_OOP(kareta->code);
+	if (_POOP)
+		_CWAIT(kareta->wait);
+}
+
+void do_func(t_kareta *kareta){
+	t_operation	*new;
+
+	new = NULL;
+	if (_CHECK_WAIT)
+		new = &g_op[kareta->code - 1];
+	if (new)
+	{
+		read_argtype(kareta, new);
+		if (validate_args(kareta, new) && check_args(kareta, new))
+			new->func(kareta);
+		else
+			kareta->step += make_step(kareta, new);
+	}
+	else
+		kareta->step = 1;
+
+}
+
+void am_i_waiting(t_kareta *kareta)
+{
+	if (kareta->wait)
+	{
+		kareta->wait--;
+		if (kareta->wait == 0)
+			do_func(kareta);
+	}
+	else
+		set_operation(kareta);
+
 }
 
 void	check_karetu(t_kareta *kareta)
 {
-	t_operation	*new;
-
-	if (!kareta->wait)
-		set_operation(kareta);
-	if (kareta->wait > 0)
-		kareta->wait--;
-	if (!kareta->wait)
-	{
-		new = NULL;
-		if (_CHECK_WAIT)
-			new = &g_op[kareta->code - 1];
-		if (new)
-		{
-			read_argtype(kareta, new);
-			if (validate_args(kareta, new) && check_args(kareta, new))
-				new->func(kareta);
-			else
-				kareta->step += make_step(kareta, new);
-		}
-		else
-			kareta->step = 1;
-	}
+	am_i_waiting(kareta);
 	next_op(kareta);
 }
 
@@ -78,8 +89,18 @@ void	full_game()
 	while (st.kareta)
 	{
 		_LOG(st.cycles + 1, st.cycles_after_check + 1);
-		_PBF;
-		if (st.flag_visual == true)
+		//_PBF;
+		if (_RAVNO && (_FD || _FDUMP))
+		{
+			if (st.flag_visual)
+			{
+				_VS;
+				exit(0);
+			}
+			else
+				_PRINT_B;
+		}
+		if (!_FD && !_FDUMP)
 			_VS;
 		run_cycle();
 		if (_AM_I_DIE)
@@ -92,6 +113,8 @@ void set_karetu()
 	st.cycles_to_die = CYCLE_TO_DIE;
 	print_info_champs();
 	_CHECK_VISUALISATION;
+	if (st.flag_visual)
+		_VS;
 	//system("afplay 123.wav&");
 	full_game();
 }
