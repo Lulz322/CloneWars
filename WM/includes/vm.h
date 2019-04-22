@@ -58,7 +58,7 @@ void		set_field(int32_t addr, uint8_t i, int32_t size);
 void create_field(void);
 int		count_step(uint8_t type, t_operation *oop);
 int8_t	count_size(int pos, int step);
-int		check_args(t_kareta *kareta, t_operation *oop);
+bool	check_args(t_kareta *kareta, t_operation *oop);
 bool	validate_args(t_kareta *kareta, t_operation *oop);
 void	read_argtype(t_kareta *kareta, t_operation *oop);
 t_kareta	*copy_kareta(t_kareta *kareta, int32_t addr);
@@ -72,5 +72,8 @@ void swap(t_champ *first, t_champ *second);
 void print_info_champs();
 void	print_last_alive();
 void print_player_code();
+void set_death(void);
+void set_music(void);
+void kill_sounds(void);
 int32_t	bytecode_to_int32(uint8_t *bytecode, int size);
 #endif

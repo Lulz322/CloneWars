@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_func.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/22 11:35:53 by iruban            #+#    #+#             */
+/*   Updated: 2019/04/22 11:35:54 by iruban           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
 void		op_aff(t_kareta *kareta)
@@ -36,7 +48,7 @@ int			take_op(t_kareta *kareta, uint8_t i, int mod)
 	return (value);
 }
 
-void swap(t_champ *first, t_champ *second)
+void		swap(t_champ *first, t_champ *second)
 {
 	t_champ tmp;
 
@@ -45,10 +57,10 @@ void swap(t_champ *first, t_champ *second)
 	*second = tmp;
 }
 
-int check_where(char *where)
+int			check_where(char *where)
 {
-	int a;
-	char *tmp;
+	int		a;
+	char	*tmp;
 
 	if (!where)
 		_ERROR("O_o");
@@ -63,7 +75,7 @@ int check_where(char *where)
 	return (a);
 }
 
-int		find_adress(int i)
+int			find_adress(int i)
 {
 	i %= MEM_SIZE;
 	if (i < 0)

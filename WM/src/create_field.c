@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_field.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/22 11:41:31 by iruban            #+#    #+#             */
+/*   Updated: 2019/04/22 11:41:32 by iruban           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
-int karettta(int i)
+int			karettta(int i)
 {
 	t_kareta *tmp;
 
@@ -27,11 +39,11 @@ void		set_field(int32_t addr, uint8_t i, int32_t size)
 	}
 }
 
-void set_players(t_champ champ, int byte)
+void		set_players(t_champ champ, int byte)
 {
-	int i;
-	int j;
-	t_kareta *a;
+	int			i;
+	int			j;
+	t_kareta	*a;
 
 	a = g_gen.kareta;
 	i = 0;
@@ -46,7 +58,7 @@ void set_players(t_champ champ, int byte)
 	}
 }
 
-int how_many_players(void)
+int			how_many_players(void)
 {
 	int i;
 
@@ -56,7 +68,7 @@ int how_many_players(void)
 	return (i);
 }
 
-void create_field(void)
+void		create_field(void)
 {
 	int a;
 	int i;

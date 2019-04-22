@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   byte_funcs.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/22 11:40:05 by iruban            #+#    #+#             */
+/*   Updated: 2019/04/22 11:40:06 by iruban           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
 void		int_to_byte(int32_t addr, int32_t value, int32_t size)
@@ -37,7 +49,7 @@ int32_t		byte_to_int(int32_t addr, int32_t size)
 	return (result);
 }
 
-int32_t	bytecode_to_int32(uint8_t *bytecode, int size)
+int32_t		bytecode_to_int32(uint8_t *bytecode, int size)
 {
 	int32_t	result;
 	int		sign;
@@ -59,9 +71,8 @@ int32_t	bytecode_to_int32(uint8_t *bytecode, int size)
 	return (result);
 }
 
-bool is_dat_is_a_child(int i)
+bool		is_dat_is_a_child(int i)
 {
-
 	t_kareta *tmp;
 
 	tmp = st.kareta;

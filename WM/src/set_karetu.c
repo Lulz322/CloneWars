@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_karetu.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/22 12:49:29 by iruban            #+#    #+#             */
+/*   Updated: 2019/04/22 12:49:30 by iruban           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
 int		make_step(t_kareta *kareta, t_operation *operation)
@@ -20,7 +32,7 @@ void	set_operation(t_kareta *kareta)
 		_CWAIT(kareta->wait);
 }
 
-void do_func(t_kareta *kareta)
+void	do_func(t_kareta *kareta)
 {
 	t_operation	*new;
 
@@ -37,10 +49,9 @@ void do_func(t_kareta *kareta)
 	}
 	else
 		kareta->step = 1;
-
 }
 
-void am_i_waiting(t_kareta *kareta)
+void	am_i_waiting(t_kareta *kareta)
 {
 	if (kareta->wait)
 	{
@@ -50,7 +61,6 @@ void am_i_waiting(t_kareta *kareta)
 	}
 	else
 		set_operation(kareta);
-
 }
 
 void	check_karetu(t_kareta *kareta)
@@ -59,7 +69,7 @@ void	check_karetu(t_kareta *kareta)
 	next_op(kareta);
 }
 
-void	run_cycle()
+void	run_cycle(void)
 {
 	t_kareta *tmp;
 
@@ -72,10 +82,11 @@ void	run_cycle()
 	}
 }
 
-void	full_game()
+void	full_game(void)
 {
 	while (st.kareta)
 	{
+		set_music();
 		_LOG(st.cycles + 1, st.cycles_after_check + 1);
 		if (_RAVNO && (_FD || _FDUMP))
 		{
@@ -97,7 +108,7 @@ void	full_game()
 	}
 }
 
-void set_karetu()
+void	set_karetu(void)
 {
 	st.cycles_to_die = CYCLE_TO_DIE;
 	print_info_champs();

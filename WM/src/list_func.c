@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_func.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/22 11:44:58 by iruban            #+#    #+#             */
+/*   Updated: 2019/04/22 11:44:59 by iruban           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
-t_kareta *create_elem(int pos)
+t_kareta	*create_elem(int pos)
 {
-	static int id;
-	t_kareta *elem;
+	static	int	id;
+	t_kareta	*elem;
+
 	_ERROR_MALLOC(elem = (t_kareta *)malloc(sizeof(t_kareta)));
 	ft_bzero(elem, sizeof(t_kareta));
 	elem->id = ++id;
@@ -12,7 +25,7 @@ t_kareta *create_elem(int pos)
 	return (elem);
 }
 
-void print_list(t_kareta *list)
+void		print_list(t_kareta *list)
 {
 	t_kareta *tmp;
 
@@ -20,15 +33,16 @@ void print_list(t_kareta *list)
 	while (tmp)
 	{
 		ft_printf("[%d]    |   Position : %-4d\n", tmp->id, tmp->pos);
-		tmp= tmp->next;
+		tmp = tmp->next;
 	}
 }
 
-void add_elem(t_kareta **list, int pos)
+void		add_elem(t_kareta **list, int pos)
 {
 	t_kareta *tmp;
+
 	if (!*list)
-	 *list = create_elem(pos);
+		*list = create_elem(pos);
 	else
 	{
 		tmp = create_elem(pos);
@@ -51,7 +65,7 @@ t_kareta	*copy_kareta(t_kareta *cursor, int32_t addr)
 	return (new);
 }
 
-void	next_op(t_kareta *kareta)
+void		next_op(t_kareta *kareta)
 {
 	kareta->pos = find_adress(kareta->pos + kareta->step);
 	kareta->step = 0;

@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/22 11:47:59 by iruban            #+#    #+#             */
+/*   Updated: 2019/04/22 11:48:00 by iruban           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
 void			errrorrororo(void)
 {
-	ft_printf("MGRN(Usage: ./corewar [-d N] [-dump N] [-v] [-l N] [-n N{1 - 4}] {champ_name.cor , ...})\n");
+	ft_printf("MGRN(Usage: ./corewar [-d N] [-dump N] [-v] [-l N] [-n N{1 - 4");
+	ft_printf("MGRN(} {champ_name.cor , ...})\n");
 	ft_printf("\tMRED(-d)\tMRED(Print Battlefield in 64 octets in a row)\n");
 	ft_printf("\tMRED(-dump)\tMBLU(Print Battlefield in 32 octets in row)\n");
 	ft_printf("\tMRED(-v)\tMYLW(Turn on a Visualisation\n");
@@ -11,7 +24,7 @@ void			errrorrororo(void)
 	exit(0);
 }
 
-int main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	st.aff = 1;
 	parsing_argc(argc, argv);

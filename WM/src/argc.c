@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   argc.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/22 11:37:32 by iruban            #+#    #+#             */
+/*   Updated: 2019/04/22 11:37:33 by iruban           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
 int8_t	count_size(int pos, int step)
@@ -19,7 +31,7 @@ int		count_step(uint8_t type, t_operation *oop)
 	return (0);
 }
 
-int		check_args(t_kareta *kareta, t_operation *oop)
+bool	check_args(t_kareta *kareta, t_operation *oop)
 {
 	int		i;
 	int		step;
@@ -30,11 +42,11 @@ int		check_args(t_kareta *kareta, t_operation *oop)
 	{
 		if ((kareta->argc_types[i] == T_REG)
 			&& !count_size(kareta->pos, step))
-			return (0);
+			return (false);
 		step += count_step(kareta->argc_types[i], oop);
 		i++;
 	}
-	return (1);
+	return (true);
 }
 
 bool	validate_args(t_kareta *kareta, t_operation *oop)

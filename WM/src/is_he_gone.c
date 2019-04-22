@@ -1,12 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_he_gone.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/22 11:42:47 by iruban            #+#    #+#             */
+/*   Updated: 2019/04/22 11:42:48 by iruban           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
-bool	is_die(t_kareta *kareta)
+bool		is_die(t_kareta *kareta)
 {
 	return (st.cycles_to_die <= 0
 			|| st.cycles - kareta->last_alive >= st.cycles_to_die);
 }
 
-t_kareta *del(t_kareta **del_me, t_kareta *prev)
+/*
+**	Add death sound in function below
+*/
+
+t_kareta	*del(t_kareta **del_me, t_kareta *prev)
 {
 	t_kareta *new;
 	t_kareta *tmp;
@@ -20,11 +36,11 @@ t_kareta *del(t_kareta **del_me, t_kareta *prev)
 		st.kareta = new;
 	tmp = new;
 	st.am_karet--;
-	//system("afplay died.wav&");
+	set_death();
 	return (tmp);
 }
 
-void	check_karetutu(t_kareta *prev)
+void		check_karetutu(t_kareta *prev)
 {
 	t_kareta *tmp;
 
@@ -41,7 +57,7 @@ void	check_karetutu(t_kareta *prev)
 	}
 }
 
-void 	set_zero()
+void		set_zero(void)
 {
 	int i;
 
@@ -53,7 +69,7 @@ void 	set_zero()
 	}
 }
 
-void	check_who_die()
+void		check_who_die(void)
 {
 	st.check_in++;
 	check_karetutu(NULL);
