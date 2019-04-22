@@ -28,7 +28,7 @@ void	print_last_alive(void)
 	ft_printf("Player %d \"%s\" won!\n", st.last_alive + 1,
 		st.champ[st.last_alive].name);
 	kill_sounds();
-		system("rm temp");
+	system("rm temp");
 }
 
 void	print_field(int i)

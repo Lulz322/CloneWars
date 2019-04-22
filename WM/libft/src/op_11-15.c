@@ -29,6 +29,7 @@ void				op_fork(t_kareta *kareta)
 	new->next = st.kareta;
 	st.kareta = new;
 	st.am_karet++;
+	Jason_Born();
 }
 
 void				op_lld(t_kareta *kareta)
@@ -69,4 +70,5 @@ void				op_lfork(t_kareta *kareta)
 	new->next = st.kareta;
 	st.kareta = new;
 	st.am_karet++;
+	Jason_Born();
 }

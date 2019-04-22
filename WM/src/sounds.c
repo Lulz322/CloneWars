@@ -11,7 +11,6 @@ bool	check_sound(int mod)
 	fd = open("temp", O_RDONLY);
 	read(fd, temp, SIZE);
 	counter = ft_atoi(temp);
-	//printf("[%d]\n", counter);
 	close(fd);
 	if (mod == 1)
 		return ((counter == 2) ? true : false);
@@ -22,6 +21,12 @@ void set_death(void)
 {
 	if (check_sound(2))
 		system("afplay died.wav&");
+}
+
+void Jason_Born(void)
+{
+	if (check_sound(2))
+		system("afplay born.wav&");
 }
 
 void set_music(void)
