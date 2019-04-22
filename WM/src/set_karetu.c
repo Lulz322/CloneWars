@@ -1,14 +1,5 @@
 #include "../includes/vm.h"
 
-int		find_adress(int i)
-{
-	i %= MEM_SIZE;
-	if (i < 0)
-		i += MEM_SIZE;
-	return (i);
-}
-
-
 int		make_step(t_kareta *kareta, t_operation *operation)
 {
 	int		i;
@@ -29,7 +20,8 @@ void	set_operation(t_kareta *kareta)
 		_CWAIT(kareta->wait);
 }
 
-void do_func(t_kareta *kareta){
+void do_func(t_kareta *kareta)
+{
 	t_operation	*new;
 
 	new = NULL;
@@ -80,16 +72,11 @@ void	run_cycle()
 	}
 }
 
-void logs(int i, int d) {
-	ft_printf("It is now cycle %llu, after check %i\n", i, d);
-}
-
 void	full_game()
 {
 	while (st.kareta)
 	{
 		_LOG(st.cycles + 1, st.cycles_after_check + 1);
-		//_PBF;
 		if (_RAVNO && (_FD || _FDUMP))
 		{
 			if (st.flag_visual)
@@ -105,6 +92,8 @@ void	full_game()
 		run_cycle();
 		if (_AM_I_DIE)
 			check_who_die();
+		if (st.log == 2)
+			ft_printf("Cycle to die is now %i\n", st.cycles_to_die);
 	}
 }
 
@@ -113,8 +102,6 @@ void set_karetu()
 	st.cycles_to_die = CYCLE_TO_DIE;
 	print_info_champs();
 	_CHECK_VISUALISATION;
-	if (st.flag_visual)
-		_VS;
 	//system("afplay 123.wav&");
 	full_game();
 }

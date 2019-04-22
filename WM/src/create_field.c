@@ -14,70 +14,16 @@ int karettta(int i)
 	return (0);
 }
 
-bool is_dat_is_a_child(int i)
+void		set_field(int32_t addr, uint8_t i, int32_t size)
 {
-
-	t_kareta *tmp;
-
-	tmp = st.kareta;
-	while (tmp)
-	{
-		if (tmp->pos == i && tmp->living <= 50)
-			return (true);
-		tmp = tmp->next;
-	}
-	return (false);
-}
-
-void print_field(int i) {
-	int a;
 	int j;
 
-	a = 0;
-	while (a < MEM_SIZE)
+	j = 0;
+	while (size)
 	{
-		ft_printf("%.4p : ", a);
-		j = 0;
-		while (j < i)
-		{
-			if (karettta(a + j) == 1)
-				ft_printf("MRED(%.2x) ", g_gen.field[a + j]);
-			else if (karettta(a + j) == 2)
-				ft_printf("MYLW(%.2x) ", g_gen.field[a + j]);
-			else if (karettta(a + j) == 3)
-				ft_printf("MPRP(%.2x) ", g_gen.field[a + j]);
-			else if(karettta(a + j) == 4)
-				ft_printf("MCYN(%.2x) ", g_gen.field[a + j]);
-			else {
-				if (g_gen.v_field[a + j] == 1)
-					ft_printf("MGRN(%.2x) ", g_gen.field[a + j]);
-				else if (g_gen.v_field[a + j] == 2)
-					ft_printf("MBLU(%.2x) ", g_gen.field[a + j]);
-				else if(g_gen.v_field[a + j] == 3)
-					ft_printf("MCYN(%.2x) ", g_gen.field[a + j]);
-				else if(g_gen.v_field[a + j] == 4)
-					ft_printf("MYLW(%.2x) ", g_gen.field[a + j]);
-				else
-					ft_printf("%.2x ", g_gen.v_field[a + j]);
-			}
-			j++;
-		}
-		ft_printf("\n");
-		a += i;
-	}
-}
-
-void print_player_code() {
-	int a;
-	int j;
-
-	a = -1;
-	while (++a < 4 && g_gen.champ[a].name)
-	{
-		j = -1;
-		while(++j < g_gen.champ[a].length)
-			printf("%02x ", g_gen.champ[a].algo[j]);
-		printf("\n\n\n");
+		st.v_field[find_adress(addr + size - 1)] = i;
+		j += 8;
+		size--;
 	}
 }
 

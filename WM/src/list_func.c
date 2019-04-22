@@ -19,7 +19,7 @@ void print_list(t_kareta *list)
 	tmp = list;
 	while (tmp)
 	{
-		printf("[%d]    |   Position : %-4d\n", tmp->id, tmp->pos);
+		ft_printf("[%d]    |   Position : %-4d\n", tmp->id, tmp->pos);
 		tmp= tmp->next;
 	}
 }
@@ -49,4 +49,11 @@ t_kareta	*copy_kareta(t_kareta *cursor, int32_t addr)
 	new->carry = cursor->carry;
 	new->last_alive = cursor->last_alive;
 	return (new);
+}
+
+void	next_op(t_kareta *kareta)
+{
+	kareta->pos = find_adress(kareta->pos + kareta->step);
+	kareta->step = 0;
+	ft_bzero(kareta->argc_types, 3);
 }

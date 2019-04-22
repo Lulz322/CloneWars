@@ -1,4 +1,4 @@
-#include "../includes/vm.h"
+#include "../../includes/vm.h"
 
 void				op_live(t_kareta *kareta)
 {

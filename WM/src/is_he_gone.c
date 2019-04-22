@@ -1,38 +1,38 @@
 #include "../includes/vm.h"
 
-void	next_op(t_kareta *kareta)
-{
-	kareta->pos = find_adress(kareta->pos + kareta->step);
-	kareta->step = 0;
-	ft_bzero(kareta->argc_types, 3);
-}
-
-int		is_die(t_kareta *kareta)
+bool	is_die(t_kareta *kareta)
 {
 	return (st.cycles_to_die <= 0
 			|| st.cycles - kareta->last_alive >= st.cycles_to_die);
 }
 
+t_kareta *del(t_kareta **del_me, t_kareta *prev)
+{
+	t_kareta *new;
+	t_kareta *tmp;
+
+	tmp = *del_me;
+	new = tmp->next;
+	free(tmp);
+	if (prev)
+		prev->next = new;
+	else
+		st.kareta = new;
+	tmp = new;
+	st.am_karet--;
+	//system("afplay died.wav&");
+	return (tmp);
+}
+
 void	check_karetutu(t_kareta *prev)
 {
 	t_kareta *tmp;
-	t_kareta *new;
 
 	tmp = st.kareta;
 	while (tmp)
 	{
 		if (is_die(tmp))
-		{
-			new = tmp->next;
-			free(tmp);
-			if (prev)
-				prev->next = new;
-			else
-				st.kareta = new;
-			tmp = new;
-			st.am_karet--;
-			//system("mpg123 ../died.wav&");
-		}
+			tmp = del(&tmp, prev);
 		else
 		{
 			prev = tmp;
@@ -41,25 +41,23 @@ void	check_karetutu(t_kareta *prev)
 	}
 }
 
-void	check_who_die()
+void 	set_zero()
 {
 	int i;
 
 	i = -1;
-	st.check_in++;
-	check_karetutu(NULL);
-	if (st.check_in == MAX_CHECKS || st.live_in >= NBR_LIVE)
-	{
-		st.cycles_to_die -= CYCLE_DELTA;
-		if (st.log == 2)
-			ft_printf("Cycle to die is now %i\n", st.cycles_to_die);
-		st.check_in = 0;
-	}
 	while (++i < st.am_champs)
 	{
 		st.champ[i].last_alive = st.champ[i].live;
 		st.champ[i].live = 0;
 	}
-	st.live_in = 0;
-	st.cycles_after_check = 0;
+}
+
+void	check_who_die()
+{
+	st.check_in++;
+	check_karetutu(NULL);
+	_IS_CYCLE;
+	set_zero();
+	_ZERO;
 }
