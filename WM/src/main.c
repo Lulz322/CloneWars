@@ -14,14 +14,16 @@
 
 void			errrorrororo(void)
 {
-	ft_printf("MGRN(Usage: ./corewar [-d N] [-dump N] [-v] [-a] [-l N] ");
+	ft_printf("MGRN(Usage: ./corewar [-d N] [-dump N] [-a] [-l N] [-v] ");
 	ft_printf("MGRN([-n N{1 - 4}] {champ_name.cor , ...})\n");
 	ft_printf("\tMRED(-d)\tMRED(Print Battlefield in 64 octets in a row)\n");
 	ft_printf("\tMRED(-dump)\tMBLU(Print Battlefield in 32 octets in row)\n");
-	ft_printf("\tMRED(-v)\tMYLW(Turn on a Visualisation\n");
 	ft_printf("\tMRED(-a)\tRly I don't know how it's working\n");
 	ft_printf("\tMRED(-l)\tMCYN(Verbosity levels)\n");
 	ft_printf("\tMRED(-n)\tMPRP(Set player Number  N)\n");
+	ft_printf("\tMRED(-v)\tMYLW(Turn on a Visualisation\n");
+	ft_printf("\t\t%-10s- speed\n\t\t%-11s - pause\n", " <- || ->", "Space");
+	ft_printf("\t\t%-11s - Quit\n", "q");
 	exit(0);
 }
 

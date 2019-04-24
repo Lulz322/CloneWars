@@ -98,6 +98,8 @@ void	parsing_argc(int argc, char **argv)
 			set_dump(argv[i++ + 1], 3);
 		else if (ft_strequ(argv[i], "-a"))
 			st.aff = 1;
+		else if (ft_strequ(argv[i], "-peremoga"))
+			st.flag_peremoga = true;
 		else
 			set_unknown(argv[i]);
 	}
