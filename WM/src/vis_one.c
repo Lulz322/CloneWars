@@ -356,40 +356,50 @@ void	vs_prepare_stat(t_vis *v)
 	wrefresh(v->stat);
 }
 
-// void	vs_prepare_winer(void)
-// {
-// 	werase()
-// }
-
-void	vs_announce_winner(t_vis *v, int y, int x, int i)
+void	vs_prepare_winer(int *y, int *x, int *len)
 {
-	int len;
-	WINDOW *win;
-
-	timeout(-1);
-	werase(v->stat);
-	werase(v->main);
-	box(stdscr, 0, 0);
-	len = ft_strlen(st.champ[st.last_alive].name);
-	while (y < v->y)
-	{
-		x = 1;
-		while (x < v->x)
-		{
-			if (i - 1 == len)
-				i = 0;
-			mvprintw(y, x, "%s", st.champ[st.last_alive].name[i]);
-			x += 2;
-			i++;
-		}
-		y++;
-	}
-	win = newwin(7, 52, (v->y - 7) / 2, (v->x - 52) / 2);
-	box(win, 0, 0);
-	refresh();
-	wrefresh(win);
-	getch();
 	endwin();
+	initscr();
+	start_color();
+	cbreak();
+	noecho();
+	keypad(stdscr, TRUE);
+	curs_set(0);
+	vs_init_color();
+	getmaxyx(stdscr, *y, *x);
+	timeout(-1);
+	box(stdscr, 0, 0);
+	*len = ft_strlen(st.champ[st.last_alive].name);
+	refresh();
+}
+
+void		vs_announce_winner(int i, int j, int o)
+{
+	int y;
+	int x;
+	int len;
+
+	i = 1;
+	vs_prepare_winer(&y, &x, &len);
+	attron(COLOR_PAIR(st.last_alive + 1));
+	while (i < y - 1)
+	{
+		j = 2;
+		while (j < x - 1)
+		{
+			if (o - 1 == len)
+				o = 0;
+			mvprintw(i, j, "%c", st.champ[st.last_alive].name[o]);
+			j += 2;
+			o++;
+		}
+		i++;
+	}
+	attroff(COLOR_PAIR(st.last_alive + 1));
+	refresh();
+	vs_print_banner(y, x);
+	//getch();
+	//endwin();
 }
 
 void	vs_main(void)

@@ -45,7 +45,7 @@
 
 bool is_dat_is_a_child(int i);
 void	vs_main(void);
-void	vs_announce_winner(t_vis *v, int y, int x, int i);
+void	vs_announce_winner(int i, int j, int o);
 void			errrorrororo(void);
 void	check_who_die();
 void	next_op(t_kareta *kareta);
