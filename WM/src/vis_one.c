@@ -378,7 +378,7 @@ void	vs_announce_winner(t_vis *v, int y, int x, int i)
 		{
 			if (i - 1 == len)
 				i = 0;
-			mvprintw(y, x, "%s", st.champ[st.last_alive].name[i])
+			mvprintw(y, x, "%s", st.champ[st.last_alive].name[i]);
 			x += 2;
 			i++;
 		}
