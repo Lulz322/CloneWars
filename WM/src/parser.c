@@ -100,6 +100,8 @@ void	parsing_argc(int argc, char **argv)
 			st.aff = 1;
 		else if (ft_strequ(argv[i], "-peremoga"))
 			st.flag_peremoga = true;
+		else if (ft_strequ(argv[i], "-s"))
+			st.sounds = true;
 		else
 			set_unknown(argv[i]);
 	}
