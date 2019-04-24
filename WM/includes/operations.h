@@ -70,6 +70,7 @@ typedef struct s_general
 	bool flag_dump;
 	bool flag_d;
 	bool flag_visual;
+	bool flag_peremoga;
 	bool flag_l;
 	int flag_l_d;
 	int	flag_dump_d;
