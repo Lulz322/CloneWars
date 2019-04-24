@@ -18,10 +18,6 @@ bool		is_die(t_kareta *kareta)
 			|| st.cycles - kareta->last_alive >= st.cycles_to_die);
 }
 
-/*
-**	Add death sound in function below
-*/
-
 t_kareta	*del(t_kareta **del_me, t_kareta *prev)
 {
 	t_kareta *new;

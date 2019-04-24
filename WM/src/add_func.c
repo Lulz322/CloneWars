@@ -21,7 +21,7 @@ void		op_aff(t_kareta *kareta)
 	reg = st.field[find_adress(kareta->pos + kareta->step)];
 	value = kareta->reg[reg - 1];
 	kareta->step += REG_LEN;
-	if (st.aff)
+	if (st.aff && st.flag_visual)
 		ft_printf("%c\n", (char)value);
 }
 

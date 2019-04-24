@@ -96,6 +96,8 @@ void	parsing_argc(int argc, char **argv)
 			st.flag_visual = true;
 		else if (ft_strequ(argv[i], "-l"))
 			set_dump(argv[i++ + 1], 3);
+		else if (ft_strequ(argv[i], "-a"))
+			st.aff = 1;
 		else
 			set_unknown(argv[i]);
 	}

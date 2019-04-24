@@ -1,5 +1,7 @@
 #include "../../includes/vm.h"
 
+#define REPLACE {new->next = st.kareta;st.kareta = new;st.am_karet++;}
+
 void				op_sti(t_kareta *kareta)
 {
 	int32_t	reg;
@@ -26,10 +28,8 @@ void				op_fork(t_kareta *kareta)
 	kareta->step += OP_LEN;
 	addr = take_op(kareta, 1, 1);
 	new = copy_kareta(kareta, addr % IDX_MOD);
-	new->next = st.kareta;
-	st.kareta = new;
-	st.am_karet++;
-	Jason_Born();
+	REPLACE;
+	jason_born();
 }
 
 void				op_lld(t_kareta *kareta)
@@ -67,8 +67,6 @@ void				op_lfork(t_kareta *kareta)
 	kareta->step += OP_LEN;
 	addr = take_op(kareta, 1, 1);
 	new = copy_kareta(kareta, addr);
-	new->next = st.kareta;
-	st.kareta = new;
-	st.am_karet++;
-	Jason_Born();
+	REPLACE;
+	jason_born();
 }

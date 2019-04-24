@@ -72,7 +72,7 @@ void swap(t_champ *first, t_champ *second);
 void print_info_champs();
 void	print_last_alive();
 void print_player_code();
-void Jason_Born(void);
+void jason_born(void);
 void set_death(void);
 void set_music(void);
 void kill_sounds(void);
