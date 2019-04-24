@@ -356,6 +356,42 @@ void	vs_prepare_stat(t_vis *v)
 	wrefresh(v->stat);
 }
 
+// void	vs_prepare_winer(void)
+// {
+// 	werase()
+// }
+
+void	vs_announce_winner(t_vis *v, int y, int x, int i)
+{
+	int len;
+	WINDOW *win;
+
+	timeout(-1);
+	werase(v->stat);
+	werase(v->main);
+	box(stdscr, 0, 0);
+	len = ft_strlen(st.champ[st.last_alive].name);
+	while (y < v->y)
+	{
+		x = 1;
+		while (x < v->x)
+		{
+			if (i - 1 == len)
+				i = 0;
+			mvprintw(y, x, "%s", st.champ[st.last_alive].name[i])
+			x += 2;
+			i++;
+		}
+		y++;
+	}
+	win = newwin(7, 52, (v->y - 7) / 2, (v->x - 52) / 2);
+	box(win, 0, 0);
+	refresh();
+	wrefresh(win);
+	getch();
+	endwin();
+}
+
 void	vs_main(void)
 {
 	t_vis v;

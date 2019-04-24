@@ -93,6 +93,7 @@ void	full_game(void)
 			if (st.flag_visual)
 			{
 				_VS;
+				endiwn();
 				exit(0);
 			}
 			else
