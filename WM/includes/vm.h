@@ -6,6 +6,7 @@
 #include "op.h"
 #include "../libft/includes/libft.h"
 #include "operations.h"
+#include "vis.h"
 
 
 # define ER_START	"\033[41m"
@@ -43,9 +44,8 @@
 
 #define st g_gen
 
+int 	karettta(int i);
 bool is_dat_is_a_child(int i);
-void	vs_main(void);
-void	vs_announce_winner(int i, int j, int o);
 void			errrorrororo(void);
 void	check_who_die();
 void	next_op(t_kareta *kareta);

@@ -25,8 +25,11 @@ void	print_info_champs(void)
 
 void	print_last_alive(void)
 {
-	ft_printf("Player %d \"%s\" won!\n", st.last_alive + 1,
-		st.champ[st.last_alive].name);
+	if (st.flag_visual)
+		vs_announce_winner(2, 2, 0);
+	else
+		ft_printf("Player %d \"%s\" won!\n", st.last_alive + 1,
+			st.champ[st.last_alive].name);
 	if (st.flag_visual)
 	{
 		kill_sounds();

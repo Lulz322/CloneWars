@@ -93,7 +93,6 @@ void	full_game(void)
 			if (st.flag_visual)
 			{
 				_VS;
-				vs_announce_winner(2, 2, 0);
 				timeout(-1);
 				getch();
 				endwin();

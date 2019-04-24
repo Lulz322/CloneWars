@@ -79,11 +79,6 @@ typedef struct s_general
 
 t_gen g_gen;
 
-void	vs_update_stats(t_vis *v);
-void	vs_update_main(t_vis *v);
-int 	karettta(int i);
-void	vs_prepare_stat(t_vis *v);
-
 void				op_live(t_kareta *kareta);
 void				op_ld(t_kareta *kareta);
 void				op_st(t_kareta *kareta);
