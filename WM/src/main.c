@@ -29,11 +29,12 @@ void			errrorrororo(void)
 
 int				main(int argc, char **argv)
 {
+	setlocale(LC_ALL, "");
 	parsing_argc(argc, argv);
 	_ERR_CHAMP(g_gen.champ[0].length);
 	create_field();
-	printf("%d\n", st.flag_visual);
+	printf("%d\n", st.flag_visual);//remove printf
 	set_karetu();
 	print_last_alive();
-	system("leaks corewar");
+	//system("leaks corewar");
 }

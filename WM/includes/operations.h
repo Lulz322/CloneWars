@@ -29,6 +29,14 @@ typedef struct s_kareta
 	struct s_kareta *next;
 } 	t_kareta;
 
+typedef struct	s_vis
+{
+	int			y;
+	int			x;
+	WINDOW		*main;
+	WINDOW		*stat;
+}				t_vis;
+
 typedef struct s_champ
 {
 	char file_name[255];
@@ -40,15 +48,6 @@ typedef struct s_champ
 	int live;
 	uint8_t *algo;
 }				t_champ;
-
-typedef struct	s_vis
-{
-	int			y;
-	int			x;
-	WINDOW		*main;
-	WINDOW		*stat;
-}				t_vis;
-
 
 typedef struct s_general
 {
@@ -70,7 +69,7 @@ typedef struct s_general
 	bool flag_dump;
 	bool flag_d;
 	bool flag_visual;
-	bool flag_peremoga;
+	bool f_p;
 	bool sounds;
 	bool flag_l;
 	int flag_l_d;

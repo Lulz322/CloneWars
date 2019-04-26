@@ -51,12 +51,39 @@ static void	vs_42_two(t_vis *v)
 	wattroff(v->stat, COLOR_PAIR(2));
 }
 
-void		vs_print_42(t_vis *v)
+static void vs_gerb(t_vis *v, int color)
+{
+	wattron(v->stat, COLOR_PAIR(color));
+	mvwprintw(v->stat, 40, 37, G3);
+	mvwprintw(v->stat, 41, 18, G4);
+	mvwprintw(v->stat, 42, 18, G5);
+	mvwprintw(v->stat, 43, 18, G6);
+	mvwprintw(v->stat, 44, 18, G7);
+	mvwprintw(v->stat, 45, 18, G8);
+	mvwprintw(v->stat, 46, 18, G9);
+	mvwprintw(v->stat, 47, 18, G10);
+	mvwprintw(v->stat, 48, 18, G11);
+	mvwprintw(v->stat, 49, 18, G12);
+	mvwprintw(v->stat, 50, 18, G13);
+	mvwprintw(v->stat, 51, 18, G14);
+	mvwprintw(v->stat, 52, 18, G15);
+	mvwprintw(v->stat, 53, 18, G16);
+	mvwprintw(v->stat, 54, 18, G17);
+	mvwprintw(v->stat, 55, 18, G18);
+	mvwprintw(v->stat, 56, 18, G19);
+	mvwprintw(v->stat, 57, 18, G20);
+	mvwprintw(v->stat, 58, 18, G21);
+	mvwprintw(v->stat, 59, 18, G22);
+	mvwprintw(v->stat, 60, 18, G23);
+	mvwprintw(v->stat, 61, 18, G24);
+	mvwprintw(v->stat, 62, 18, G25);
+	wattroff(v->stat, COLOR_PAIR(color));
+}
+
+void		vs_print_42(t_vis *v, int mod)
 {
 	static int i;
-	int mod;
 
-	mod = 110;
 	if (g_gen.cycles > 15000)
 		mod = 1;
 	else if (g_gen.cycles > 13500)
@@ -71,7 +98,10 @@ void		vs_print_42(t_vis *v)
 		mod = 50;
 	if (!(g_gen.cycles % mod))
 	{
-		(i == 1) ? vs_42_one(v) : vs_42_two(v);
+		if (g_gen.f_p)
+			(i == 1) ? vs_gerb(v, BLUE_BLACK) : vs_gerb(v, YELLOW_BLACK);
+		else
+			(i == 1) ? vs_42_one(v) : vs_42_two(v);
 		i++;
 		i = (i > 2) ? 1 : i;
 	}

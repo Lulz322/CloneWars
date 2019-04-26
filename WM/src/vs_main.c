@@ -40,7 +40,10 @@ static int	vs_init_screen(t_vis *v)
 	if (v->x < 262 || v->y < 70)
 	{
 		endwin();
-		write(1, "Term size is too small for the visualization\n", 45);
+		if (st.f_p)
+			write(1, "Термінал замалий для візуалізації\n", 34);
+		else
+			write(1, "Term size is too small for the visualization\n", 45);
 		return (0);
 	}
 	v->main = newwin(66, 195, 2, 2);
@@ -51,27 +54,27 @@ static int	vs_init_screen(t_vis *v)
 void		vs_prepare_stat(t_vis *v)
 {
 	wattron(v->stat, A_BOLD | COLOR_PAIR(YELLOW_BLACK));
-	mvwprintw(v->stat, 1, 20, "*** STATISTICS ***");
+	mvwprintw(v->stat, 1, 20, ((st.f_p) ? UA1 : EN1));
 	wattroff(v->stat, COLOR_PAIR(YELLOW_BLACK));
-	mvwprintw(v->stat, 3, 2, "Execution status:");
+	mvwprintw(v->stat, 3, 2, ((st.f_p) ? UA2 : EN2));
 	wattroff(v->stat, A_BOLD);
 	wattron(v->stat, A_UNDERLINE | COLOR_PAIR(GREEN_BLACK));
-	mvwprintw(v->stat, 3, 20, "running");
+	mvwprintw(v->stat, 3, 20, ((st.f_p) ? "біжить " : "running"));
 	wattroff(v->stat, A_UNDERLINE | COLOR_PAIR(GREEN_BLACK));
 	wattron(v->stat, A_BOLD);
-	mvwprintw(v->stat, 5, 2, "Cycle:");
-	mvwprintw(v->stat, 7, 2, "Processes:");
-	mvwprintw(v->stat, 9, 2, "Carries alive:");
-	mvwprintw(v->stat, 36, 2, "Cycles to die: %d", CYCLE_TO_DIE);
-	mvwprintw(v->stat, 42, 2, "CYCLE_DELTA: ");
-	mvwprintw(v->stat, 43, 2, "NBR_LIVE: ");
-	mvwprintw(v->stat, 44, 2, "MAX_CHECKS: ");
+	mvwprintw(v->stat, 5, 2, ((st.f_p) ? "Цикл:" : "Cycle:"));
+	mvwprintw(v->stat, 7, 2, ((st.f_p) ? "Процеси:" : "Processes:"));
+	mvwprintw(v->stat, 9, 2, ((st.f_p) ? UA3 : EN3));
+	mvwprintw(v->stat, 36, 2, ((st.f_p) ? UA4 : EN4), CYCLE_TO_DIE);
+	mvwprintw(v->stat, 42, 2, ((st.f_p) ? UA5 : EN5));
+	mvwprintw(v->stat, 43, 2, ((st.f_p) ? "КЛК_ЖИВІ: " : "NBR_LIVE: "));
+	mvwprintw(v->stat, 44, 2, ((st.f_p) ? "МАХ_ПЕР-ОК: " : "MAX_CHECKS: "));
 	wattroff(v->stat, A_BOLD);
 	mvwprintw(v->stat, 42, 15, "%d", CYCLE_DELTA);
 	mvwprintw(v->stat, 43, 15, "%d", NBR_LIVE);
 	mvwprintw(v->stat, 44, 15, "%d", MAX_CHECKS);
 	wattron(v->stat, A_BOLD | COLOR_PAIR(YELLOW_BLACK));
-	mvwprintw(v->stat, 64, 2, "Created by:");
+	mvwprintw(v->stat, 64, 2, ((st.f_p) ? "Створений:" : "Created by:"));
 	wattroff(v->stat, A_BOLD | COLOR_PAIR(YELLOW_BLACK));
 	mvwprintw(v->stat, 64, 14, "iruban, mbiliaie, dlenskyi, amatveie");
 	wrefresh(v->stat);

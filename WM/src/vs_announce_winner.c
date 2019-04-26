@@ -46,6 +46,18 @@ static void vs_winner_winner(int y, int x)
 	vs_chicken_dinner(y, x);
 }
 
+static void vs_peremoga(int y, int x)
+{
+	attron(A_BLINK | A_BOLD);
+	mvprintw(y / 3, x / 3, Z);
+	mvprintw(y / 3 + 1, x / 3, O);
+	mvprintw(y / 3 + 2, x / 3, P);
+	mvprintw(y / 3 + 3, x / 3, X);
+	mvprintw(y / 3 + 4, x / 3, B);
+	mvprintw(y / 3 + 5, x / 3, K);
+	mvprintw(y / 3 + 6, x / 3, J);
+}
+
 static void	vs_prepare_winer(int *y, int *x, int *len)
 {
 	endwin();
@@ -86,7 +98,7 @@ void		vs_announce_winner(int i, int j, int o)
 		i++;
 	}
 	attroff(COLOR_PAIR(st.last_alive + 1));
-	vs_winner_winner(y, x);
+	(g_gen.f_p) ? vs_peremoga(y + 35, x + 67) : vs_winner_winner(y, x);
 	refresh();
 	getch();
 	endwin();
