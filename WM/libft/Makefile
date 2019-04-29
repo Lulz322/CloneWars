@@ -1,54 +1,56 @@
-NAME    = libft.a
+NAME := libft.a
+NPWD := $(CURDIR)/$(NAME)
 
-INC_DIR = includes
-SRC_DIR = src
-OBJ_DIR = objs
+ECHO := echo
 
-INCLS   = $(INC_DIR)
-SRCS    = $(wildcard $(SRC_DIR)/*.c)
-OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	ECHO += -e
+	LC := gcc-ar
+endif
+	ifeq ($(UNAME_S),Darwin)
+		LC := ar
+	endif
 
-CC      = gcc
-CFLAGS  = -Wall -Wextra -Ofast
+LC += rcs
 
-LFLAGS  = -I.
-AR      = ar rcs
-RLIB    = ranlib
+CC := gcc -march=native -mtune=native -flto -Ofast -std=c11
+CFLAGS := -Wall -Wextra -Wunused
+INC := -I $(CURDIR)/includes/
 
-WHITE=\033[0m
-BGREEN=\033[42m
-GREEN=\033[32m
-RED=\033[31m
-INVERT=\033[7m
+SRC_D := src/
+SRCS := $(abspath $(wildcard $(SRC_D)/*.c))
+OBJS := $(SRCS:%.c=%.o)
 
-all:	obj
-		@make -j $(NAME)
+DEL := rm -rf
 
-obj:
-		@mkdir -p $(OBJ_DIR)
+WHITE := \033[0m
+GREEN := \033[32m
+RED := \033[31m
+INVERT := \033[7m
 
-start_grn:
-	@echo "$(GREEN)"
+SUCCESS = [$(GREEN)✓$(WHITE)]
 
-$(NAME): start_grn $(OBJS)
-		@$(AR) $(NAME) $(OBJS)
-		@$(RLIB) $(NAME)
-		@echo ""
-		@echo "$(GREEN)$(NAME) created!$(WHITE)"
+all: $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-		@echo -n '+'
-		@$(CC) $(CFLAGS) -c $< -o $@ $(LFLAGS)/$(INCLS)
+$(NAME): $(OBJS)
+	@$(ECHO) "$(INVERT)"
+	@$(ECHO) -n ' <=-=> | $(NPWD): '
+	@$(LC) $(NAME) $(OBJS)
+	@$(ECHO) "[$(GREEN)✓$(WHITE)$(INVERT)]$(WHITE)"
+	@$(ECHO)
 
+$(OBJS): %.o: %.c
+	@$(ECHO) -n ' $@: '
+	@$(CC) -c $(CFLAGS) $(INC) $< -o $@
+	@$(ECHO) "$(SUCCESS)"
 clean:
-		@rm -rf $(OBJS) $(OBJ_DIR)
-		@echo "$(RED)TMP files removed!$(WHITE)"
+	@$(DEL) $(OBJS)
 
 fclean: clean
-		@rm -rf $(NAME) $(LIB_DIR)
-		@echo "$(RED)$(NAME) removed$(WHITE)"
+	@$(DEL) $(NAME)
+	@$(ECHO) "$(INVERT)$(RED)deleted$(WHITE)$(INVERT): $(NPWD)$(WHITE)"
 
-re:		fclean all
+re: fclean all
 
-
-.PHONY: all clean fclean re
+.PHONY: re fclean clean all
