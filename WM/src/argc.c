@@ -16,7 +16,7 @@ int8_t	count_size(int pos, int step)
 {
 	int8_t reg;
 
-	reg = st.field[find_adress(pos + step)];
+	_REGO;
 	return (reg >= 1 && reg <= REG_NUMBER);
 }
 
@@ -36,8 +36,7 @@ bool	check_args(t_kareta *kareta, t_operation *oop)
 	int		i;
 	int		step;
 
-	i = 0;
-	step = (1 + (oop->args_types_code ? 1 : 0));
+	_PREP_ARGC;
 	while (i < oop->args_num)
 	{
 		if ((kareta->argc_types[i] == T_REG)

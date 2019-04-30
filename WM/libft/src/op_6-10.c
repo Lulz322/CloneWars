@@ -1,6 +1,6 @@
 #include "../../includes/vm.h"
 
-void				op_and(t_kareta *kareta)
+void				and(t_kareta *kareta)
 {
 	int32_t	v1;
 	int32_t	v2;
@@ -17,7 +17,7 @@ void				op_and(t_kareta *kareta)
 	kareta->step += REG_LEN;
 }
 
-void				op_or(t_kareta *kareta)
+void				or(t_kareta *kareta)
 {
 	int32_t	v1;
 	int32_t	v2;
@@ -34,7 +34,7 @@ void				op_or(t_kareta *kareta)
 	kareta->step += REG_LEN;
 }
 
-void				op_xor(t_kareta *kareta)
+void				xor(t_kareta *kareta)
 {
 	int32_t	v1;
 	int32_t	v2;
@@ -51,7 +51,7 @@ void				op_xor(t_kareta *kareta)
 	kareta->step += REG_LEN;
 }
 
-void				op_zjmp(t_kareta *kareta)
+void				zjmp(t_kareta *kareta)
 {
 	int32_t addr;
 
@@ -64,7 +64,7 @@ void				op_zjmp(t_kareta *kareta)
 	}
 }
 
-void				op_ldi(t_kareta *kareta)
+void				ldi(t_kareta *kareta)
 {
 	int32_t	a1;
 	int32_t	a2;

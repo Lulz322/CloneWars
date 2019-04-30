@@ -2,7 +2,7 @@
 
 #define REPLACE {new->next = st.kareta;st.kareta = new;st.am_karet++;}
 
-void				op_sti(t_kareta *kareta)
+void				sti(t_kareta *kareta)
 {
 	int32_t	reg;
 	int32_t	value;
@@ -32,7 +32,7 @@ void				op_fork(t_kareta *kareta)
 	jason_born();
 }
 
-void				op_lld(t_kareta *kareta)
+void				lld(t_kareta *kareta)
 {
 	int32_t	v;
 	int32_t	reg;
@@ -45,7 +45,7 @@ void				op_lld(t_kareta *kareta)
 	kareta->step += REG_LEN;
 }
 
-void				op_lldi(t_kareta *kareta)
+void				lldi(t_kareta *kareta)
 {
 	int32_t	a1;
 	int32_t	a2;
@@ -59,7 +59,7 @@ void				op_lldi(t_kareta *kareta)
 	kareta->step += REG_LEN;
 }
 
-void				op_lfork(t_kareta *kareta)
+void				lfork(t_kareta *kareta)
 {
 	int32_t		addr;
 	t_kareta	*new;

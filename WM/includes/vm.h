@@ -41,6 +41,18 @@
 #define _CYCLE_D {st.cycles_to_die -= CYCLE_DELTA;st.check_in = 0;}
 #define _IS_CYCLE if  (_CHECKSSS){_CYCLE_D}
 #define _ZERO {	st.live_in = 0;	st.cycles_after_check = 0;}
+#define _REGO reg = st.field[find_adress(pos + step)];
+#define _PREP_ARGC {i = 0;step = (1 + (oop->args_types_code ? 1 : 0));}
+#define _LIVE {id = take_op(kareta, 1, 0);st.live_in++;champ = NULL;}
+#define _LIVE2 {champ = &st.champ[id - 1];champ->last_alive = st.cycles;}
+#define _LIVE3 {champ->live++;st.last_alive = id - 1;}
+#define _LD {value = take_op(kareta, 1, 1);kareta->carry = !value;}
+#define _LD2 {kareta->reg[reg - 1] = value;kareta->step += REG_LEN;}
+#define _ST {i = kareta->reg[reg - 1];kareta->step += REG_LEN;}
+#define _ST1 {kareta->reg[addr - 1] = i;kareta->step += REG_LEN;}
+#define _SSST {addr = st.field[find_adress(kareta->pos + kareta->step)];_ST1;}
+#define _AD1 kareta->step += REG_LEN;
+#define _ADD(ex) {ex = st.field[find_adress(kareta->pos + kareta->step)];_AD1}
 
 #define st g_gen
 

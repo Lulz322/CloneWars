@@ -12,7 +12,7 @@
 
 #include "../includes/vm.h"
 
-void		op_aff(t_kareta *kareta)
+void		aff(t_kareta *kareta)
 {
 	int32_t	reg;
 	int32_t	value;

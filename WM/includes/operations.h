@@ -78,22 +78,22 @@ typedef struct s_general
 
 t_gen g_gen;
 
-void				op_live(t_kareta *kareta);
-void				op_ld(t_kareta *kareta);
+void				live(t_kareta *kareta);
+void				ld(t_kareta *kareta);
 void				op_st(t_kareta *kareta);
-void				op_add(t_kareta *kareta);
-void				op_sub(t_kareta *kareta);
-void				op_and(t_kareta *kareta);
-void				op_or(t_kareta *kareta);
-void				op_xor(t_kareta *kareta);
-void				op_zjmp(t_kareta *kareta);
-void				op_ldi(t_kareta *kareta);
-void				op_sti(t_kareta *kareta);
+void				add(t_kareta *kareta);
+void				sub(t_kareta *kareta);
+void				and(t_kareta *kareta);
+void				or(t_kareta *kareta);
+void				xor(t_kareta *kareta);
+void				zjmp(t_kareta *kareta);
+void				ldi(t_kareta *kareta);
+void				sti(t_kareta *kareta);
 void				op_fork(t_kareta *kareta);
-void				op_lld(t_kareta *kareta);
-void				op_lldi(t_kareta *kareta);
-void				op_lfork(t_kareta *kareta);
-void				op_aff(t_kareta *kareta);
+void				lld(t_kareta *kareta);
+void				lldi(t_kareta *kareta);
+void				lfork(t_kareta *kareta);
+void				aff(t_kareta *kareta);
 
 typedef struct		s_operation
 {
@@ -119,7 +119,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 0,
 		.t_dir_size = 4,
 		.cycles = 10,
-		.func = &op_live
+		.func = &live
 	},
 	{
 		.name = "ld",
@@ -130,7 +130,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 1,
 		.t_dir_size = 4,
 		.cycles = 5,
-		.func = &op_ld
+		.func = &ld
 	},
 	{
 		.name = "st",
@@ -152,7 +152,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 1,
 		.t_dir_size = 4,
 		.cycles = 10,
-		.func = &op_add
+		.func = &add
 	},
 	{
 		.name = "sub",
@@ -163,7 +163,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 1,
 		.t_dir_size = 4,
 		.cycles = 10,
-		.func = &op_sub
+		.func = &sub
 	},
 	{
 		.name = "and",
@@ -174,7 +174,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 1,
 		.t_dir_size = 4,
 		.cycles = 6,
-		.func = &op_and
+		.func = &and
 	},
 	{
 		.name = "or",
@@ -185,7 +185,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 1,
 		.t_dir_size = 4,
 		.cycles = 6,
-		.func = &op_or
+		.func = &or
 	},
 	{
 		.name = "xor",
@@ -196,7 +196,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 1,
 		.t_dir_size = 4,
 		.cycles = 6,
-		.func = &op_xor
+		.func = &xor
 	},
 	{
 		.name = "zjmp",
@@ -207,7 +207,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 0,
 		.t_dir_size = 2,
 		.cycles = 20,
-		.func = &op_zjmp
+		.func = &zjmp
 	},
 	{
 		.name = "ldi",
@@ -218,7 +218,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 0,
 		.t_dir_size = 2,
 		.cycles = 25,
-		.func = &op_ldi
+		.func = &ldi
 	},
 	{
 		.name = "sti",
@@ -229,7 +229,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 0,
 		.t_dir_size = 2,
 		.cycles = 25,
-		.func = &op_sti
+		.func = &sti
 	},
 	{
 		.name = "fork",
@@ -251,7 +251,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 1,
 		.t_dir_size = 4,
 		.cycles = 10,
-		.func = &op_lld
+		.func = &lld
 	},
 	{
 		.name = "lldi",
@@ -262,7 +262,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 1,
 		.t_dir_size = 2,
 		.cycles = 50,
-		.func = &op_lldi
+		.func = &lldi
 	},
 	{
 		.name = "lfork",
@@ -273,7 +273,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 0,
 		.t_dir_size = 2,
 		.cycles = 1000,
-		.func = &op_lfork
+		.func = &lfork
 	},
 	{
 		.name = "aff",
@@ -284,7 +284,7 @@ static				t_operation	g_op[16] = {
 		.modify_carry = 0,
 		.t_dir_size = 4,
 		.cycles = 2,
-		.func = &op_aff
+		.func = &aff
 	}
 };
 
