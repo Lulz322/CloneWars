@@ -7,7 +7,7 @@
 #include "../libft/includes/libft.h"
 #include "operations.h"
 #include "vis.h"
-
+#include <locale.h>
 
 # define ER_START	"\033[41m"
 # define ER_END		"\033[40m"
@@ -53,6 +53,7 @@
 #define _SSST {addr = st.field[find_adress(kareta->pos + kareta->step)];_ST1;}
 #define _AD1 kareta->step += REG_LEN;
 #define _ADD(ex) {ex = st.field[find_adress(kareta->pos + kareta->step)];_AD1}
+#define REPLACE {new->next = st.kareta;st.kareta = new;st.am_karet++;}
 
 #define st g_gen
 

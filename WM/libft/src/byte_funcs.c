@@ -70,17 +70,3 @@ int32_t		bytecode_to_int32(uint8_t *bytecode, int size)
 		result = ~(result);
 	return (result);
 }
-
-bool		is_dat_is_a_child(int i)
-{
-	t_kareta *tmp;
-
-	tmp = st.kareta;
-	while (tmp)
-	{
-		if (tmp->pos == i && tmp->living <= 50)
-			return (true);
-		tmp = tmp->next;
-	}
-	return (false);
-}
