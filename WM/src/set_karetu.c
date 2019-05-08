@@ -86,7 +86,6 @@ void	full_game(void)
 {
 	while (st.kareta)
 	{
-		set_music();
 		_LOG(st.cycles + 1, st.cycles_after_check + 1);
 		if (_RAVNO && (_FD || _FDUMP))
 		{
@@ -116,5 +115,7 @@ void	set_karetu(void)
 	st.cycles_to_die = CYCLE_TO_DIE;
 	print_info_champs();
 	_CHECK_VISUALISATION;
+	if (st.flag_visual && st.sounds)
+		set_music();
 	full_game();
 }
