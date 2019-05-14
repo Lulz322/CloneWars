@@ -31,9 +31,8 @@ int				main(int argc, char **argv)
 {
 	setlocale(LC_ALL, "");
 	parsing_argc(argc, argv);
-	_ERR_CHAMP(g_gen.champ[0].length);
+	ERR_CHAMP(g_gen.champ[0].length);
 	create_field();
 	set_karetu();
 	print_last_alive();
-	//system("leaks corewar");
 }

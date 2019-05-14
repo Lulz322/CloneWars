@@ -14,8 +14,8 @@
 
 bool		is_die(t_kareta *kareta)
 {
-	return (st.cycles_to_die <= 0
-			|| st.cycles - kareta->last_alive >= st.cycles_to_die);
+	return (ST.cycles_to_die <= 0
+			|| ST.cycles - kareta->last_alive >= ST.cycles_to_die);
 }
 
 t_kareta	*del(t_kareta **del_me, t_kareta *prev)
@@ -29,9 +29,9 @@ t_kareta	*del(t_kareta **del_me, t_kareta *prev)
 	if (prev)
 		prev->next = new;
 	else
-		st.kareta = new;
+		ST.kareta = new;
 	tmp = new;
-	st.am_karet--;
+	ST.am_karet--;
 	set_death();
 	return (tmp);
 }
@@ -40,7 +40,7 @@ void		check_karetutu(t_kareta *prev)
 {
 	t_kareta *tmp;
 
-	tmp = st.kareta;
+	tmp = ST.kareta;
 	while (tmp)
 	{
 		if (is_die(tmp))
@@ -58,18 +58,18 @@ void		set_zero(void)
 	int i;
 
 	i = -1;
-	while (++i < st.am_champs)
+	while (++i < ST.am_champs)
 	{
-		st.champ[i].last_alive = st.champ[i].live;
-		st.champ[i].live = 0;
+		ST.champ[i].last_alive = ST.champ[i].live;
+		ST.champ[i].live = 0;
 	}
 }
 
 void		check_who_die(void)
 {
-	st.check_in++;
+	ST.check_in++;
 	check_karetutu(NULL);
-	_IS_CYCLE;
+	IS_CYCLE;
 	set_zero();
-	_ZERO;
+	ZERO;
 }

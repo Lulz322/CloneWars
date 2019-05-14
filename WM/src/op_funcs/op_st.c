@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_st.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/14 11:54:06 by iruban            #+#    #+#             */
+/*   Updated: 2019/05/14 11:54:07 by iruban           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/vm.h"
 
 void				op_st(t_kareta *kareta)
@@ -7,11 +19,11 @@ void				op_st(t_kareta *kareta)
 	int32_t	addr;
 
 	kareta->step += OP_LEN + ARG_LEN;
-	reg = st.field[find_adress(kareta->pos + kareta->step)];
-	_ST;
+	reg = ST.field[adress(kareta->pos + kareta->step)];
+	STBLYAT;
 	if (kareta->argc_types[1] == T_REG)
 	{
-		_SSST;
+		SSST;
 	}
 	else
 	{
@@ -19,6 +31,6 @@ void				op_st(t_kareta *kareta)
 		int_to_byte(kareta->pos + (addr % IDX_MOD), i, DIR_SIZE);
 		kareta->step += IND_SIZE;
 		set_field(kareta->pos + addr % IDX_MOD,
-				st.v_field[kareta->pos], DIR_SIZE);
+				ST.v_field[kareta->pos], DIR_SIZE);
 	}
 }

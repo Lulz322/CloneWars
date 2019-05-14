@@ -1,82 +1,93 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operations.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/14 12:20:38 by iruban            #+#    #+#             */
+/*   Updated: 2019/05/14 12:20:39 by iruban           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef OPERATIONS_H
-#define OPERATIONS_H
+# define OPERATIONS_H
 # define OP_LEN 1
 # define ARG_LEN 1
 # define REG_LEN 1
 
-#include <ncurses.h>
-#include "vm.h"
+# include <ncurses.h>
+# include "vm.h"
 
 /*
-enum	e_bool { false, true } __attribute__((packed));
-
-# define _BOOL	typedef enum e_bool bool
-
-_BOOL;
+** enum	e_bool { false, true } __attribute__((packed));
+** # define _BOOL	typedef enum e_bool bool
+** _BOOL;
 */
-typedef struct s_kareta
-{
-	unsigned int id;
-	int pos;
-	int step;
-	int living;
-	bool carry;
-	uint8_t code;
-	int last_alive;
-	int reg[REG_NUMBER];
-	int argc_types[3];
-	int wait;
-	struct s_kareta *next;
-} 	t_kareta;
 
-typedef struct	s_vis
+typedef struct		s_kareta
 {
-	int			y;
-	int			x;
-	WINDOW		*main;
-	WINDOW		*stat;
-}				t_vis;
+	unsigned int	id;
+	int				pos;
+	int				step;
+	int				living;
+	bool			carry;
+	uint8_t			code;
+	int				last_alive;
+	int				reg[REG_NUMBER];
+	int				argc_types[3];
+	int				wait;
+	struct s_kareta	*next;
+}					t_kareta;
 
-typedef struct s_champ
+typedef struct		s_champ
 {
-	char file_name[255];
-	bool hard_set;
-	char *name;
-	char *comment;
-	int length;
-	int last_alive;
-	int live;
-	uint8_t *algo;
-}				t_champ;
+	char			file_name[255];
+	bool			hard_set;
+	char			*name;
+	char			*comment;
+	int				length;
+	int				last_alive;
+	int				live;
+	uint8_t			*algo;
+}					t_champ;
 
-typedef struct s_general
+typedef struct		s_vis
 {
-	t_champ champ[4];
-	t_vis	v;
-	uint8_t field[MEM_SIZE];
-	int		v_field[MEM_SIZE];
-	t_kareta *kareta;
-	ssize_t cycles_to_die;
-	ssize_t cycles;
-	ssize_t cycles_after_check;
-	ssize_t check_in;
-	ssize_t live_in;
-	int last_alive;
-	int log;
-	int aff;
-	int am_champs;
-	int am_karet;
-	bool flag_dump;
-	bool flag_d;
-	bool flag_visual;
-	bool f_p;
-	bool sounds;
-	bool flag_l;
-	int flag_l_d;
-	int	flag_dump_d;
-}				t_gen;
+	int				y;
+	int				x;
+	WINDOW			*main;
+	WINDOW			*stat;
+}					t_vis;
 
-t_gen g_gen;
+typedef struct		s_general
+{
+	t_champ			champ[4];
+	t_vis			v;
+	uint8_t			field[MEM_SIZE];
+	int				v_field[MEM_SIZE];
+	t_kareta		*kareta;
+	ssize_t			cycles_to_die;
+	ssize_t			cycles;
+	ssize_t			cycles_after_check;
+	ssize_t			check_in;
+	ssize_t			live_in;
+	int				last_alive;
+	int				log;
+	int				aff;
+	int				am_champs;
+	int				am_karet;
+	bool			flag_dump;
+	bool			flag_d;
+	bool			flag_visual;
+	bool			f_p;
+	bool			sounds;
+	bool			flag_l;
+	int				flag_l_d;
+	int				flag_dump_d;
+}					t_gen;
+
+t_gen	g_gen;
 
 void				live(t_kareta *kareta);
 void				ld(t_kareta *kareta);

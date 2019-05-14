@@ -10,14 +10,14 @@ void		vs_print_players(t_vis *v)
 	while (i <= g_gen.am_champs)
 	{
 		wattron(v->stat, A_BOLD);
-		mvwprintw(v->stat, y, 2, ((st.f_p) ? UA6 : EN6), i);
+		mvwprintw(v->stat, y, 2, ((ST.f_p) ? UA6 : EN6), i);
 		wattroff(v->stat, A_BOLD);
 		wattron(v->stat, COLOR_PAIR(i));
 		mvwprintw(v->stat, y, 13, "%.30s", g_gen.champ[i - 1].name);
 		mvwprintw(v->stat, y + 3, 6, "%.50s", g_gen.champ[i -1].comment);
 		wattroff(v->stat, COLOR_PAIR(i));
-		mvwprintw(v->stat, y + 1, 6, ((st.f_p) ? UA7 : EN7));
-		mvwprintw(v->stat, y + 2, 6, ((st.f_p) ? UA8 : EN8));
+		mvwprintw(v->stat, y + 1, 6, ((ST.f_p) ? UA7 : EN7));
+		mvwprintw(v->stat, y + 2, 6, ((ST.f_p) ? UA8 : EN8));
 		i++;
 		y += 6;
 	}
@@ -52,9 +52,9 @@ static void	vs_print_kolbaska(t_vis *v)
 	mvwprintw(v->stat, 38, 2, KOLBASKA);
 	while (i < (int)len && i < 54)
 	{
-		mvwprintw(v->stat, 38, x, ((st.f_p) ? TRD : "#"));
-		i += (st.f_p) ? 2 : 1;
-		x += (st.f_p) ? 2 : 1;
+		mvwprintw(v->stat, 38, x, ((ST.f_p) ? TRD : "#"));
+		i += (ST.f_p) ? 2 : 1;
+		x += (ST.f_p) ? 2 : 1;
 	}
 }
 
@@ -83,15 +83,15 @@ void		vs_update_main(t_vis *v)
 
 	i = 0;
 	y = 1;
-	if (st.f_p)
+	if (ST.f_p)
 		wattron(v->main, COLOR_PAIR(YELLOW_BLACK) | A_BOLD);
 	box(v->main, 0, 0);
-	if (st.f_p)
+	if (ST.f_p)
 		wattron(v->stat, COLOR_PAIR(BLUE_BLACK) | A_BOLD);
 	box(v->stat, 0, 0);
-	if (st.f_p)
+	if (ST.f_p)
 		wattroff(v->main, COLOR_PAIR(YELLOW_BLACK) | A_BOLD);
-	if (st.f_p)
+	if (ST.f_p)
 		wattroff(v->stat, COLOR_PAIR(BLUE_BLACK) | A_BOLD);
 	while (y < 65 && i < 4096)
 	{

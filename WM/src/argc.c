@@ -16,11 +16,11 @@ int8_t	count_size(int pos, int step)
 {
 	int8_t reg;
 
-	_REGO;
+	REGO;
 	return (reg >= 1 && reg <= REG_NUMBER);
 }
 
-int		count_step(uint8_t type, t_operation *oop)
+int		how_m_steps(uint8_t type, t_operation *oop)
 {
 	if (type & T_REG)
 		return (T_REG);
@@ -36,19 +36,19 @@ bool	check_args(t_kareta *kareta, t_operation *oop)
 	int		i;
 	int		step;
 
-	_PREP_ARGC;
+	PREP_ARGC;
 	while (i < oop->args_num)
 	{
 		if ((kareta->argc_types[i] == T_REG)
 			&& !count_size(kareta->pos, step))
 			return (false);
-		step += count_step(kareta->argc_types[i], oop);
+		step += how_m_steps(kareta->argc_types[i], oop);
 		i++;
 	}
 	return (true);
 }
 
-bool	validate_args(t_kareta *kareta, t_operation *oop)
+bool	val_argc(t_kareta *kareta, t_operation *oop)
 {
 	int i;
 
@@ -59,13 +59,13 @@ bool	validate_args(t_kareta *kareta, t_operation *oop)
 	return (true);
 }
 
-void	read_argtype(t_kareta *kareta, t_operation *oop)
+void	r_arg(t_kareta *kareta, t_operation *oop)
 {
 	int8_t atc;
 
 	if (oop->args_types_code)
 	{
-		atc = st.field[find_adress(kareta->pos + 1)];
+		atc = ST.field[adress(kareta->pos + 1)];
 		if (oop->args_num >= 1)
 			kareta->argc_types[0] = g_arg_code[((atc & 0xC0) >> 6) - 1];
 		if (oop->args_num >= 2)

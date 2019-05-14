@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   live.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/14 11:55:05 by iruban            #+#    #+#             */
+/*   Updated: 2019/05/14 11:55:05 by iruban           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/vm.h"
 
 void				live(t_kareta *kareta)
@@ -6,15 +18,15 @@ void				live(t_kareta *kareta)
 	t_champ	*champ;
 
 	kareta->step += OP_LEN;
-	_LIVE;
-	kareta->last_alive = st.cycles;
-	if (id <= -1 && id >= -st.am_champs)
+	LIVE;
+	kareta->last_alive = ST.cycles;
+	if (id <= -1 && id >= -ST.am_champs)
 	{
 		if (id < 0)
 			id *= -1;
-		_LIVE2;
-		_LIVE3;
-		if (st.log == 1)
+		LIVE2;
+		LIVE3;
+		if (ST.log == 1)
 			ft_printf("Player %i (%s) is said to be alive\n", id, champ->name);
 	}
 }

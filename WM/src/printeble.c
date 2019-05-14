@@ -19,25 +19,28 @@ void	print_info_champs(void)
 	a = -1;
 	ft_printf("Introducing contestants...\n");
 	while (g_gen.champ[++a].length && a < 4)
-		ft_printf("* Player %d, weighing %d bytes, \"%-25.25s\" (\"%-25.25s\") !\n"
-			, a + 1, st.champ[a].length, st.champ[a].name, st.champ[a].comment);
+	{
+		ft_printf("* Player %d, weighing %d bytes,", a + 1, ST.champ[a].length);
+		ft_printf("\"%-25.25s\" (\"%-25.25s\") !\n",
+			ST.champ[a].name, ST.champ[a].comment);
+	}
 }
 
 void	print_last_alive(void)
 {
-	if (st.flag_visual)
+	if (ST.flag_visual)
 		vs_announce_winner(2, 2, 0);
 	else
-		ft_printf("Player %d \"%s\" won!\n", st.last_alive + 1,
-			st.champ[st.last_alive].name);
-	if (st.flag_visual)
+		ft_printf("Player %d \"%s\" won!\n", ST.last_alive + 1,
+			ST.champ[ST.last_alive].name);
+	if (ST.flag_visual && ST.sounds)
 	{
 		kill_sounds();
 		system("rm temp");
 	}
 }
 
-void 	print_dump(int a, int j)
+void	print_dump(int a, int j)
 {
 	if (g_gen.v_field[a + j] == 1)
 		ft_printf("{green}%.2x{eoc} ", g_gen.field[a + j]);
@@ -90,7 +93,7 @@ void	print_player_code(void)
 	{
 		j = -1;
 		while (++j < g_gen.champ[a].length)
-			printf("%02x ", g_gen.champ[a].algo[j]);
-		printf("\n\n\n");
+			ft_printf("%02x ", g_gen.champ[a].algo[j]);
+		ft_printf("\n\n\n");
 	}
 }

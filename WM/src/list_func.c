@@ -17,7 +17,7 @@ t_kareta	*create_elem(int pos)
 	static	int	id;
 	t_kareta	*elem;
 
-	_ERROR_MALLOC(elem = (t_kareta *)malloc(sizeof(t_kareta)));
+	ERROR_MALLOC(elem = (t_kareta *)malloc(sizeof(t_kareta)));
 	ft_bzero(elem, sizeof(t_kareta));
 	elem->id = ++id;
 	elem->reg[0] = -id;
@@ -56,7 +56,7 @@ t_kareta	*copy_kareta(t_kareta *cursor, int32_t addr)
 	t_kareta	*new;
 	int			i;
 
-	new = create_elem(find_adress(cursor->pos + addr));
+	new = create_elem(adress(cursor->pos + addr));
 	i = -1;
 	while (++i < REG_NUMBER)
 		new->reg[i] = cursor->reg[i];
@@ -67,7 +67,7 @@ t_kareta	*copy_kareta(t_kareta *cursor, int32_t addr)
 
 void		next_op(t_kareta *kareta)
 {
-	kareta->pos = find_adress(kareta->pos + kareta->step);
+	kareta->pos = adress(kareta->pos + kareta->step);
 	kareta->step = 0;
 	ft_bzero(kareta->argc_types, 3);
 }

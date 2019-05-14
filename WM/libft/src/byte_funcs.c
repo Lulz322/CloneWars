@@ -19,7 +19,7 @@ void		int_to_byte(int32_t addr, int32_t value, int32_t size)
 	i = 0;
 	while (size)
 	{
-		st.field[find_adress(addr + size - 1)] =
+		ST.field[adress(addr + size - 1)] =
 			(uint8_t)((value >> i) & 0xFF);
 		i += 8;
 		size--;
@@ -34,14 +34,14 @@ int32_t		byte_to_int(int32_t addr, int32_t size)
 
 	i = 0;
 	result = 0;
-	sign = (st.field[find_adress(addr)] & 0x80);
+	sign = (ST.field[adress(addr)] & 0x80);
 	while (size)
 	{
 		if (sign)
-			result += ((st.field[find_adress(addr + size - 1)] ^ 0xFF) <<
+			result += ((ST.field[adress(addr + size - 1)] ^ 0xFF) <<
 					(i++ * 8));
 		else
-			result += st.field[find_adress(addr + size - 1)] << (i++ * 8);
+			result += ST.field[adress(addr + size - 1)] << (i++ * 8);
 		size--;
 	}
 	if (sign)

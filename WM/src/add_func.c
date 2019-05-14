@@ -12,7 +12,7 @@
 
 #include "../includes/vm.h"
 
-int			take_op(t_kareta *kareta, uint8_t i, int mod)
+int			what_opp(t_kareta *kareta, uint8_t i, int mod)
 {
 	t_operation	*op;
 	int			value;
@@ -21,7 +21,7 @@ int			take_op(t_kareta *kareta, uint8_t i, int mod)
 	op = &g_op[kareta->code - 1];
 	value = 0;
 	if (kareta->argc_types[i - 1] & T_REG)
-		value = kareta->reg[st.field[find_adress(kareta->pos +
+		value = kareta->reg[ST.field[adress(kareta->pos +
 				kareta->step)] - 1];
 	else if (kareta->argc_types[i - 1] & T_DIR)
 		value = byte_to_int(kareta->pos + kareta->step, op->t_dir_size);
@@ -31,7 +31,7 @@ int			take_op(t_kareta *kareta, uint8_t i, int mod)
 		value = byte_to_int(kareta->pos + (mod ? (addr % IDX_MOD) :
 					addr), DIR_SIZE);
 	}
-	kareta->step += count_step(kareta->argc_types[i - 1], op);
+	kareta->step += how_m_steps(kareta->argc_types[i - 1], op);
 	return (value);
 }
 
@@ -50,19 +50,19 @@ int			check_where(char *where)
 	char	*tmp;
 
 	if (!where)
-		_ERROR("O_o");
+		ERROR("O_o");
 	a = ft_atoi(where);
 	tmp = ft_itoa(a);
 	if (!ft_strequ(tmp, where))
 	{
 		free(tmp);
-		_ERROR("Enter a number!");
+		ERROR("Enter a number!");
 	}
 	free(tmp);
 	return (a);
 }
 
-int			find_adress(int i)
+int			adress(int i)
 {
 	i %= MEM_SIZE;
 	if (i < 0)

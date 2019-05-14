@@ -34,19 +34,19 @@ bool	check_sound(int mod)
 
 void	set_death(void)
 {
-	if (st.flag_visual && st.sounds && check_sound(2))
+	if (ST.flag_visual && ST.sounds && check_sound(2))
 		system("afplay died.wav&");
 }
 
 void	jason_born(void)
 {
-	if (st.flag_visual && st.sounds && check_sound(2))
+	if (ST.flag_visual && ST.sounds && check_sound(2))
 		system("afplay born.wav&");
 }
 
 void	set_music(void)
 {
-	if (st.flag_visual && st.sounds && check_sound(1))
+	if (ST.flag_visual && ST.sounds && check_sound(1))
 		system("afplay music2.wav&");
 }
 
