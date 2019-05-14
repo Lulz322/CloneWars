@@ -47,12 +47,33 @@ void	print_dump(int a, int j)
 	else if (g_gen.v_field[a + j] == 2)
 		ft_printf("{blue}%.2x{eoc} ", g_gen.field[a + j]);
 	else if (g_gen.v_field[a + j] == 3)
-		ft_printf("{cyan}(%.2x){eoc} ", g_gen.field[a + j]);
+		ft_printf("{cyan}%.2x{eoc} ", g_gen.field[a + j]);
 	else if (g_gen.v_field[a + j] == 4)
-		ft_printf("{yellow}(%.2x){eoc} ", g_gen.field[a + j]);
+		ft_printf("{yellow}%.2x{eoc} ", g_gen.field[a + j]);
 	else
 		ft_printf("%.2x ", g_gen.v_field[a + j]);
 }
+
+void	print_without_color(int i)
+{
+	int a;
+	int j;
+
+	a = 0;
+	while (a < MEM_SIZE)
+	{
+		ft_printf("%.4p : ", a);
+		j = 0;
+		while (j < i)
+		{
+			ft_printf("%.2x ", g_gen.field[a + j]);
+			j++;
+		}
+		ft_printf("\n");
+		a+=i;
+	}
+}
+
 
 void	print_field(int i)
 {
@@ -60,6 +81,8 @@ void	print_field(int i)
 	int j;
 
 	a = 0;
+	print_without_color(i);
+	exit(0);
 	while (a < MEM_SIZE)
 	{
 		ft_printf("%.4p : ", a);

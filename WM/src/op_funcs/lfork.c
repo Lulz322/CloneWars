@@ -18,8 +18,9 @@ void				lfork(t_kareta *kareta)
 	t_kareta	*new;
 
 	kareta->step += OP_LEN;
-	addr = what_opp(kareta, 1, 1);
+	addr = take_op(kareta, 1, 1);
 	new = copy_kareta(kareta, addr);
-	REPLACE;
-	jason_born();
+	new->next = ST.kareta;
+	ST.kareta = new;
+	ST.am_karet++;
 }

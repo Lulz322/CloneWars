@@ -18,15 +18,19 @@ void				live(t_kareta *kareta)
 	t_champ	*champ;
 
 	kareta->step += OP_LEN;
-	LIVE;
+	id = what_opp(kareta, 1, 0);
+	ST.live_in++;
 	kareta->last_alive = ST.cycles;
+	champ = NULL;
 	if (id <= -1 && id >= -ST.am_champs)
 	{
 		if (id < 0)
 			id *= -1;
-		LIVE2;
-		LIVE3;
+		champ = &ST.champ[id - 1];
+		champ->last_alive = ST.cycles;
+		champ->live++;
+		ST.last_alive = id - 1;
 		if (ST.log == 1)
 			ft_printf("Player %i (%s) is said to be alive\n", id, champ->name);
-	}
+}
 }

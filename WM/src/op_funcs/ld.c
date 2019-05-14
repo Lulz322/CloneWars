@@ -18,7 +18,9 @@ void				ld(t_kareta *kareta)
 	int32_t	reg;
 
 	kareta->step += OP_LEN + ARG_LEN;
-	LD;
+	value = what_opp(kareta, 1, 1);
+	kareta->carry = !value;
 	reg = ST.field[adress(kareta->pos + kareta->step)];
-	LD2;
+	kareta->reg[reg - 1] = value;
+	kareta->step += REG_LEN;
 }

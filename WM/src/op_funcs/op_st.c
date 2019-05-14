@@ -20,10 +20,13 @@ void				op_st(t_kareta *kareta)
 
 	kareta->step += OP_LEN + ARG_LEN;
 	reg = ST.field[adress(kareta->pos + kareta->step)];
-	STBLYAT;
+	i = kareta->reg[reg - 1];
+	kareta->step += REG_LEN;
 	if (kareta->argc_types[1] == T_REG)
 	{
-		SSST;
+		addr = ST.field[adress(kareta->pos + kareta->step)];
+		kareta->reg[addr - 1] = i;
+		kareta->step += REG_LEN;
 	}
 	else
 	{
