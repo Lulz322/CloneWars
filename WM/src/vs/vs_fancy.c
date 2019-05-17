@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vs_fancy.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amatveie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/17 12:15:00 by amatveie          #+#    #+#             */
+/*   Updated: 2019/05/17 12:15:02 by amatveie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
 static void	vs_corewar(WINDOW *win)
@@ -34,7 +46,6 @@ static void	vs_42_one(t_vis *v)
 	wattroff(v->stat, COLOR_PAIR(1));
 }
 
-
 static void	vs_42_two(t_vis *v)
 {
 	wattron(v->stat, COLOR_PAIR(2));
@@ -51,7 +62,7 @@ static void	vs_42_two(t_vis *v)
 	wattroff(v->stat, COLOR_PAIR(2));
 }
 
-static void vs_gerb(t_vis *v, int color)
+static void	vs_gerb(t_vis *v, int color)
 {
 	wattron(v->stat, COLOR_PAIR(color));
 	mvwprintw(v->stat, 40, 37, G3);

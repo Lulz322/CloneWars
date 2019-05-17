@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vs_fps.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amatveie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/17 12:15:11 by amatveie          #+#    #+#             */
+/*   Updated: 2019/05/17 12:15:12 by amatveie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
 void		vs_print_players(t_vis *v)
@@ -14,7 +26,7 @@ void		vs_print_players(t_vis *v)
 		wattroff(v->stat, A_BOLD);
 		wattron(v->stat, COLOR_PAIR(i));
 		mvwprintw(v->stat, y, 13, "%.30s", g_gen.champ[i - 1].name);
-		mvwprintw(v->stat, y + 3, 6, "%.50s", g_gen.champ[i -1].comment);
+		mvwprintw(v->stat, y + 3, 6, "%.50s", g_gen.champ[i - 1].comment);
 		wattroff(v->stat, COLOR_PAIR(i));
 		mvwprintw(v->stat, y + 1, 6, ((ST.f_p) ? UA7 : EN7));
 		mvwprintw(v->stat, y + 2, 6, ((ST.f_p) ? UA8 : EN8));
@@ -34,7 +46,8 @@ static void	vs_update_players(t_vis *v)
 	vs_print_players(v);
 	while (++i <= g_gen.am_champs - 1)
 	{
-		mvwprintw(v->stat, y + 1, 30, "%d           ", g_gen.champ[i].last_alive);
+		mvwprintw(v->stat, y + 1, 30, "%d           ", \
+		g_gen.champ[i].last_alive);
 		mvwprintw(v->stat, y + 2, 30, "%d           ", g_gen.champ[i].live);
 		y += 6;
 	}
@@ -42,9 +55,9 @@ static void	vs_update_players(t_vis *v)
 
 static void	vs_print_kolbaska(t_vis *v)
 {
-	float len;
-	int x;
-	int i;
+	float	len;
+	int		x;
+	int		i;
 
 	i = 0;
 	x = 3;
@@ -75,38 +88,28 @@ void		vs_update_stats(t_vis *v)
 
 void		vs_update_main(t_vis *v)
 {
-	int y;
-	int x;
-	int i;
-	int color;
-	int k;
+	t_print st;
 
-	i = 0;
-	y = 1;
-	if (ST.f_p)
-		wattron(v->main, COLOR_PAIR(YELLOW_BLACK) | A_BOLD);
+	ft_bzero(&st, 20);
 	box(v->main, 0, 0);
-	if (ST.f_p)
-		wattron(v->stat, COLOR_PAIR(BLUE_BLACK) | A_BOLD);
 	box(v->stat, 0, 0);
-	if (ST.f_p)
-		wattroff(v->main, COLOR_PAIR(YELLOW_BLACK) | A_BOLD);
-	if (ST.f_p)
-		wattroff(v->stat, COLOR_PAIR(BLUE_BLACK) | A_BOLD);
-	while (y < 65 && i < 4096)
+	while (st.y < 65 && st.i < 4096)
 	{
-		x = -1;
-		while ((x += 3) < 194 && i < 4096)
+		st.x = -1;
+		while ((st.x += 3) < 194 && st.i < 4096)
 		{
-			color = (k = karettta(i)) ? k + 10 : g_gen.v_field[i];
-			color += (k && is_dat_is_a_child(i) == true) ? 10 : 0;
-			color = (color) ? color : 5;
-			wattron(v->main, COLOR_PAIR(color));
-			mvwprintw(v->main, y, x, "%02x", g_gen.field[i]);
-			wattroff(v->main, COLOR_PAIR(color));
-			i++;
+			if ((st.k = karettta(i)))
+				st.color = st.k + 10;
+			else
+				st.color = g_gen.v_field[i];
+			st.color += (st.k && is_dat_is_a_child(i) == true) ? 10 : 0;
+			st.color = (st.color) ? st.color : 5;
+			wattron(v->main, COLOR_PAIR(st.color));
+			mvwprintw(v->main, st.y, st.x, "%02x", g_gen.field[i]);
+			wattroff(v->main, COLOR_PAIR(st.color));
+			st.i++;
 		}
-		y++;
+		st.y++;
 	}
 	wrefresh(v->main);
 }

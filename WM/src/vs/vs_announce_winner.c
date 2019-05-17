@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vs_announce_winner.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amatveie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/17 12:14:50 by amatveie          #+#    #+#             */
+/*   Updated: 2019/05/17 12:14:52 by amatveie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
 static void	vs_chicken_dinner(int y, int x)
@@ -22,7 +34,7 @@ static void	vs_chicken_dinner(int y, int x)
 	mvprintw(y / 3 + 20, x / 3 + 69, D9);
 }
 
-static void vs_winner_winner(int y, int x)
+static void	vs_winner_winner(int y, int x)
 {
 	attron(A_BLINK | A_BOLD);
 	mvprintw(y / 3, x / 3, WIN1);
@@ -46,7 +58,7 @@ static void vs_winner_winner(int y, int x)
 	vs_chicken_dinner(y, x);
 }
 
-static void vs_peremoga(int y, int x)
+static void	vs_peremoga(int y, int x)
 {
 	attron(A_BLINK | A_BOLD);
 	mvprintw(y / 3, x / 3, Z);

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vs_main.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amatveie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/17 12:15:27 by amatveie          #+#    #+#             */
+/*   Updated: 2019/05/17 12:15:28 by amatveie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
-void	vs_init_color(void)
+void		vs_init_color(void)
 {
 	init_color(COLOR_MAGENTA, 300, 300, 300);
 	init_color(COLOR_WHITE, 900, 900, 900);
@@ -12,7 +24,7 @@ void	vs_init_color(void)
 	init_pair(2, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(3, COLOR_CYAN, COLOR_BLACK);
 	init_pair(4, COLOR_GREEN, COLOR_BLACK);
-	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);//gray
+	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
 	init_pair(6, COLOR_WHITE, COLOR_BLACK);
 	init_pair(11, COLOR_BLACK, COLOR_RED);
 	init_pair(12, COLOR_BLACK, COLOR_YELLOW);
@@ -98,7 +110,7 @@ static void	vs_prepare_main(t_vis *v)
 	wrefresh(v->main);
 }
 
-void	vs_main(void)
+void		vs_main(void)
 {
 	t_vis v;
 

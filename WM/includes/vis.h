@@ -1,5 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vis.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amatveie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/17 12:44:14 by amatveie          #+#    #+#             */
+/*   Updated: 2019/05/17 12:44:16 by amatveie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VIS_H
 # define VIS_H
+
+typedef struct	s_print
+{
+	int			y;
+	int			x;
+	int			i;
+	int			color;
+	int			k;
+}				t_print;
 
 # define RED_BLACK 1
 # define YELLOW_BLACK 2
@@ -101,14 +122,14 @@
 
 # define TRD "\xF0\x9F\x94\xB1"
 
-void	vs_print_42(t_vis *v, int mod);
-void	vs_check_key_events(t_vis *v);
-void	vs_init_color(void);
-void	vs_main(void);
-void	vs_announce_winner(int i, int j, int o);
-void	vs_update_stats(t_vis *v);
-void	vs_update_main(t_vis *v);
-void	vs_prepare_stat(t_vis *v);
-void	vs_print_players(t_vis *v);
+void			vs_print_42(t_vis *v, int mod);
+void			vs_check_key_events(t_vis *v);
+void			vs_init_color(void);
+void			vs_main(void);
+void			vs_announce_winner(int i, int j, int o);
+void			vs_update_stats(t_vis *v);
+void			vs_update_main(t_vis *v);
+void			vs_prepare_stat(t_vis *v);
+void			vs_print_players(t_vis *v);
 
 #endif

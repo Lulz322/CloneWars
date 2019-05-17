@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vs_key_events.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amatveie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/17 12:15:19 by amatveie          #+#    #+#             */
+/*   Updated: 2019/05/17 12:15:21 by amatveie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
 static void	vs_draw_pause(t_vis *v)
@@ -23,7 +35,7 @@ static void	vs_draw_speed(int speed, t_vis *v)
 		mvwprintw(v->stat, 40, i + 18, ">");
 }
 
-static void vs_handle_speed(int speed, t_vis *v)
+static void	vs_handle_speed(int speed, t_vis *v)
 {
 	vs_draw_speed(speed, v);
 	if (!speed)
@@ -40,10 +52,10 @@ static void vs_handle_speed(int speed, t_vis *v)
 		system("sleep 0.4");
 }
 
-void	vs_check_key_events(t_vis *v)
+void		vs_check_key_events(t_vis *v)
 {
-	int c;
-	static int speed;
+	int			c;
+	static int	speed;
 
 	c = getch();
 	if (c == ' ' && (c = 1))
