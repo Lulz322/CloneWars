@@ -81,8 +81,6 @@ void	print_field(int i)
 	int j;
 
 	a = 0;
-	print_without_color(i);
-	exit(0);
 	while (a < MEM_SIZE)
 	{
 		ft_printf("%.4p : ", a);

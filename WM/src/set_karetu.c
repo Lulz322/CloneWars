@@ -12,33 +12,64 @@
 
 #include "../includes/vm.h"
 
-void	am_i_waiting(t_kareta *kareta)
+void set_wait_time(t_kareta *kareta)
 {
-	if (kareta->wait)
-	{
-		kareta->wait--;
-		if (kareta->wait == 0)
-			do_func(kareta);
-	}
-	else
+	if (!kareta->wait)
 		set_operation(kareta);
+	if (kareta->wait > 0)
+		kareta->wait--;
 }
 
-void	check_karetu(t_kareta *kareta)
+
+t_operation *set_func(t_kareta *kareta)
 {
-	am_i_waiting(kareta);
-	next_op(kareta);
+	if (kareta->code >= 0x01 && kareta->code <= 0x10)
+		return(&g_op[kareta->code - 1]);
+	else
+		return (NULL);
 }
 
-void	run_cycle(void)
+void	check_kareta(t_kareta *kareta)
+{
+	t_operation	*new;
+
+	set_wait_time(kareta);
+	if (!kareta->wait)
+	{
+		if ((new = set_func(kareta)))
+		{
+			r_arg(kareta, new);
+			if (val_argc(kareta, new) && check_args(kareta, new))
+				new->func(kareta);
+			else
+				kareta->step += g_farewell(kareta, new);
+		}
+		else
+			kareta->step++;
+	}
+}
+
+
+
+t_kareta *u_are_not_prepeare()
+{
+	t_kareta *start;
+
+	g_gen.cycles++;
+	g_gen.cycles_after_check++;
+	start = g_gen.kareta;
+	return (start);
+}
+
+void	run_cycle()
 {
 	t_kareta *tmp;
 
-	PREPARE(tmp);
+	tmp = u_are_not_prepeare();
 	while (tmp)
 	{
-		check_karetu(tmp);
-		tmp->living++;
+		check_kareta(tmp);
+		next_op(tmp);
 		tmp = tmp->next;
 	}
 }

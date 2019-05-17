@@ -73,17 +73,19 @@ void		create_field(void)
 	int a;
 	int i;
 	int j;
+	int z;
 
 	i = 0;
 	j = 0;
+	z = 0;
 	g_gen.kareta = NULL;
-	a = how_many_players();
-	g_gen.am_champs = a;
-	a = MEM_SIZE / a;
-	while (i < MEM_SIZE)
+	g_gen.am_champs = how_many_players();
+	a = MEM_SIZE / g_gen.am_champs;
+	while (z < g_gen.am_champs)
 	{
 		add_elem(&ST.kareta, i);
 		set_players(g_gen.champ[j++], i);
 		i += a;
+		z++;
 	}
 }

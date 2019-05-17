@@ -18,7 +18,7 @@ void				lfork(t_kareta *kareta)
 	t_kareta	*new;
 
 	kareta->step += OP_LEN;
-	addr = take_op(kareta, 1, 1);
+	addr = what_opp(kareta, 1, 1);
 	new = copy_kareta(kareta, addr);
 	new->next = ST.kareta;
 	ST.kareta = new;
