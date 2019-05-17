@@ -90,7 +90,8 @@ void		vs_update_main(t_vis *v)
 {
 	t_print st;
 
-	ft_bzero(&st, 20);
+	st.i = 0;
+	st.y = 1;
 	box(v->main, 0, 0);
 	box(v->stat, 0, 0);
 	while (st.y < 65 && st.i < 4096)
@@ -98,14 +99,14 @@ void		vs_update_main(t_vis *v)
 		st.x = -1;
 		while ((st.x += 3) < 194 && st.i < 4096)
 		{
-			if ((st.k = karettta(i)))
+			if ((st.k = karettta(st.i)))
 				st.color = st.k + 10;
 			else
-				st.color = g_gen.v_field[i];
-			st.color += (st.k && is_dat_is_a_child(i) == true) ? 10 : 0;
+				st.color = g_gen.v_field[st.i];
+			st.color += (st.k && is_dat_is_a_child(st.i) == true) ? 10 : 0;
 			st.color = (st.color) ? st.color : 5;
 			wattron(v->main, COLOR_PAIR(st.color));
-			mvwprintw(v->main, st.y, st.x, "%02x", g_gen.field[i]);
+			mvwprintw(v->main, st.y, st.x, "%02x", g_gen.field[st.i]);
 			wattroff(v->main, COLOR_PAIR(st.color));
 			st.i++;
 		}
