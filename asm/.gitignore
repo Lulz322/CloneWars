@@ -1,0 +1,6 @@
+_Store
+**.o
+**.a
+corewar
+.vscode/
+.VScode/
