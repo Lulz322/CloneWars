@@ -1,82 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/22 11:47:59 by iruban            #+#    #+#             */
+/*   Updated: 2019/04/22 11:48:00 by iruban           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/vm.h"
 
-void set_unknown(char *chmp)
+void			errrorrororo(void)
 {
-	if (ft_strequ(g_gen.champ[0].name, "\0"))
-		_READ_CHAMP(0, chmp);
-	if (g_gen.champ[1].name[0] == '\0')
-		_READ_CHAMP(1, chmp);
-	if (g_gen.champ[2].name[0] == '\0')
-		_READ_CHAMP(2, chmp);
-	if (g_gen.champ[3].name[0] == '\0')
-		_READ_CHAMP(3, chmp);
+	ft_printf("{green}Usage: ./corewar [-d N] [-dump N] [-a] [-l N] [-v]{eoc}");
+	ft_printf(" {green}[-n N{1 - 4}] {champ_name.cor , ...}\n");
+	ft_printf("\t{red}-d\t{red}Print Battlefield in 64 octets in a row\n");
+	ft_printf("\t{red}-dump\t{blue}Print Battlefield in 32 octets in row\n");
+	ft_printf("\t{red}-a\tRly I don't know how it's working\n");
+	ft_printf("\t{red}-l\t{cyan}Verbosity levels\n");
+	ft_printf("\t{red}-n\t{magenta}Set player Number  N\n");
+	ft_printf("\t{red}-v\t{yellow}(Turn on a Visualisation\n");
+	ft_printf("\t\t%-10s- speed\n\t\t%-11s - pause\n", " <- || ->", "Space");
+	ft_printf("\t\t%-11s - Quit\n", "q");
+	exit(0);
 }
 
-void swap(t_champ *first, t_champ *second)
+int				main(int argc, char **argv)
 {
-	t_champ tmp;
-
-	tmp = *first;
-	*first = *second;
-	*second = tmp;
-}
-
-void set_n(char *str, int kuda)
-{
-	int number;
-
-	if (kuda > 4 || kuda < 0)
-		ERROR("ERROR")
-	number = 0;
-	while(number < 4)
-	{
-		if (ft_strequ(g_gen.champ[number].file_name, str))
-			break;
-		number++;
-	}
-	if (g_gen.champ[number].hard_set == true
-		|| g_gen.champ[kuda].hard_set == true)
-		ERROR("DUPLICATE");
-	g_gen.champ[number].hard_set = true;
-	swap(&g_gen.champ[number], &g_gen.champ[kuda]);
-}
-
-void set_numbers(int argc, char **argv)
-{
-	int i;
-
-	i = 0;
-	while (++i < argc)
-	{
-		if (ft_strequ(argv[i], "-n"))
-		{
-			set_n(argv[i + 2], ft_atoi(argv[i + 1]) - 1);
-			i++;
-		}
-	}
-}
-
-void			parsing_argc(int argc, char **argv)
-{
-	int i;
-
-	i = 0;
-	while (++i < argc)
-	{
-		if (ft_strequ(argv[i], "-n"))
-			i++;
-		else
-			set_unknown(argv[i]);
-	}
-}
-
-
-int main(int argc, char **argv)
-{
+	setlocale(LC_ALL, "");
 	parsing_argc(argc, argv);
-	set_numbers(argc, argv);
-	printf("[1] : %-25.25s   | %-20.20s  |  %-25.25s [%d]\n", g_gen.champ[0].name, g_gen.champ[0].file_name, g_gen.champ[0].comment, g_gen.champ[0].hard_set);
-	printf("[1] : %-25.25s   | %-20.20s  |  %-25.25s [%d]\n", g_gen.champ[1].name, g_gen.champ[1].file_name, g_gen.champ[1].comment, g_gen.champ[1].hard_set);
-	printf("[1] : %-25.25s   | %-20.20s  |  %-25.25s [%d]\n", g_gen.champ[2].name, g_gen.champ[2].file_name, g_gen.champ[2].comment, g_gen.champ[2].hard_set);
-	printf("[1] : %-25.25s   | %-20.20s  |  %-25.25s [%d]\n", g_gen.champ[3].name, g_gen.champ[3].file_name, g_gen.champ[3].comment, g_gen.champ[3].hard_set);
+	ERR_CHAMP(g_gen.champ[0].length);
+	create_field();
+	set_karetu();
+	print_last_alive();
 }

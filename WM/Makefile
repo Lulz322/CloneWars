@@ -1,52 +1,73 @@
-NAME    = corewar
+NAME := corewar
+NPWD := $(CURDIR)/$(NAME)
 
-INC_DIR = includes
-SRC_DIR = src
-OBJ_DIR = objs
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	ECHO := echo -e
+#	LIBS := -lSDL2 -lSDL2_mixer -lSDL2_ttf -lm
+endif
+ifeq ($(UNAME_S),Darwin)
+	ECHO := echo
+#	LIBSINC := -F $(CURDIR)/frameworks
+#	LIBS := -F $(CURDIR)/frameworks -rpath $(CURDIR)/frameworks -framework SDL2 \
+		-framework SDL2_mixer -framework SDL2_ttf
+endif
 
-INCLS   = $(INC_DIR)
-SRCS    = $(wildcard $(SRC_DIR)/*.c)
-OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+#	-march=native		- Setups compiler to use all available CPU instructions for
+#							optimizing compiling time
+#	-mtune=native		- Setups compiler to compiling all correctly for
+#							current system architecture on which project compiling
+#	-flto				- Enable Link Time Optimization
+#	-Ofast				- MAXIMUM OPTIMIZATION
 
-CC      = gcc
-CFLAGS  = -Wall -Werror -Wextra -g3
+CC := gcc -march=native -mtune=native
+CFLAGS := -Wall -Wextra -Wunused -g3
+IFLAGS := -I $(CURDIR)/includes/
 
-LFLAGS  = -I
+SRC := $(abspath $(wildcard src/*.c))
+SRC += $(abspath $(wildcard src/*/*.c))
+OBJ := $(SRC:.c=.o)
 
-WHITE=\033[0m
-BGREEN=\033[42m
-GREEN=\033[32m
-RED=\033[31m
-INVERT=\033[7m
+LIBFT := $(CURDIR)/libft/libft.a
+LMAKE := make -C libft
 
-all: obj $(NAME)
-obj:
-		@mkdir -p $(OBJ_DIR)
+WHITE := \033[0m
+BGREEN := \033[42m
+GREEN := \033[32m
+RED := \033[31m
+INVERT := \033[7m
 
-start_grn:
-	@echo "$(GREEN)"
+SUCCESS = [$(GREEN)✓$(WHITE)]
 
-$(NAME): start_grn $(OBJS)
-		@make -C libft/
-		@echo ""
-		@gcc libft/libft.a $(OBJS) -o $(NAME)
-		@echo "$(GREEN)$(NAME) created!$(WHITE)"
+DEL := rm -rf
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-		@echo -n '+'
-		@$(CC) $(CFLAGS) -c $< -o $@ -I includes/
+all: $(NAME)
+
+$(OBJ): %.o: %.c
+	@$(ECHO) -n ' $@: '
+	@$(CC) -c $(CFLAGS) $(LIBSINC) $(IFLAGS) $< -o $@
+	@$(ECHO) "$(SUCCESS)"
+
+$(LIBFT):
+	@$(LMAKE)
+
+$(NAME): $(LIBFT) $(OBJ)
+	@$(ECHO) -n ' <q.p> | $(NPWD): '
+	@$(CC) $(OBJ) $(LIBS) $(LIBFT) -lncurses -o $(NAME)
+	@$(ECHO) "[$(INVERT)$(GREEN)✓$(WHITE)]"
+
+del:
+	@$(DEL) $(OBJ)
 
 clean:
-		@rm -rf $(OBJS) $(OBJ_DIR)
-		@make clean -C libft/
-		@echo "$(RED)TMP files removed!$(WHITE)"
+	@$(DEL) $(OBJ)
+	@$(LMAKE) clean
 
 fclean: clean
-		@rm -rf $(NAME) $(LIB_DIR)
-		@make fclean -C libft/
-		@echo "$(RED)$(NAME) removed$(WHITE)"
+	@$(LMAKE) fclean
+	@$(DEL) $(NAME)
+	@$(ECHO) "$(INVERT)$(RED)deleted$(WHITE)$(INVERT): $(NPWD)$(WHITE)"
 
-re:		fclean all
+re: fclean all
 
-
-.PHONY: all clean fclean re
+.PHONY: all fclean clean re
