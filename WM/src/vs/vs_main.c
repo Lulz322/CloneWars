@@ -71,7 +71,7 @@ void		vs_prepare_stat(t_vis *v)
 	mvwprintw(v->stat, 3, 2, ((g_gen.f_p) ? UA2 : EN2));
 	wattroff(v->stat, A_BOLD);
 	wattron(v->stat, A_UNDERLINE | COLOR_PAIR(GREEN_BLACK));
-	mvwprintw(v->stat, 3, 20, ((g_gen.f_p) ? "біжить " : "running"));
+	mvwprintw(v->stat, 3, 20, ((g_gen.f_p) ? "біжиить" : "running"));
 	wattroff(v->stat, A_UNDERLINE | COLOR_PAIR(GREEN_BLACK));
 	wattron(v->stat, A_BOLD);
 	mvwprintw(v->stat, 5, 2, ((g_gen.f_p) ? "Цикл:" : "Cycle:"));

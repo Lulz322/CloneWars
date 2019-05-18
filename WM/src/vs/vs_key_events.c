@@ -69,9 +69,9 @@ void		vs_check_key_events(t_vis *v)
 		endwin();
 		exit(1);
 	}
-	if (c == KEY_LEFT && speed < 5)
-		speed++;
-	else if (c == KEY_RIGHT && speed > 0)
+	if (c == KEY_RIGHT && speed > 0)
 		speed--;
+	if (c == KEY_LEFT && speed < 4)
+		speed++;
 	vs_handle_speed(speed, v);
 }
