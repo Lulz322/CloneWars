@@ -66,6 +66,8 @@ void		vs_check_key_events(t_vis *v)
 	}
 	if (c == 'q')
 	{
+		if (g_gen.sounds)
+			system("killall afplay");
 		endwin();
 		exit(1);
 	}
