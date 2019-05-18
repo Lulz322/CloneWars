@@ -66,7 +66,6 @@
 # define AD1 kareta->step += REG_LEN;
 # define ADD(ex) {ex = g_gen.field[adress(kareta->pos + kareta->step)];AD1}
 # define REPLACE {new->next = g_gen.kareta;g_gen.kareta = new;g_gen.am_karet++;}
-# define ST g_gen
 
 int			karettta(int i);
 bool		is_dat_is_a_child(int i);

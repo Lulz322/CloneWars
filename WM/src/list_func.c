@@ -63,6 +63,7 @@ t_kareta	*copy_kareta(t_kareta *cursor, int32_t addr)
 		new->reg[i] = cursor->reg[i];
 	new->carry = cursor->carry;
 	new->last_alive = cursor->last_alive;
+	jason_born();
 	return (new);
 }
 

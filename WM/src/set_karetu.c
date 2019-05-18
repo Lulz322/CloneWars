@@ -58,6 +58,8 @@ t_kareta *u_are_not_prepeare()
 	g_gen.cycles++;
 	g_gen.cycles_after_check++;
 	start = g_gen.kareta;
+	if (g_gen.cycles % 1000 == 1)
+		set_music();
 	return (start);
 }
 
@@ -107,7 +109,7 @@ void	set_karetu(void)
 	print_info_champs();
 	CHECK_VISUALISATION;
 	set_ukr_names();
-	ft_printf("%s\n", g_gen.champ[0].UKR_name);
+	//ft_printf("%s\n", g_gen.champ[0].UKR_name);
 	if (g_gen.flag_visual && g_gen.sounds)
 		set_music();
 	start_game();
