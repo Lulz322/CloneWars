@@ -34,15 +34,15 @@ bool	check_sound(int mod)
 
 void	set_death(void)
 {
-	if (g_gen.flag_visual && g_gen.sounds && check_sound(2))
-		if (!g_gen.f_p)
+	if (g_gen.flag_visual && g_gen.sounds &&
+	!g_gen.f_p && check_sound(2))
 			system("afplay sounds/died.wav&");
 }
 
 void	jason_born(void)
 {
-	if (g_gen.flag_visual && g_gen.sounds && check_sound(2))
-		if (!g_gen.f_p)
+	if (g_gen.flag_visual && g_gen.sounds &&
+	!g_gen.f_p && check_sound(2))
 			system("afplay sounds/born.wav&");
 }
 
