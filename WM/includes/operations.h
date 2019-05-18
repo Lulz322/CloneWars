@@ -43,7 +43,6 @@ typedef struct		s_kareta
 typedef struct		s_champ
 {
 	char			file_name[255];
-	char			UKR_name[255];
 	bool			hard_set;
 	char			*name;
 	char			*comment;

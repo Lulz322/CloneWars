@@ -47,28 +47,17 @@ int			g_farewell(t_kareta *kareta, t_operation *operation)
 	return (step);
 }
 
-void		set_operation(t_kareta *kareta)
+void		print_info_champs(void)
 {
-	SET_OOP(kareta->code);
-	if (POOP)
-		CWAIT(kareta->wait);
-}
+	int a;
 
-void		do_func(t_kareta *kareta)
-{
-	t_operation	*new;
-
-	new = NULL;
-	if (CHECK_WAIT)
-		new = &g_op[kareta->code - 1];
-	if (new)
+	a = -1;
+	ft_printf("Introducing contestants...\n");
+	while (g_gen.champ[++a].length && a < 4)
 	{
-		r_arg(kareta, new);
-		if (val_argc(kareta, new) && check_args(kareta, new))
-			new->func(kareta);
-		else
-			kareta->step += g_farewell(kareta, new);
+		ft_printf("* Player %d, weighing %d bytes, ",
+			a + 1, g_gen.champ[a].length);
+		ft_printf("\"%s\" (\"%s\") !\n",
+			g_gen.champ[a].name, g_gen.champ[a].comment);
 	}
-	else
-		kareta->step = 1;
 }

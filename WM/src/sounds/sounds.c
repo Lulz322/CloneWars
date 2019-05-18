@@ -55,7 +55,6 @@ void	set_music(void)
 		else
 			system("afplay sounds/music.wav&");
 	}
-		
 }
 
 void	kill_sounds(void)

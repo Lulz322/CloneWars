@@ -29,39 +29,18 @@
 # define READ_CHAMP(ex, name) {read_champ(ex,name);return ;}
 # define ERR_CHAMP(ex) {if (!ex) ERROR("Missing first champ");}
 # define SET_L(ex) {if (ex == 3){g_gen.flag_l = true;}g_gen.log = a;}
-# define SET_DUMP_D(ex) {if (ex == 2){g_gen.flag_d = true;}g_gen.flag_dump_d = a;}
-# define SET_DUMP(ex) {if (ex == 1){g_gen.flag_dump = true;}g_gen.flag_dump_d = a;}
+# define SET_DUMP_D(ex) {if(ex == 2){FD = true;}g_gen.flag_dump_d = a;}
+# define SET_DUMP(ex) {if(ex == 1){FDUMP = true;}g_gen.flag_dump_d = a;}
 # define SET_DUMPS(ex) {SET_DUMP(ex);SET_DUMP_D(ex);SET_L(ex);}
 # define DIE g_gen.cycles_to_die
 # define AM_I_DIE DIE == g_gen.cycles_after_check || g_gen.cycles_to_die <= 0
-# define FD g_gen.flag_d
 # define READING(ex, ex2) if(ex) {ERROR(ex2);}
-# define SET_OOP(ex) ex = g_gen.field[kareta->pos];
-# define CWAIT(ex) ex = g_op[kareta->code - 1].cycles;
-# define POOP g_gen.field[kareta->pos] >= 0x01 && g_gen.field[kareta->pos] <= 0x10
+# define POOP g_gen.field[kareta->pos] >= 0x01&&g_gen.field[kareta->pos] <= 0x10
+# define FD g_gen.flag_d
 # define FDUMP g_gen.flag_dump
 # define RAVNO g_gen.flag_dump_d == g_gen.cycles
-# define PBF if (_RAVNO && (_FD || FDUMP)){_PRINT_B}
-# define CHECK_WAIT kareta->code >= 0x01 && kareta->code <= 0x10
-# define LOG(ex, ex1) {if (g_gen.log == 2){logs(ex, ex1, 1);}}
-# define PREPARE(ex) {g_gen.cycles++;g_gen.cycles_after_check++;ex = g_gen.kareta;}
 # define CHECKSSS g_gen.check_in == MAX_CHECKS || g_gen.live_in >= NBR_LIVE
-# define CYCLE_D {g_gen.cycles_to_die -= CYCLE_DELTA;g_gen.check_in = 0;}
-# define IS_CYCLE if  (CHECKSSS){CYCLE_D}
-# define ZERO {	g_gen.live_in = 0;	g_gen.cycles_after_check = 0;}
-# define REGO reg = g_gen.field[adress(pos + step)];
-# define PREP_ARGC {i = 0;step = (1 + (oop->args_types_code ? 1 : 0));}
-# define LIVE {id = what_opp(kareta, 1, 0);g_gen.live_in++;champ = NULL;}
-# define LIVE2 {champ = &g_gen.champ[id - 1];champ->last_alive = g_gen.cycles;}
-# define LIVE3 {champ->live++;g_gen.last_alive = id - 1;}
-# define LD {value = what_opp(kareta, 1, 1);kareta->carry = !value;}
-# define LD2 {kareta->reg[reg - 1] = value;kareta->step += REG_LEN;}
-# define STBLYAT {i = kareta->reg[reg - 1];kareta->step += REG_LEN;}
-# define ST1 {kareta->reg[addr - 1] = i;kareta->step += REG_LEN;}
-# define SSST {addr = g_gen.field[adress(kareta->pos + kareta->step)];ST1;}
-# define AD1 kareta->step += REG_LEN;
-# define ADD(ex) {ex = g_gen.field[adress(kareta->pos + kareta->step)];AD1}
-# define REPLACE {new->next = g_gen.kareta;g_gen.kareta = new;g_gen.am_karet++;}
+# define PREP_ARGC {step = (1 + (oop->args_types_code ? 1 : 0));}
 
 int			karettta(int i);
 bool		is_dat_is_a_child(int i);
@@ -98,6 +77,9 @@ void		print_player_code();
 void		jason_born(void);
 void		set_operation(t_kareta *kareta);
 void		do_func(t_kareta *kareta);
+void		set_wait_time(t_kareta *kareta);
+t_operation	*set_func(t_kareta *kareta);
+t_kareta	*u_are_not_prepeare();
 void		set_ukr_names(void);
 void		set_death(void);
 void		set_music(void);

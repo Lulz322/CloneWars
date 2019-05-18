@@ -63,13 +63,18 @@ void		set_zero(void)
 		g_gen.champ[i].last_alive = g_gen.champ[i].live;
 		g_gen.champ[i].live = 0;
 	}
+	g_gen.live_in = 0;
+	g_gen.cycles_after_check = 0;
 }
 
 void		check_who_die(void)
 {
 	g_gen.check_in++;
 	check_karetutu(NULL);
-	IS_CYCLE;
+	if (CHECKSSS)
+	{
+		g_gen.cycles_to_die -= CYCLE_DELTA;
+		g_gen.check_in = 0;
+	}
 	set_zero();
-	ZERO;
 }

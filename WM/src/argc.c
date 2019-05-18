@@ -16,7 +16,7 @@ int8_t	count_size(int pos, int step)
 {
 	int8_t reg;
 
-	REGO;
+	reg = g_gen.field[adress(pos + step)];
 	return (reg >= 1 && reg <= REG_NUMBER);
 }
 
@@ -36,6 +36,7 @@ bool	check_args(t_kareta *kareta, t_operation *oop)
 	int		i;
 	int		step;
 
+	i = 0;
 	PREP_ARGC;
 	while (i < oop->args_num)
 	{

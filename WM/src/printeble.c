@@ -12,22 +12,7 @@
 
 #include "../includes/vm.h"
 
-#define FOR_CHECK 0
-
-void	print_info_champs(void)
-{
-	int a;
-
-	a = -1;
-	ft_printf("Introducing contestants...\n");
-	while (g_gen.champ[++a].length && a < 4)
-	{
-		ft_printf("* Player %d, weighing %d bytes, ",
-			a + 1, g_gen.champ[a].length);
-		ft_printf("\"%s\" (\"%s\") !\n",
-			g_gen.champ[a].name, g_gen.champ[a].comment);
-	}
-}
+#define FOR_CHECK 1
 
 void	print_last_alive(void)
 {
@@ -78,7 +63,7 @@ void	print_without_color(int i)
 	exit(0);
 }
 
-void	gavno()
+void	gavno(void)
 {
 	int i;
 
