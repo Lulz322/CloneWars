@@ -16,13 +16,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include <stdlib.h>
-<<<<<<< HEAD:asm/libft/libft.h
 # include <limits.h>
 # define BUFF_SIZE 2048
-=======
-# include <unistd.h>
-# include "pf_header.h"
->>>>>>> master:WM/libft/includes/libft.h
 
 int				get_next_line(int fd, char **line);
 void			*ft_memset(void *b, int c, size_t n);

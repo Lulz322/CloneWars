@@ -16,17 +16,23 @@ endif
 #	-flto				- Enable Link Time Optimization
 #	-Ofast				- MAXIMUM OPTIMIZATION
 
+COREWAR := corewar
+ASM := asm
+
 all:
 	make -C WM/
-	make -C asm/
+	make -C Assambler/
+	mv WM/corewar ./
+	mv Assambler/asm ./
 	
 clean:
-	@$(DEL) $(OBJ)
-	@$(LMAKE) clean
+	make clean -C WM/
+	make clean -C Assambler/
 
-fclean: clean
-	@$(ECHO) "$(INVERT)$(RED)deleted$(WHITE)$(INVERT): $(NPWD)$(WHITE)"
-
+fclean: 
+	make fclean -C WM/
+	make fclean -C Assambler/
+	@rm -rf $(COREWAR) $(ASM) 
 re: fclean all
 
 .PHONY: all fclean clean re
