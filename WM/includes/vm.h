@@ -39,16 +39,12 @@
 # define SET_OOP(ex) ex = g_gen.field[kareta->pos];
 # define CWAIT(ex) ex = g_op[kareta->code - 1].cycles;
 # define POOP g_gen.field[kareta->pos] >= 0x01 && g_gen.field[kareta->pos] <= 0x10
-# define VS {if (g_gen.flag_visual){vs_update_stats(&g_gen.v);vs_update_main(&g_gen.v);}}
 # define FDUMP g_gen.flag_dump
 # define RAVNO g_gen.flag_dump_d == g_gen.cycles
 # define PBF if (_RAVNO && (_FD || FDUMP)){_PRINT_B}
-# define CHECK_VISUALISATION {if (g_gen.flag_visual == true){vs_main();}VS;}
 # define CHECK_WAIT kareta->code >= 0x01 && kareta->code <= 0x10
 # define LOG(ex, ex1) {if (g_gen.log == 2){logs(ex, ex1, 1);}}
 # define PREPARE(ex) {g_gen.cycles++;g_gen.cycles_after_check++;ex = g_gen.kareta;}
-# define PRINT_B2 {if (g_gen.flag_dump)print_field(32);exit(13);}
-# define PRINT_B {if (g_gen.flag_d){print_field(64);}PRINT_B2;}
 # define CHECKSSS g_gen.check_in == MAX_CHECKS || g_gen.live_in >= NBR_LIVE
 # define CYCLE_D {g_gen.cycles_to_die -= CYCLE_DELTA;g_gen.check_in = 0;}
 # define IS_CYCLE if  (CHECKSSS){CYCLE_D}
@@ -106,5 +102,6 @@ void		set_ukr_names(void);
 void		set_death(void);
 void		set_music(void);
 void		kill_sounds(void);
+void		gavno(void);
 int32_t		bytecode_to_int32(uint8_t *bytecode, int size);
 #endif

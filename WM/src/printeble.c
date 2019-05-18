@@ -12,6 +12,8 @@
 
 #include "../includes/vm.h"
 
+#define FOR_CHECK 0
+
 void	print_info_champs(void)
 {
 	int a;
@@ -71,10 +73,25 @@ void	print_without_color(int i)
 			j++;
 		}
 		ft_printf("\n");
-		a+=i;
+		a += i;
 	}
+	exit(0);
 }
 
+void	gavno()
+{
+	int i;
+
+	if (g_gen.flag_d)
+		i = 64;
+	else
+		i = 32;
+	if (FOR_CHECK)
+		print_without_color(i);
+	else
+		print_field(i);
+	exit(EXIT_SUCCESS);
+}
 
 void	print_field(int i)
 {
@@ -82,8 +99,6 @@ void	print_field(int i)
 	int j;
 
 	a = 0;
-	print_without_color(i);
-	exit(0);
 	while (a < MEM_SIZE)
 	{
 		ft_printf("%.4p : ", a);
@@ -104,20 +119,5 @@ void	print_field(int i)
 		}
 		ft_printf("\n");
 		a += i;
-	}
-}
-
-void	print_player_code(void)
-{
-	int a;
-	int j;
-
-	a = -1;
-	while (++a < 4 && g_gen.champ[a].name)
-	{
-		j = -1;
-		while (++j < g_gen.champ[a].length)
-			ft_printf("%02x ", g_gen.champ[a].algo[j]);
-		ft_printf("\n\n\n");
 	}
 }

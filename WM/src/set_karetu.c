@@ -49,8 +49,6 @@ void	check_kareta(t_kareta *kareta)
 	}
 }
 
-
-
 t_kareta *u_are_not_prepeare()
 {
 	t_kareta *start;
@@ -67,6 +65,8 @@ void	run_cycle()
 {
 	t_kareta *tmp;
 
+	if (g_gen.log == 2)
+		logs(g_gen.cycles + 1, g_gen.cycles_after_check + 1, 1);
 	tmp = u_are_not_prepeare();
 	while (tmp)
 	{
@@ -76,26 +76,36 @@ void	run_cycle()
 	}
 }
 
+void	help_vs(void)
+{
+	if (!FD && !FDUMP)
+	{
+		if (g_gen.flag_visual)
+		{
+			vs_update_stats(&g_gen.v);
+			vs_update_main(&g_gen.v);
+		}
+	}
+}
+
 void	start_game(void)
 {
 	while (g_gen.kareta)
 	{
-		LOG(g_gen.cycles + 1, g_gen.cycles_after_check + 1);
 		if (RAVNO && (FD || FDUMP))
 		{
 			if (g_gen.flag_visual)
 			{
-				VS;
+				help_vs();
 				timeout(-1);
 				getch();
 				endwin();
 				exit(0);
 			}
 			else
-				PRINT_B;
+				gavno();
 		}
-		if (!FD && !FDUMP)
-			VS;
+		help_vs();
 		run_cycle();
 		if (AM_I_DIE)
 			check_who_die();
@@ -107,9 +117,11 @@ void	set_karetu(void)
 {
 	g_gen.cycles_to_die = CYCLE_TO_DIE;
 	print_info_champs();
-	CHECK_VISUALISATION;
-	set_ukr_names();
-	//ft_printf("%s\n", g_gen.champ[0].UKR_name);
+	if (g_gen.flag_visual == true)
+	{
+		vs_main();
+		help_vs();
+	}
 	if (g_gen.flag_visual && g_gen.sounds)
 		set_music();
 	start_game();

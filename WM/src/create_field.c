@@ -19,7 +19,8 @@ int			karettta(int i)
 	tmp = g_gen.kareta;
 	while (tmp)
 	{
-		if (tmp->pos == i && -tmp->reg[0] > 0 && -tmp->reg[0] <= g_gen.am_champs)
+		if (tmp->pos == i && -tmp->reg[0] > 0
+			&& -tmp->reg[0] <= g_gen.am_champs)
 			return (-tmp->reg[0]);
 		tmp = tmp->next;
 	}
