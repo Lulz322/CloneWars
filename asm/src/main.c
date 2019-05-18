@@ -54,8 +54,8 @@ static void			is_safe_args(int ac, char **av, struct s_flag *flg, int *i)
 			exit(show_message(USAGE));
 	}
 	if (!ft_strcmp(av[*i], "--help"))
-		exit(show_message("USAGE:\n\n ./asm [OPTION] champion.cor | \
-[OPTION] champion.s \
+		exit(show_message("USAGE:\n\n ./asm [-O] -R champion.cor | \
+[-O] champion.s \
 \n\n-O --original  ASM can obtain multiple files, but will use only last one. \
 \n-R --reverse  ASM will make file opposite of assembling, \
 use only for .cor files.\n--help  Output this help.\n"));
