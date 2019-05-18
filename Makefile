@@ -19,13 +19,7 @@ endif
 all:
 	make -C WM/
 	make -C asm/
-
-LIBFT :
-	make -C WM/
-	make -C asm/
-
-$(NAME): $(LIBFT)
-		
+	
 clean:
 	@$(DEL) $(OBJ)
 	@$(LMAKE) clean
