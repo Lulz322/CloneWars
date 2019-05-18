@@ -17,10 +17,10 @@ static void	vs_chicken_dinner(int y, int x)
 	mvprintw(y / 3 + 12, x / 3, C1);
 	mvprintw(y / 3 + 13, x / 3, C2);
 	mvprintw(y / 3 + 14, x / 3, C3);
-	mvprintw(y / 3 + 15, x / 3, C4);
+	mvprintw(y / 3 + 15, x / 3, Y);
 	mvprintw(y / 3 + 16, x / 3, C5);
 	mvprintw(y / 3 + 17, x / 3, C6);
-	mvprintw(y / 3 + 18, x / 3, C7);
+	mvprintw(y / 3 + 18, x / 3, L);
 	mvprintw(y / 3 + 19, x / 3, C8);
 	mvprintw(y / 3 + 20, x / 3, C9);
 	mvprintw(y / 3 + 12, x / 3 + 69, D1);
