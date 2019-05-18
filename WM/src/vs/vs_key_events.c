@@ -16,7 +16,7 @@ static void	vs_draw_pause(t_vis *v)
 {
 	mvwprintw(v->stat, 3, 20, "             ");
 	wattron(v->stat, A_UNDERLINE | COLOR_PAIR(RED_BLACK));
-	mvwprintw(v->stat, 3, 20, ((ST.f_p) ? "зупинка" : "paused"));
+	mvwprintw(v->stat, 3, 20, ((g_gen.f_p) ? "зупинка" : "paused"));
 	wattroff(v->stat, A_UNDERLINE | COLOR_PAIR(RED_BLACK));
 	wrefresh(v->stat);
 }
@@ -27,7 +27,7 @@ static void	vs_draw_speed(int speed, t_vis *v)
 
 	i = -1;
 	wattron(v->stat, A_BOLD);
-	mvwprintw(v->stat, 40, 2, ((ST.f_p) ? "Швидкість: " : "Speed rate: "));
+	mvwprintw(v->stat, 40, 2, ((g_gen.f_p) ? "Швидкість: " : "Speed rate: "));
 	wattroff(v->stat, A_BOLD);
 	mvwprintw(v->stat, 40, 15, "x%d", 5 - speed);
 	mvwprintw(v->stat, 40, 18, "     ");

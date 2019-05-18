@@ -20,7 +20,7 @@ void				ld(t_kareta *kareta)
 	kareta->step += OP_LEN + ARG_LEN;
 	value = what_opp(kareta, 1, 1);
 	kareta->carry = !value;
-	reg = ST.field[adress(kareta->pos + kareta->step)];
+	reg = g_gen.field[adress(kareta->pos + kareta->step)];
 	kareta->reg[reg - 1] = value;
 	kareta->step += REG_LEN;
 }

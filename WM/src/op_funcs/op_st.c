@@ -19,12 +19,12 @@ void				op_st(t_kareta *kareta)
 	int32_t	addr;
 
 	kareta->step += OP_LEN + ARG_LEN;
-	reg = ST.field[adress(kareta->pos + kareta->step)];
+	reg = g_gen.field[adress(kareta->pos + kareta->step)];
 	i = kareta->reg[reg - 1];
 	kareta->step += REG_LEN;
 	if (kareta->argc_types[1] == T_REG)
 	{
-		addr = ST.field[adress(kareta->pos + kareta->step)];
+		addr = g_gen.field[adress(kareta->pos + kareta->step)];
 		kareta->reg[addr - 1] = i;
 		kareta->step += REG_LEN;
 	}
@@ -34,6 +34,6 @@ void				op_st(t_kareta *kareta)
 		int_to_byte(kareta->pos + (addr % IDX_MOD), i, DIR_SIZE);
 		kareta->step += IND_SIZE;
 		set_field(kareta->pos + addr % IDX_MOD,
-				ST.v_field[kareta->pos], DIR_SIZE);
+				g_gen.v_field[kareta->pos], DIR_SIZE);
 	}
 }

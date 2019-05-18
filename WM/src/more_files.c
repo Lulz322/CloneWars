@@ -16,7 +16,7 @@ bool		is_dat_is_a_child(int i)
 {
 	t_kareta *tmp;
 
-	tmp = ST.kareta;
+	tmp = g_gen.kareta;
 	while (tmp)
 	{
 		if (tmp->pos == i && tmp->living <= 50)
@@ -30,8 +30,8 @@ void		logs(int i, int d, int mode)
 {
 	if (mode == 1)
 		ft_printf("It is now cycle %llu, after check %i\n", i, d);
-	if (mode == 2 && ST.log == 2)
-		ft_printf("Cycle to die is now %i\n", ST.cycles_to_die);
+	if (mode == 2 && g_gen.log == 2)
+		ft_printf("Cycle to die is now %i\n", g_gen.cycles_to_die);
 }
 
 int			g_farewell(t_kareta *kareta, t_operation *operation)

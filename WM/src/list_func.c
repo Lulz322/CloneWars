@@ -22,6 +22,7 @@ t_kareta	*create_elem(int pos)
 	elem->id = ++id;
 	elem->reg[0] = -id;
 	elem->pos = pos;
+	g_gen.am_karet++;
 	return (elem);
 }
 

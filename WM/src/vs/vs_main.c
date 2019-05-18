@@ -52,7 +52,7 @@ static int	vs_init_screen(t_vis *v)
 	if (v->x < 262 || v->y < 70)
 	{
 		endwin();
-		if (ST.f_p)
+		if (g_gen.f_p)
 			write(1, "Термінал замалий для візуалізації\n", 34);
 		else
 			write(1, "Term size is too small for the visualization\n", 45);
@@ -66,27 +66,27 @@ static int	vs_init_screen(t_vis *v)
 void		vs_prepare_stat(t_vis *v)
 {
 	wattron(v->stat, A_BOLD | COLOR_PAIR(YELLOW_BLACK));
-	mvwprintw(v->stat, 1, 20, ((ST.f_p) ? UA1 : EN1));
+	mvwprintw(v->stat, 1, 20, ((g_gen.f_p) ? UA1 : EN1));
 	wattroff(v->stat, COLOR_PAIR(YELLOW_BLACK));
-	mvwprintw(v->stat, 3, 2, ((ST.f_p) ? UA2 : EN2));
+	mvwprintw(v->stat, 3, 2, ((g_gen.f_p) ? UA2 : EN2));
 	wattroff(v->stat, A_BOLD);
 	wattron(v->stat, A_UNDERLINE | COLOR_PAIR(GREEN_BLACK));
-	mvwprintw(v->stat, 3, 20, ((ST.f_p) ? "біжить " : "running"));
+	mvwprintw(v->stat, 3, 20, ((g_gen.f_p) ? "біжить " : "running"));
 	wattroff(v->stat, A_UNDERLINE | COLOR_PAIR(GREEN_BLACK));
 	wattron(v->stat, A_BOLD);
-	mvwprintw(v->stat, 5, 2, ((ST.f_p) ? "Цикл:" : "Cycle:"));
-	mvwprintw(v->stat, 7, 2, ((ST.f_p) ? "Процеси:" : "Processes:"));
-	mvwprintw(v->stat, 9, 2, ((ST.f_p) ? UA3 : EN3));
-	mvwprintw(v->stat, 36, 2, ((ST.f_p) ? UA4 : EN4), CYCLE_TO_DIE);
-	mvwprintw(v->stat, 42, 2, ((ST.f_p) ? UA5 : EN5));
-	mvwprintw(v->stat, 43, 2, ((ST.f_p) ? "КЛК_ЖИВІ: " : "NBR_LIVE: "));
-	mvwprintw(v->stat, 44, 2, ((ST.f_p) ? "МАХ_ПЕР-ОК: " : "MAX_CHECKS: "));
+	mvwprintw(v->stat, 5, 2, ((g_gen.f_p) ? "Цикл:" : "Cycle:"));
+	mvwprintw(v->stat, 7, 2, ((g_gen.f_p) ? "Процеси:" : "Processes:"));
+	mvwprintw(v->stat, 9, 2, ((g_gen.f_p) ? UA3 : EN3));
+	mvwprintw(v->stat, 36, 2, ((g_gen.f_p) ? UA4 : EN4), CYCLE_TO_DIE);
+	mvwprintw(v->stat, 42, 2, ((g_gen.f_p) ? UA5 : EN5));
+	mvwprintw(v->stat, 43, 2, ((g_gen.f_p) ? "КЛК_ЖИВІ: " : "NBR_LIVE: "));
+	mvwprintw(v->stat, 44, 2, ((g_gen.f_p) ? "МАХ_ПЕР-ОК: " : "MAX_CHECKS: "));
 	wattroff(v->stat, A_BOLD);
 	mvwprintw(v->stat, 42, 15, "%d", CYCLE_DELTA);
 	mvwprintw(v->stat, 43, 15, "%d", NBR_LIVE);
 	mvwprintw(v->stat, 44, 15, "%d", MAX_CHECKS);
 	wattron(v->stat, A_BOLD | COLOR_PAIR(YELLOW_BLACK));
-	mvwprintw(v->stat, 64, 2, ((ST.f_p) ? "Створений:" : "Created by:"));
+	mvwprintw(v->stat, 64, 2, ((g_gen.f_p) ? "Створений:" : "Created by:"));
 	wattroff(v->stat, A_BOLD | COLOR_PAIR(YELLOW_BLACK));
 	mvwprintw(v->stat, 64, 14, "iruban, mbiliaie, dlenskyi, amatveie");
 	wrefresh(v->stat);
@@ -120,10 +120,10 @@ void		vs_main(void)
 		vs_prepare_main(&v);
 		vs_prepare_stat(&v);
 		vs_print_players(&v);
-		ST.v = v;
+		g_gen.v = v;
 	}
 	else
 	{
-		ST.flag_visual = false;
+		g_gen.flag_visual = false;
 	}
 }

@@ -20,12 +20,12 @@ void				sti(t_kareta *kareta)
 	int32_t	arg3;
 
 	kareta->step += OP_LEN + ARG_LEN;
-	reg = ST.field[adress(kareta->pos + kareta->step)];
+	reg = g_gen.field[adress(kareta->pos + kareta->step)];
 	value = kareta->reg[reg - 1];
 	kareta->step += REG_LEN;
 	arg2 = what_opp(kareta, 2, 1);
 	arg3 = what_opp(kareta, 3, 1);
 	int_to_byte(kareta->pos + (arg2 + arg3) % IDX_MOD, value, DIR_SIZE);
 	set_field(kareta->pos + (arg2 + arg3) % IDX_MOD,
-			ST.v_field[kareta->pos], DIR_SIZE);
+			g_gen.v_field[kareta->pos], DIR_SIZE);
 }

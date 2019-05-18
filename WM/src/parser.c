@@ -66,7 +66,7 @@ void	set_dump(char *str, int d)
 	int		a;
 	char	*tmp;
 
-	if (!str || ST.flag_dump == true || ST.flag_d == true)
+	if (!str || g_gen.flag_dump == true || g_gen.flag_d == true)
 		ERROR("ERROR INPUT");
 	a = ft_atoi(str);
 	tmp = ft_itoa(a);
@@ -93,15 +93,15 @@ void	parsing_argc(int argc, char **argv)
 		else if (ft_strequ(argv[i], "-d"))
 			set_dump(argv[i++ + 1], 2);
 		else if (ft_strequ(argv[i], "-v"))
-			ST.flag_visual = true;
+			g_gen.flag_visual = true;
 		else if (ft_strequ(argv[i], "-l"))
 			set_dump(argv[i++ + 1], 3);
 		else if (ft_strequ(argv[i], "-a"))
-			ST.aff = 1;
+			g_gen.aff = 1;
 		else if (ft_strequ(argv[i], "-peremoga"))
-			ST.f_p = true;
+			g_gen.f_p = true;
 		else if (ft_strequ(argv[i], "-s"))
-			ST.sounds = true;
+			g_gen.sounds = true;
 		else
 			set_unknown(argv[i]);
 	}

@@ -16,10 +16,10 @@ int			karettta(int i)
 {
 	t_kareta *tmp;
 
-	tmp = ST.kareta;
+	tmp = g_gen.kareta;
 	while (tmp)
 	{
-		if (tmp->pos == i && -tmp->reg[0] > 0 && -tmp->reg[0] <= ST.am_champs)
+		if (tmp->pos == i && -tmp->reg[0] > 0 && -tmp->reg[0] <= g_gen.am_champs)
 			return (-tmp->reg[0]);
 		tmp = tmp->next;
 	}
@@ -33,7 +33,7 @@ void		set_field(int32_t addr, uint8_t i, int32_t size)
 	j = 0;
 	while (size)
 	{
-		ST.v_field[adress(addr + size - 1)] = i;
+		g_gen.v_field[adress(addr + size - 1)] = i;
 		j += 8;
 		size--;
 	}
@@ -83,7 +83,7 @@ void		create_field(void)
 	a = MEM_SIZE / g_gen.am_champs;
 	while (z < g_gen.am_champs)
 	{
-		add_elem(&ST.kareta, i);
+		add_elem(&g_gen.kareta, i);
 		set_players(g_gen.champ[j++], i);
 		i += a;
 		z++;

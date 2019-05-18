@@ -20,20 +20,21 @@ void	print_info_champs(void)
 	ft_printf("Introducing contestants...\n");
 	while (g_gen.champ[++a].length && a < 4)
 	{
-		ft_printf("* Player %d, weighing %d bytes,", a + 1, ST.champ[a].length);
-		ft_printf("\"%-25.25s\" (\"%-25.25s\") !\n",
-			ST.champ[a].name, ST.champ[a].comment);
+		ft_printf("* Player %d, weighing %d bytes, ",
+			a + 1, g_gen.champ[a].length);
+		ft_printf("\"%s\" (\"%s\") !\n",
+			g_gen.champ[a].name, g_gen.champ[a].comment);
 	}
 }
 
 void	print_last_alive(void)
 {
-	if (ST.flag_visual)
+	if (g_gen.flag_visual)
 		vs_announce_winner(2, 2, 0);
 	else
-		ft_printf("Player %d \"%s\" won!\n", ST.last_alive + 1,
-			ST.champ[ST.last_alive].name);
-	if (ST.flag_visual && ST.sounds)
+		ft_printf("Player %d \"%s\" won!\n", g_gen.last_alive + 1,
+			g_gen.champ[g_gen.last_alive].name);
+	if (g_gen.flag_visual && g_gen.sounds)
 	{
 		kill_sounds();
 		system("rm temp");
@@ -81,6 +82,8 @@ void	print_field(int i)
 	int j;
 
 	a = 0;
+	print_without_color(i);
+	exit(0);
 	while (a < MEM_SIZE)
 	{
 		ft_printf("%.4p : ", a);

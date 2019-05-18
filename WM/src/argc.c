@@ -65,7 +65,7 @@ void	r_arg(t_kareta *kareta, t_operation *oop)
 
 	if (oop->args_types_code)
 	{
-		atc = ST.field[adress(kareta->pos + 1)];
+		atc = g_gen.field[adress(kareta->pos + 1)];
 		if (oop->args_num >= 1)
 			kareta->argc_types[0] = g_arg_code[((atc & 0xC0) >> 6) - 1];
 		if (oop->args_num >= 2)

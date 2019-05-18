@@ -18,9 +18,9 @@ void		aff(t_kareta *kareta)
 	int32_t	qqq;
 
 	kareta->step += OP_LEN + ARG_LEN;
-	reg = ST.field[adress(kareta->pos + kareta->step)];
+	reg = g_gen.field[adress(kareta->pos + kareta->step)];
 	qqq = kareta->reg[reg - 1];
 	kareta->step += REG_LEN;
-	if (ST.aff && ST.flag_visual)
+	if (g_gen.aff && !g_gen.flag_visual)
 		ft_printf("%c\n", (char)qqq);
 }

@@ -83,7 +83,7 @@ static void	vs_prepare_winer(int *y, int *x, int *len)
 	getmaxyx(stdscr, *y, *x);
 	timeout(-1);
 	box(stdscr, 0, 0);
-	*len = ft_strlen(ST.champ[ST.last_alive].name);
+	*len = ft_strlen(g_gen.champ[g_gen.last_alive].name);
 	refresh();
 }
 
@@ -95,7 +95,7 @@ void		vs_announce_winner(int i, int j, int o)
 
 	i = 1;
 	vs_prepare_winer(&y, &x, &len);
-	attron(COLOR_PAIR(ST.last_alive + 1));
+	attron(COLOR_PAIR(g_gen.last_alive + 1));
 	while (i < y - 1)
 	{
 		j = 2;
@@ -103,13 +103,13 @@ void		vs_announce_winner(int i, int j, int o)
 		{
 			if (o - 1 == len)
 				o = 0;
-			mvprintw(i, j, "%c", ST.champ[ST.last_alive].name[o]);
+			mvprintw(i, j, "%c", g_gen.champ[g_gen.last_alive].name[o]);
 			j += 2;
 			o++;
 		}
 		i++;
 	}
-	attroff(COLOR_PAIR(ST.last_alive + 1));
+	attroff(COLOR_PAIR(g_gen.last_alive + 1));
 	(g_gen.f_p) ? vs_peremoga(y + 35, x + 67) : vs_winner_winner(y, x);
 	refresh();
 	getch();

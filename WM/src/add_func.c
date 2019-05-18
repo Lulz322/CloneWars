@@ -21,7 +21,7 @@ int			what_opp(t_kareta *kareta, uint8_t i, int mod)
 	op = &g_op[kareta->code - 1];
 	value = 0;
 	if (kareta->argc_types[i - 1] & T_REG)
-		value = kareta->reg[ST.field[adress(kareta->pos +
+		value = kareta->reg[g_gen.field[adress(kareta->pos +
 				kareta->step)] - 1];
 	else if (kareta->argc_types[i - 1] & T_DIR)
 		value = byte_to_int(kareta->pos + kareta->step, op->t_dir_size);

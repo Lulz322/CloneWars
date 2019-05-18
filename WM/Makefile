@@ -20,7 +20,7 @@ endif
 #	-flto				- Enable Link Time Optimization
 #	-Ofast				- MAXIMUM OPTIMIZATION
 
-CC := gcc -march=native -mtune=native -flto -Ofast
+CC := gcc -march=native -mtune=native
 CFLAGS := -Wall -Wextra -Wunused -g3
 IFLAGS := -I $(CURDIR)/includes/
 

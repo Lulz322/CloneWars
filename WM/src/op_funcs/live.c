@@ -12,6 +12,13 @@
 
 #include "../../includes/vm.h"
 
+void				live_help(int id, t_champ *champ)
+{
+	if (g_gen.log == 1)
+		ft_printf("A process shows that player %d (%s) is alive\n",
+			id, champ->name);
+}
+
 void				live(t_kareta *kareta)
 {
 	int		id;
@@ -19,18 +26,17 @@ void				live(t_kareta *kareta)
 
 	kareta->step += OP_LEN;
 	id = what_opp(kareta, 1, 0);
-	ST.live_in++;
-	kareta->last_alive = ST.cycles;
+	g_gen.live_in++;
+	kareta->last_alive = g_gen.cycles;
 	champ = NULL;
-	if (id <= -1 && id >= -ST.am_champs)
+	if (id <= -1 && id >= -g_gen.am_champs)
 	{
 		if (id < 0)
 			id *= -1;
-		champ = &ST.champ[id - 1];
-		champ->last_alive = ST.cycles;
+		champ = &g_gen.champ[id - 1];
+		champ->last_alive = g_gen.cycles;
 		champ->live++;
-		ST.last_alive = id - 1;
-		if (ST.log == 1)
-			ft_printf("Player %i (%s) is said to be alive\n", id, champ->name);
-}
+		g_gen.last_alive = id - 1;
+	}
+	live_help(id, champ);
 }

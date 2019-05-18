@@ -20,7 +20,6 @@ void				op_fork(t_kareta *kareta)
 	kareta->step += OP_LEN;
 	addr = what_opp(kareta, 1, 1);
 	new = copy_kareta(kareta, addr % IDX_MOD);
-	new->next = ST.kareta;
-	ST.kareta = new;
-	ST.am_karet++;
+	new->next = g_gen.kareta;
+	g_gen.kareta = new;
 }

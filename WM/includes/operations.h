@@ -43,6 +43,7 @@ typedef struct		s_kareta
 typedef struct		s_champ
 {
 	char			file_name[255];
+	char			UKR_name[255];
 	bool			hard_set;
 	char			*name;
 	char			*comment;
@@ -117,7 +118,6 @@ typedef struct		s_operation
 	uint8_t			t_dir_size;
 	int				cycles;
 	void			(*func)(t_kareta *);
-
 }					t_operation;
 
 static				t_operation	g_op[16] = {

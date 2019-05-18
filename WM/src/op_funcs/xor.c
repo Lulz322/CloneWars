@@ -24,7 +24,7 @@ void				xor(t_kareta *kareta)
 	v2 = what_opp(kareta, 2, 1);
 	res = v1 ^ v2;
 	kareta->carry = !res;
-	reg = ST.field[adress(kareta->pos + kareta->step)];
+	reg = g_gen.field[adress(kareta->pos + kareta->step)];
 	kareta->reg[reg - 1] = res;
 	kareta->step += REG_LEN;
 }

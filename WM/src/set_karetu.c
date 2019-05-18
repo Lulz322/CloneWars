@@ -76,12 +76,12 @@ void	run_cycle()
 
 void	start_game(void)
 {
-	while (ST.kareta)
+	while (g_gen.kareta)
 	{
-		LOG(ST.cycles + 1, ST.cycles_after_check + 1);
+		LOG(g_gen.cycles + 1, g_gen.cycles_after_check + 1);
 		if (RAVNO && (FD || FDUMP))
 		{
-			if (ST.flag_visual)
+			if (g_gen.flag_visual)
 			{
 				VS;
 				timeout(-1);
@@ -103,10 +103,12 @@ void	start_game(void)
 
 void	set_karetu(void)
 {
-	ST.cycles_to_die = CYCLE_TO_DIE;
+	g_gen.cycles_to_die = CYCLE_TO_DIE;
 	print_info_champs();
 	CHECK_VISUALISATION;
-	if (ST.flag_visual && ST.sounds)
+	set_ukr_names();
+	ft_printf("%s\n", g_gen.champ[0].UKR_name);
+	if (g_gen.flag_visual && g_gen.sounds)
 		set_music();
 	start_game();
 }
