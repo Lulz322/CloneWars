@@ -19,12 +19,10 @@ int32_t to_steps(t_kareta *kareta, int32_t a, int32_t b)
 
 void				add(t_kareta *kareta)
 {
-	int32_t	reg3;
 	int32_t	i;
 
 	kareta->step += OP_LEN + ARG_LEN;
 	i = to_steps(kareta, set_reg(kareta), set_reg(kareta));
 	kareta->carry = !i;
-	reg3 = set_reg(kareta);
-	kareta->reg[reg3 - 1] = i;
+	kareta->reg[set_reg(kareta) - 1] = i;
 }

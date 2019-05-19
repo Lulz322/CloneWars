@@ -14,11 +14,13 @@
 
 void				zjmp(t_kareta *kareta)
 {
+	int32_t addr;
+
 	kareta->step += OP_LEN;
+	addr = what_opp(kareta, 1, true);
 	if (kareta->carry)
 	{
-		kareta->pos = adress(kareta->pos + (what_opp(kareta, 1, true)
-											% IDX_MOD));
+		kareta->pos = adress(kareta->pos + (addr % IDX_MOD));
 		kareta->step = 0;
 	}
 }

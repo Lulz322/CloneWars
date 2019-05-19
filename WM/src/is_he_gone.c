@@ -12,12 +12,6 @@
 
 #include "../includes/vm.h"
 
-bool		is_die(t_kareta *kareta)
-{
-	return (g_gen.cycles_to_die <= 0
-			|| g_gen.cycles - kareta->last_alive >= g_gen.cycles_to_die);
-}
-
 t_kareta	*del(t_kareta **del_me, t_kareta *prev)
 {
 	t_kareta *new;
@@ -45,7 +39,8 @@ void		check_karetutu(void)
 	tmp = g_gen.kareta;
 	while (tmp)
 	{
-		if (is_die(tmp))
+		if (g_gen.cycles_to_die <= 0
+				|| g_gen.cycles - tmp->last_alive >= g_gen.cycles_to_die)
 			tmp = del(&tmp, no_name);
 		else
 		{
