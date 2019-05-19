@@ -85,5 +85,6 @@ void		set_death(void);
 void		set_music(void);
 void		kill_sounds(void);
 void		gavno(void);
+int32_t		set_reg(t_kareta *kareta);
 int32_t		bytecode_to_int32(uint8_t *bytecode, int size);
 #endif

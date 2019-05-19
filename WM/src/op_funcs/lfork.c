@@ -14,12 +14,10 @@
 
 void				lfork(t_kareta *kareta)
 {
-	int32_t		addr;
 	t_kareta	*new;
 
 	kareta->step += OP_LEN;
-	addr = what_opp(kareta, 1, 1);
-	new = copy_kareta(kareta, addr);
+	new = copy_kareta(kareta, what_opp(kareta, 1, 1));
 	new->next = g_gen.kareta;
 	g_gen.kareta = new;
 }

@@ -28,15 +28,16 @@ void				live(t_kareta *kareta)
 	id = what_opp(kareta, 1, 0);
 	g_gen.live_in++;
 	kareta->last_alive = g_gen.cycles;
-	champ = NULL;
 	if (id <= -1 && id >= -g_gen.am_champs)
 	{
 		if (id < 0)
 			id *= -1;
 		champ = &g_gen.champ[id - 1];
-		champ->last_alive = g_gen.cycles;
 		champ->live++;
+		champ->last_alive = g_gen.cycles;
 		g_gen.last_alive = id - 1;
 	}
+	else
+		champ = NULL;
 	live_help(id, champ);
 }

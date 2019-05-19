@@ -36,18 +36,20 @@ t_kareta	*del(t_kareta **del_me, t_kareta *prev)
 	return (tmp);
 }
 
-void		check_karetutu(t_kareta *prev)
+void		check_karetutu(void)
 {
 	t_kareta *tmp;
+	t_kareta *no_name;
 
+	no_name = NULL;
 	tmp = g_gen.kareta;
 	while (tmp)
 	{
 		if (is_die(tmp))
-			tmp = del(&tmp, prev);
+			tmp = del(&tmp, no_name);
 		else
 		{
-			prev = tmp;
+			no_name = tmp;
 			tmp = tmp->next;
 		}
 	}
@@ -70,7 +72,7 @@ void		set_zero(void)
 void		check_who_die(void)
 {
 	g_gen.check_in++;
-	check_karetutu(NULL);
+	check_karetutu();
 	if (CHECKSSS)
 	{
 		g_gen.cycles_to_die -= CYCLE_DELTA;

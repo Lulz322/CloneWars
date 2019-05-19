@@ -12,19 +12,18 @@
 
 #include "../../includes/vm.h"
 
+int32_t				or_set(int32_t	a, int32_t	b)
+{
+	return (a | b);
+}
+
 void				or(t_kareta *kareta)
 {
-	int32_t	v1;
-	int32_t	v2;
+
 	int32_t	res;
-	int32_t	reg;
 
 	kareta->step += OP_LEN + ARG_LEN;
-	v1 = what_opp(kareta, 1, 1);
-	v2 = what_opp(kareta, 2, 1);
-	res = v1 | v2;
+	res = or_set(what_opp(kareta, 1, 1), what_opp(kareta, 2, 1));
 	kareta->carry = !res;
-	reg = g_gen.field[adress(kareta->pos + kareta->step)];
-	kareta->reg[reg - 1] = res;
-	kareta->step += REG_LEN;
+	kareta->reg[set_reg(kareta) - 1] = res;
 }

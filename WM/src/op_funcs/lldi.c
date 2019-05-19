@@ -14,14 +14,8 @@
 
 void				lldi(t_kareta *kareta)
 {
-	int32_t	a1;
-	int32_t	a2;
-	int32_t	reg;
-
 	kareta->step += OP_LEN + ARG_LEN;
-	a1 = what_opp(kareta, 1, 1);
-	a2 = what_opp(kareta, 2, 1);
-	reg = g_gen.field[adress(kareta->pos + kareta->step)];
-	kareta->reg[reg - 1] = byte_to_int(kareta->pos + a1 + a2, DIR_SIZE);
-	kareta->step += REG_LEN;
+	kareta->reg[set_reg(kareta) - 1] = byte_to_int(kareta->pos +
+		what_opp(kareta, 1, 1) + what_opp(kareta, 2, 1),
+			DIR_SIZE);
 }

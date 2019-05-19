@@ -14,20 +14,13 @@
 
 void				op_st(t_kareta *kareta)
 {
-	int32_t	reg;
 	int32_t	i;
 	int32_t	addr;
 
 	kareta->step += OP_LEN + ARG_LEN;
-	reg = g_gen.field[adress(kareta->pos + kareta->step)];
-	i = kareta->reg[reg - 1];
-	kareta->step += REG_LEN;
+	i = kareta->reg[set_reg(kareta) - 1];
 	if (kareta->argc_types[1] == T_REG)
-	{
-		addr = g_gen.field[adress(kareta->pos + kareta->step)];
-		kareta->reg[addr - 1] = i;
-		kareta->step += REG_LEN;
-	}
+		kareta->reg[set_reg(kareta) - 1] = i;
 	else
 	{
 		addr = byte_to_int(kareta->pos + kareta->step, IND_SIZE);

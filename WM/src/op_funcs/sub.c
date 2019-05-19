@@ -14,19 +14,8 @@
 
 void				sub(t_kareta *kareta)
 {
-	int32_t	reg1;
-	int32_t	reg2;
-	int32_t	reg3;
-	int32_t	i;
-
-	kareta->step += (OP_LEN + ARG_LEN);
-	reg1 = g_gen.field[adress(kareta->pos + kareta->step)];
-	kareta->step += REG_LEN;
-	reg2 = g_gen.field[adress(kareta->pos + kareta->step)];
-	kareta->step += REG_LEN;
-	i = kareta->reg[reg1 - 1] - kareta->reg[reg2 - 1];
-	kareta->carry = !i;
-	reg3 = g_gen.field[adress(kareta->pos + kareta->step)];
-	kareta->reg[reg3 - 1] = i;
-	kareta->step += REG_LEN;
+	kareta->step += OP_LEN + ARG_LEN;
+	kareta->carry = !(kareta->reg[set_reg(kareta) - 1]
+					- kareta->reg[set_reg(kareta) - 1]);
+	kareta->reg[set_reg(kareta) - 1] = !kareta->carry;
 }

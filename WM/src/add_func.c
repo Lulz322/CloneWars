@@ -69,3 +69,12 @@ int			adress(int i)
 		i += MEM_SIZE;
 	return (i);
 }
+
+int32_t		set_reg(t_kareta *kareta)
+{
+	int32_t	tmp;
+
+	tmp = g_gen.field[adress(kareta->pos + kareta->step)];
+	kareta->step += REG_LEN;
+	return (tmp);
+}

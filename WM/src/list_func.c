@@ -52,17 +52,17 @@ void		add_elem(t_kareta **list, int pos)
 	}
 }
 
-t_kareta	*copy_kareta(t_kareta *cursor, int32_t addr)
+t_kareta	*copy_kareta(t_kareta *kareta, int32_t addr)
 {
 	t_kareta	*new;
 	int			i;
 
-	new = create_elem(adress(cursor->pos + addr));
+	new = create_elem(adress(kareta->pos + addr));
 	i = -1;
 	while (++i < REG_NUMBER)
-		new->reg[i] = cursor->reg[i];
-	new->carry = cursor->carry;
-	new->last_alive = cursor->last_alive;
+		new->reg[i] = kareta->reg[i];
+	new->carry = kareta->carry;
+	new->last_alive = kareta->last_alive;
 	jason_born();
 	return (new);
 }

@@ -12,21 +12,19 @@
 
 #include "../../includes/vm.h"
 
+int32_t to_steps(t_kareta *kareta, int32_t a, int32_t b)
+{
+	return (kareta->reg[a - 1] + kareta->reg[b - 1]);
+}
+
 void				add(t_kareta *kareta)
 {
-	int32_t	reg1;
-	int32_t	reg2;
 	int32_t	reg3;
 	int32_t	i;
 
 	kareta->step += OP_LEN + ARG_LEN;
-	reg1 = g_gen.field[adress(kareta->pos + kareta->step)];
-	kareta->step += REG_LEN;
-	reg2 = g_gen.field[adress(kareta->pos + kareta->step)];
-	kareta->step += REG_LEN;
-	i = kareta->reg[reg1 - 1] + kareta->reg[reg2 - 1];
+	i = to_steps(kareta, set_reg(kareta), set_reg(kareta));
 	kareta->carry = !i;
-	reg3 = g_gen.field[adress(kareta->pos + kareta->step)];
+	reg3 = set_reg(kareta);
 	kareta->reg[reg3 - 1] = i;
-	kareta->step += REG_LEN;
 }
