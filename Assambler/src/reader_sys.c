@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void					lang_mistake(struct s_lexeme lxm)
+int						lang_mistake(struct s_lexeme lxm)
 {
 	char				*txt1;
 	size_t				i;
@@ -31,6 +31,7 @@ void					lang_mistake(struct s_lexeme lxm)
 	c = 41;
 	write(2, &c, i);
 	EOL;
+	return (0);
 }
 
 static struct s_txt		txt_loader(int y, char n, int x)
@@ -65,5 +66,7 @@ void					state_machine(struct s_txt *smb, int fd)
 	{
 		n = -1;
 		*smb = txt_loader(y, n, x);
+		if (smb->x == '\xff')
+			return ;
 	}
 }

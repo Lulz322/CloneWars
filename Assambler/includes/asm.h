@@ -22,6 +22,7 @@
 
 # define RD_ERR ("Unable to get data from argument!\n")
 # define ST_CMD_ERR ("Starting command is too long")
+# define EOL_ERR ("No newline at the end of file!\n")
 # define DCM_ERR ("Unable to complete recoding!\n")
 # define QUOTE_ERR ("Better put ending quote for name or comment!")
 # define LANG_ERR ("Wrong lexeme in (")
@@ -258,7 +259,7 @@ struct					s_txt
 };
 
 long					handle_spaces(long get, struct s_lexeme *lxm);
-void					lang_mistake(struct s_lexeme lxm);
+int						lang_mistake(struct s_lexeme lxm);
 
 /*
 ** DECOMPILER

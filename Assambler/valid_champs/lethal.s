@@ -1,122 +1,48 @@
 .name "lethal"
 .comment "bet you can't treat me"
 
-start:
-    sti     r1, %:wall, %1
-    sti     r1, %:wall3, %1
-    sti     r1, %:wall2, %1
-    sti     r1, %:wall3, %1
-    ld      %0, r16
+; r1 - number of champ
+; r2 - where to write
+; r3 - size for copy label
+; r4 - len for copy label
+; r5 - space to free
+# r6 - useless :D
 
-wall_prep:
-    ld      %0, r2
-    ld      %0, r16
+prep:
+		sti r1, %:copy, %1			; prepare2flex
+		sti r1, %:live, %1
+		ld %0, r6
+		sti r6, %:prep, %0
+		sti r6, %:prep, %3
+		sti r6, %:prep, %7
+		sti r6, %:prep, %10
 
-wall:
-    live	%1
-    st     	r2, -15
-    st     	r2, -24
-    st     	r2, -33
-    st     	r2, -42
-    st     	r2, -51
-    st     	r2, -60
-    st     	r2, -69
-    st     	r2, -78
-    st     	r2, -87
-    st     	r2, -96
-    st     	r2, -105
-    st     	r2, -114
-    st     	r2, -123
-    st     	r2, -132
-    st     	r2, -141
-    st     	r2, -150
-    st     	r2, -159
-    st     	r2, -168
-    st     	r2, -177
-    st     	r2, -186
-    st     	r2, -195
-    st     	r2, -204
-    st     	r2, -213
-    st     	r2, -222
-    st     	r2, -231
-    st     	r2, -240
-    st     	r2, -249
-    st     	r2, -258
-    st     	r2, -267
-    st     	r2, -276
-    st     	r2, -285
-    st     	r2, -294
-    st     	r2, -303
-    st     	r2, -312
-    st     	r2, -321
-    st     	r2, -330
-    st     	r2, -339
-    st     	r2, -348
-    st     	r2, -357
-    st     	r2, -366
-    st     	r2, -375
-    st     	r2, -384
-    st     	r2, -393
-    st     	r2, -402
-    st     	r2, -411
-    st     	r2, -420
-    st     	r2, -429
-    st     	r2, -438
-    st     	r2, -447
-    st     	r2, -456
-    st     	r2, -465
-    st     	r2, -474
-    st     	r2, -483
-    st     	r2, -492
-    st     	r2, -501
-    st     	r2, -502
-    st     	r2, -505
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    st     	r2, -510
-    fork    %:wall2
-    live    %1
-    live    %1
-    live    %1
-    live    %1
-    live    %1
-    live    %1
-    live    %1
-    live    %1
-    live    %1
-    live    %1
-    zjmp    %:wall
+core:								; runs the core program
+		ld %0, r2
+		ld %4, r3					; set copy size to 4
+		ld %:finish, r4				; get the length of the data to copy
+		ld %:core, r5
+		sub r4, r5, r4
+		and r4, %3, r5				; check 4 byte alignment
+		zjmp %:copy
+		add r4, r3, r4				; align length to 4
+		and r4, %-4, r4
 
-wall2:
-    sti     r1, %:wall, %1
-    ld      %0, r16
-    fork    %:wall3
+copy:
+		live %1
+		ldi %:core, r2, r5			; read 4 bytes
+		sti r5, %:finish, r2		; write 4 bytes
+		add r2, r3, r2				; increase current write position
+		xor r4, r2, r5				; compare current write position with final position
+		zjmp %:do_fork				; exit copy loop
+		ld %0, r5					; trick to force zjmp <-> jmp
+		zjmp %:copy					; copy until the core code has completed its copy cycle
 
-wall3:
-    live    %1
-    fork    %:wall
-    live    %1
-    fork    %:start
-    live    %1
-    fork	%:wall3
-    zjmp    %:start
+live:
+		live %1
+		zjmp %:live
+
+do_fork:
+		fork %:live
+
+finish:								; winner winner chicken dinner!

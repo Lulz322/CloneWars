@@ -46,6 +46,24 @@ static struct s_txt			txt_filler(void)
 	return (res);
 }
 
+static struct s_txt			skip_cmt(struct s_lexeme *lxm,
+							struct s_txt *smb, const int *file_index)
+{
+	while (is_cmt(smb->x))
+	{
+		lxm->kind = Cmt;
+		while (smb->x != '\n')
+		{
+			if (!smb->x)
+				return (txt_filler());
+			if (smb->x == '\xff')
+				exit(lang_mistake(*lxm));
+			state_machine(smb, *file_index);
+		}
+	}
+	return (*smb);
+}
+
 struct s_txt				handle_whitespace(struct s_lexeme *lxm,
 							struct s_txt smb, int file_index)
 {
@@ -61,16 +79,7 @@ struct s_txt				handle_whitespace(struct s_lexeme *lxm,
 				state_machine(&smb, file_index);
 			}
 		}
-		while (is_cmt(smb.x))
-		{
-			lxm->kind = Cmt;
-			while (smb.x != '\n')
-			{
-				if (!smb.x)
-					return (txt_filler());
-				state_machine(&smb, file_index);
-			}
-		}
+		smb = skip_cmt(lxm, &smb, &file_index);
 	}
 	return (smb);
 }
