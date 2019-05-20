@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add.c                                              :+:      :+:    :+:   */
+/*   sounds_two.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iruban <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/14 11:53:05 by iruban            #+#    #+#             */
-/*   Updated: 2019/05/14 11:53:06 by iruban           ###   ########.fr       */
+/*   Created: 2019/05/20 12:22:39 by iruban            #+#    #+#             */
+/*   Updated: 2019/05/20 12:22:50 by iruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "../includes/vm.h"
 
-int32_t				to_steps(t_kareta *kareta, int32_t a, int32_t b)
+void	set_winner(void)
 {
-	return (kareta->reg[a - 1] + kareta->reg[b - 1]);
-}
-
-void				add(t_kareta *kareta)
-{
-	int32_t	i;
-
-	kareta->step += OP_LEN + ARG_LEN;
-	i = to_steps(kareta, set_reg(kareta), set_reg(kareta));
-	kareta->carry = !i;
-	kareta->reg[set_reg(kareta) - 1] = i;
+	if (g_gen.flag_visual && g_gen.sounds && check_sound(1))
+	{
+		system("killall afplay");
+		if (g_gen.f_p)
+			system("afplay sounds/music.wav&");
+		else
+			system("afplay sounds/winner.mp3&");
+	}
 }

@@ -24,7 +24,7 @@
 # define ER_START	"\033[41m"
 # define ER_END		"\033[40m"
 # define ERROR_MALLOC(ex) if(!(ex)) {ERROR("ERROR IN ALLOCATION MEMMORY")};
-# define ERROR(ex) {printf("%s%s%s\n",ER_START,ex,ER_END);errrorrororo();}
+# define ERROR(ex) {ft_printf("%s%s%s\n",ER_START,ex,ER_END);errrorrororo();}
 # define SET_CHAMP(ex) {ft_strcat(ex, chmp); return ;}
 # define READ_CHAMP(ex, name) {read_champ(ex,name);return ;}
 # define ERR_CHAMP(ex) {if (!ex) ERROR("Missing first champ");}
@@ -47,7 +47,8 @@ bool		is_dat_is_a_child(int i);
 void		errrorrororo(void);
 void		check_who_die();
 void		next_op(t_kareta *kareta);
-void		print_field(int i);
+void		print_field(void);
+void		print_color_field(int i);
 int			adress(int i);
 int			what_opp(t_kareta *kareta, uint8_t i, int mod);
 void		read_champ(int a, char *file_name);
@@ -59,6 +60,7 @@ int			how_m_steps(uint8_t type, t_operation *oop);
 int8_t		count_size(int pos, int step);
 bool		check_args(t_kareta *kareta, t_operation *oop);
 bool		val_argc(t_kareta *kareta, t_operation *oop);
+bool		check_sound(int mod);
 void		r_arg(t_kareta *kareta, t_operation *oop);
 t_kareta	*copy_kareta(t_kareta *kareta, int32_t addr);
 void		what_is_a_letter(char c, t_champ a);
@@ -84,7 +86,6 @@ void		set_ukr_names(void);
 void		set_death(void);
 void		set_music(void);
 void		kill_sounds(void);
-void		gavno(void);
 int32_t		set_reg(t_kareta *kareta);
 int32_t		bytecode_to_int32(uint8_t *bytecode, int size);
 #endif

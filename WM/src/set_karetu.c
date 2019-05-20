@@ -74,7 +74,7 @@ void	start_game(void)
 				exit(0);
 			}
 			else
-				gavno();
+				print_field();
 		}
 		help_vs();
 		run_cycle();

@@ -35,6 +35,7 @@ WHITE := \033[0m
 BGREEN := \033[42m
 GREEN := \033[32m
 RED := \033[31m
+YELLOW := \033[33m
 INVERT := \033[7m
 
 SUCCESS = [$(GREEN)✓$(WHITE)]
@@ -52,7 +53,7 @@ $(LIBFT):
 	@$(LMAKE)
 
 $(NAME): $(LIBFT) $(OBJ)
-	@$(ECHO) -n ' <q.p> | $(NPWD): '
+	@$(ECHO) -n ' $(NPWD): '
 	@$(CC) $(OBJ) $(LIBS) $(LIBFT) -lncurses -o $(NAME)
 	@$(ECHO) "[$(INVERT)$(GREEN)✓$(WHITE)]"
 
@@ -61,6 +62,7 @@ del:
 
 clean:
 	@$(DEL) $(OBJ)
+	@$(ECHO) "$(YELLOW)objects deleted$(WHITE)"
 	@$(LMAKE) clean
 
 fclean: clean

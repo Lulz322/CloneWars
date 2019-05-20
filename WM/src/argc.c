@@ -62,17 +62,17 @@ bool	val_argc(t_kareta *kareta, t_operation *oop)
 
 void	r_arg(t_kareta *kareta, t_operation *oop)
 {
-	int8_t atc;
+	int8_t code;
 
 	if (oop->args_types_code)
 	{
-		atc = g_gen.field[adress(kareta->pos + 1)];
+		code = g_gen.field[adress(kareta->pos + 1)];
 		if (oop->args_num >= 1)
-			kareta->argc_types[0] = g_arg_code[((atc & 0xC0) >> 6) - 1];
+			kareta->argc_types[0] = g_arg_code[((code & 0xC0) >> 6) - 1];
 		if (oop->args_num >= 2)
-			kareta->argc_types[1] = g_arg_code[((atc & 0x30) >> 4) - 1];
+			kareta->argc_types[1] = g_arg_code[((code & 0x30) >> 4) - 1];
 		if (oop->args_num >= 3)
-			kareta->argc_types[2] = g_arg_code[((atc & 0xC) >> 2) - 1];
+			kareta->argc_types[2] = g_arg_code[((code & 0xC) >> 2) - 1];
 	}
 	else
 		kareta->argc_types[0] = oop->args_types[0];

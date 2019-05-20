@@ -14,7 +14,10 @@
 
 void		aff(t_kareta *kareta)
 {
+	int32_t	qqq;
+
 	kareta->step += OP_LEN + ARG_LEN;
+	qqq = kareta->reg[set_reg(kareta) - 1];
 	if (g_gen.aff && !g_gen.flag_visual)
-		ft_printf("%c\n", (char)kareta->reg[set_reg(kareta) - 1]);
+		ft_printf("%c\n", (char)qqq);
 }
