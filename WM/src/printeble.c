@@ -12,7 +12,7 @@
 
 #include "../includes/vm.h"
 
-#define FOR_CHECK 1
+#define FOR_CHECK 0
 
 void	print_last_alive(void)
 {

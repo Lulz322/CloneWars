@@ -19,10 +19,10 @@ int32_t				to_and(int32_t a, int32_t b)
 
 void				and(t_kareta *kareta)
 {
-	int32_t	v;
+	int32_t	qqq;
 
 	kareta->step += OP_LEN + ARG_LEN;
-	v = to_and(what_opp(kareta, 1, 1), what_opp(kareta, 2, 1));
-	kareta->carry = !v;
-	kareta->reg[set_reg(kareta) - 1] = v;
+	qqq = to_and(what_opp(kareta, 1, 1), what_opp(kareta, 2, 1));
+	kareta->carry = !qqq;
+	kareta->reg[set_reg(kareta) - 1] = qqq;
 }

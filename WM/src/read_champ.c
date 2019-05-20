@@ -25,7 +25,7 @@ char		*check_name(int fd, int len)
 	return (buffer);
 }
 
-int32_t		check_int(int fd)
+int32_t		check_bytes(int fd)
 {
 	int		size;
 	uint8_t	buffer[4];
@@ -35,7 +35,7 @@ int32_t		check_int(int fd)
 	return (bytecode_to_int32(buffer, 4));
 }
 
-uint8_t		*check_code(int fd, int len)
+uint8_t		*check_algo(int fd, int len)
 {
 	ssize_t	size;
 	uint8_t	*buffer;
@@ -55,12 +55,12 @@ void		read_champ(int a, char *file_name)
 
 	ft_strcat(g_gen.champ[a].file_name, file_name);
 	fd = open(file_name, O_RDONLY);
-	READING(check_int(fd) != COREWAR_EXEC_MAGIC, "Magic isn't Power :(");
+	READING(check_bytes(fd) != COREWAR_EXEC_MAGIC, "Magic isn't Power :(");
 	g_gen.champ[a].name = check_name(fd, PROG_NAME_LENGTH);
-	READING(check_int(fd) != 0, "Missing Zero Byte");
-	READING(((g_gen.champ[a].length = check_int(fd)) < 0
+	READING(check_bytes(fd) != 0, "Missing Zero Byte");
+	READING(((g_gen.champ[a].length = check_bytes(fd)) < 0
 		|| g_gen.champ[a].length > CHAMP_MAX_SIZE), "Error Champ Size");
 	g_gen.champ[a].comment = check_name(fd, COMMENT_LENGTH);
-	READING(check_int(fd) != 0, "Missing Zero Byte");
-	g_gen.champ[a].algo = check_code(fd, g_gen.champ[a].length);
+	READING(check_bytes(fd) != 0, "Missing Zero Byte");
+	g_gen.champ[a].algo = check_algo(fd, g_gen.champ[a].length);
 }

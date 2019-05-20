@@ -61,6 +61,7 @@ int8_t		count_size(int pos, int step);
 bool		check_args(t_kareta *kareta, t_operation *oop);
 bool		val_argc(t_kareta *kareta, t_operation *oop);
 bool		check_sound(int mod);
+void		help_vs(int mod);
 void		r_arg(t_kareta *kareta, t_operation *oop);
 t_kareta	*copy_kareta(t_kareta *kareta, int32_t addr);
 void		what_is_a_letter(char c, t_champ a);

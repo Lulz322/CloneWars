@@ -43,3 +43,25 @@ t_kareta	*u_are_not_prepeare(void)
 		set_music();
 	return (start);
 }
+
+void	help_vs(int mod)
+{
+	if (mod == 1)
+	{
+		if (!FD && !FDUMP)
+			{
+			if (g_gen.flag_visual)
+			{
+				vs_update_stats(&g_gen.v);
+				vs_update_main(&g_gen.v);
+			}
+		}
+	}
+	else
+	{
+		vs_update_main(&g_gen.v);
+		vs_update_stats(&g_gen.v);
+		vs_update_stats(&g_gen.v);
+		vs_update_main(&g_gen.v);
+	}
+}

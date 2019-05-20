@@ -47,18 +47,6 @@ void	run_cycle(void)
 	}
 }
 
-void	help_vs(void)
-{
-	if (!FD && !FDUMP)
-	{
-		if (g_gen.flag_visual)
-		{
-			vs_update_stats(&g_gen.v);
-			vs_update_main(&g_gen.v);
-		}
-	}
-}
-
 void	start_game(void)
 {
 	while (g_gen.kareta)
@@ -67,7 +55,7 @@ void	start_game(void)
 		{
 			if (g_gen.flag_visual)
 			{
-				help_vs();
+				help_vs(2);
 				timeout(-1);
 				getch();
 				endwin();
@@ -76,7 +64,7 @@ void	start_game(void)
 			else
 				print_field();
 		}
-		help_vs();
+		help_vs(1);
 		run_cycle();
 		if (AM_I_DIE)
 			check_who_die();
@@ -91,7 +79,7 @@ void	set_karetu(void)
 	if (g_gen.flag_visual == true)
 	{
 		vs_main();
-		help_vs();
+		help_vs(2);
 	}
 	if (g_gen.flag_visual && g_gen.sounds)
 		set_music();

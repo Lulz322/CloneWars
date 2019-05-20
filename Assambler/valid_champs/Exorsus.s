@@ -1,4 +1,4 @@
-.name "lethal"
+.name "Exorsus"
 .comment "bet you can't treat me"
 
 ; r1 - number of champ
