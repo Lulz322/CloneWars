@@ -15,13 +15,14 @@
 void			errrorrororo(void)
 {
 	ft_printf("{green}Usage: ./corewar [-d N] [-dump N] [-a] [-l N] [-v]{eoc}");
-	ft_printf(" {green}[-n N{1 - 4}] {champ_name.cor , ...}\n");
+	ft_printf(" {green}[-s] [-n N{1 - 4}] {champ_name.cor , ...}\n");
 	ft_printf("\t{red}-d\t{red}Print Battlefield in 64 octets in a row\n");
 	ft_printf("\t{red}-dump\t{blue}Print Battlefield in 32 octets in row\n");
 	ft_printf("\t{red}-a\tRly I don't know how it's working\n");
 	ft_printf("\t{red}-l\t{cyan}Verbosity levels\n");
+	ft_printf("\t{red}-v\t{yellow}Turn on a Visualisation\n");
+	ft_printf("\t{red}-s\t{yellow}Turn on a Sounds\n");
 	ft_printf("\t{red}-n\t{magenta}Set player Number  N\n");
-	ft_printf("\t{red}-v\t{yellow}(Turn on a Visualisation\n");
 	ft_printf("\t\t%-10s- speed\n\t\t%-11s - pause\n", " <- || ->", "Space");
 	ft_printf("\t\t%-11s - Quit\n", "q");
 	exit(0);
