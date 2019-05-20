@@ -63,7 +63,7 @@ void	print_without_color(int i)
 	exit(0);
 }
 
-void	gavno(void)
+void	print_field(void)
 {
 	int i;
 
@@ -74,11 +74,11 @@ void	gavno(void)
 	if (FOR_CHECK)
 		print_without_color(i);
 	else
-		print_field(i);
+		print_color_field(i);
 	exit(EXIT_SUCCESS);
 }
 
-void	print_field(int i)
+void	print_color_field(int i)
 {
 	int a;
 	int j;

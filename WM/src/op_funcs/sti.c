@@ -25,7 +25,6 @@ int32_t				sti_sum(t_kareta *kareta)
 void				sti(t_kareta *kareta)
 {
 	int32_t	value;
-
 	int32_t sum;
 
 	kareta->step += OP_LEN + ARG_LEN;

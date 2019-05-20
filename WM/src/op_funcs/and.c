@@ -22,7 +22,7 @@ void				and(t_kareta *kareta)
 	int32_t	v;
 
 	kareta->step += OP_LEN + ARG_LEN;
-	v =  to_and(what_opp(kareta, 1, 1), what_opp(kareta, 2, 1));
+	v = to_and(what_opp(kareta, 1, 1), what_opp(kareta, 2, 1));
 	kareta->carry = !v;
 	kareta->reg[set_reg(kareta) - 1] = v;
 }

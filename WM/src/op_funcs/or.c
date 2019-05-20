@@ -12,14 +12,13 @@
 
 #include "../../includes/vm.h"
 
-int32_t				or_set(int32_t	a, int32_t	b)
+int32_t				or_set(int32_t a, int32_t b)
 {
 	return (a | b);
 }
 
 void				or(t_kareta *kareta)
 {
-
 	int32_t	res;
 
 	kareta->step += OP_LEN + ARG_LEN;
